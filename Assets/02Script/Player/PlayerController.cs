@@ -45,5 +45,9 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void PopupInventory() { 
+        
+    }
+
     
 }

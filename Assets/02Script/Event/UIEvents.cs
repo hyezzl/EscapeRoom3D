@@ -2,17 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UIEvents : MonoBehaviour
+public static class UIEvents
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    // Inventory
+    public struct ToggleInventory { }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public struct InventoryChanged { }
+
+
+
+    // Mini_Inventory
+    public struct M_inventorySlotClicked { }
 }
