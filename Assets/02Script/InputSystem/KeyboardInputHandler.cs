@@ -14,10 +14,12 @@ public class KeyboardInputHandler : MonoBehaviour, IInputHandler
         return Input.GetKey(KeyCode.LeftShift);
     }
 
+    public bool Crouch() {
+        return Input.GetKey(KeyCode.LeftControl);
+    }
+
     public bool DoInteractive()
     {
         return Input.GetKeyDown(KeyCode.Space);
     }
-
-
 }

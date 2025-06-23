@@ -8,5 +8,7 @@ public interface IInputHandler
 
     public bool Run();
 
+    public bool Crouch();
+
     public bool DoInteractive();
 }

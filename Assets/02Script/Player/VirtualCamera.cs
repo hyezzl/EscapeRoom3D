@@ -5,8 +5,8 @@ using UnityEngine;
 public class VirtualCamera : MonoBehaviour
 {
     [SerializeField] float mouseSensitivity = 1.5f;
-    public Transform player;
-    public float cameraVertical = 0f;
+    [SerializeField] Transform player;
+    private float cameraVertical = 0f;
 
     private void Awake()
     {
