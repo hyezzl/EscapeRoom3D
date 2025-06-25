@@ -19,9 +19,13 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float dashRatio = 2.5f;
     [SerializeField] private float crouchRatio = 0.4f;
 
+    [Header("Cinemachine : NoiseSetting")]
+    [SerializeField] private NoiseSettings myCameraShake;
+
     private CharacterController controller;
     private IInputHandler inputHandler;
     private CinemachineVirtualCamera cam;
+    private CinemachineBasicMultiChannelPerlin noise;
     private Vector3 defaultCamHeight = new Vector3(0f, 1.7f, 0f);
     private Vector3 crouchCamHeight = new Vector3(0f, 1.0f, 0f);
 
@@ -33,18 +37,15 @@ public class PlayerController : MonoBehaviour
         if (!TryGetComponent<IInputHandler>(out inputHandler)) {
             Debug.Log("PlayerController - Failed to Load IInputHandler");
         }
-        //cam = GetComponentInChildren<CinemachineVirtualCamera>();
-        //if (cam == null) {
-        //    Debug.Log("PlayerController - Failed to Load CinemachineVirtualCamera");
-        //}
-        //cam = GetComponentInChildren<GameObject>();
-        //if (cam == null)
-        //{
-        //    Debug.Log("PlayerController - Failed to Load Children's Transform");
-        //}
-        //else {
-        //    Debug.Log($"{cam.gameObject.name}");
-        //}
+        cam = GetComponentInChildren<CinemachineVirtualCamera>();
+        if (cam == null) {
+            Debug.Log("PlayerController - Failed to Load CinemachineVirtualCamera");
+        }
+        // 노이즈 프로파일 적용
+        noise = cam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
+        if (noise == null) {
+            Debug.Log("PlayerController - Failed to Load NoiseSetting");
+        }
         
     }
 
@@ -64,26 +65,37 @@ public class PlayerController : MonoBehaviour
         Vector3 moveDir = Camera.main.transform.TransformDirection(keyboardDir);
         moveDir.y = 0;
 
-        if (!isRunning && !isCrouching)
+        if (dir.sqrMagnitude < 0.01f && !isRunning && !isCrouching) // Standing
         {
-            cam.transform.localPosition = defaultCamHeight;
+            noise.m_NoiseProfile = null;
+        }
+        else if (!isRunning && !isCrouching) // Walking
+        {
+            SetCameraNoise(myCameraShake, 1f, 1f);
+            
             controller.Move(moveDir.normalized * (moveSpeed * Time.deltaTime));
         }
-        else if (isCrouching) {
-            //카메라 낮아짐
-            cam.transform.localPosition = crouchCamHeight;
-            Debug.Log(cam.transform.localPosition);
+        else if (dir.sqrMagnitude > 0.01f && isCrouching) // Crouching
+        {
+            SetCameraNoise(myCameraShake, 0.7f, 0.7f);
+
             controller.Move(moveDir.normalized * (moveSpeed * crouchRatio * Time.deltaTime));
         }
-        else if (isRunning && !isCrouching) {
-            cam.transform.localPosition = defaultCamHeight;
+        else if (dir.sqrMagnitude > 0.01f && isRunning && !isCrouching)  // Running
+        {
+            SetCameraNoise(myCameraShake, 3f, 2.5f);
+
             controller.Move(moveDir.normalized * ((moveSpeed * dashRatio) * Time.deltaTime));
         }
     }
 
 
-    private void PopupInventory() { 
-        
+    private void SetCameraNoise(NoiseSettings profile, float amp, float Freq) {
+        if (noise != null) {
+            noise.m_NoiseProfile = profile;
+            noise.m_AmplitudeGain = amp;
+            noise.m_FrequencyGain = Freq;
+        }
     }
 
     
