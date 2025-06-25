@@ -24,10 +24,15 @@ public class PlayerController : MonoBehaviour
 
     private CharacterController controller;
     private IInputHandler inputHandler;
+    //
+    private Transform eyeHeight;
     private CinemachineVirtualCamera cam;
     private CinemachineBasicMultiChannelPerlin noise;
-    private Vector3 defaultCamHeight = new Vector3(0f, 1.7f, 0f);
-    private Vector3 crouchCamHeight = new Vector3(0f, 1.0f, 0f);
+    private Vector3 defaultCamHeight = new Vector3(0f, 2.5f, 0f);
+    private Vector3 crouchCamHeight = new Vector3(0f, 1.7f, 0f);
+    private float gravity = -9.8f;
+    private Vector3 velocity;
+    private Vector3 verticalDir;
 
     private void Awake()
     {
@@ -36,6 +41,11 @@ public class PlayerController : MonoBehaviour
         }
         if (!TryGetComponent<IInputHandler>(out inputHandler)) {
             Debug.Log("PlayerController - Failed to Load IInputHandler");
+        }
+        //
+        eyeHeight = transform.GetChild(0);
+        if (eyeHeight == null) {
+            Debug.Log("PlayerController - Failed to Load Children Transform");
         }
         cam = GetComponentInChildren<CinemachineVirtualCamera>();
         if (cam == null) {
@@ -52,6 +62,7 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         HandleMovement();
+        ApplyGravity();
     }
 
     // 플레이어 이동
@@ -62,8 +73,18 @@ public class PlayerController : MonoBehaviour
 
         Vector3 keyboardDir = new Vector3(dir.x, 0f, dir.y).normalized;
 
-        Vector3 moveDir = Camera.main.transform.TransformDirection(keyboardDir);
-        moveDir.y = 0;
+        Vector3 horizonDir = Camera.main.transform.TransformDirection(keyboardDir);
+        horizonDir.y = 0;
+
+        // 중력까지 포함한 최종 Dir
+        Vector3 moveDir = horizonDir.normalized + verticalDir;
+
+        // 카메라 높이 (보간)
+        Vector3 targetPosition = isCrouching ? crouchCamHeight : defaultCamHeight;
+        eyeHeight.localPosition = Vector3.Lerp(eyeHeight.localPosition,
+                                                targetPosition,
+                                                6f * Time.deltaTime);
+
 
         if (dir.sqrMagnitude < 0.01f && !isRunning && !isCrouching) // Standing
         {
@@ -73,19 +94,22 @@ public class PlayerController : MonoBehaviour
         {
             SetCameraNoise(myCameraShake, 1f, 1f);
             
-            controller.Move(moveDir.normalized * (moveSpeed * Time.deltaTime));
+            controller.Move(moveDir * (moveSpeed * Time.deltaTime));
         }
-        else if (dir.sqrMagnitude > 0.01f && isCrouching) // Crouching
+        else if (isCrouching) // Crouching
         {
-            SetCameraNoise(myCameraShake, 0.7f, 0.7f);
+            // 앉기 + 수평이동
+            if (dir.sqrMagnitude > 0.01f) { 
+                SetCameraNoise(myCameraShake, 0.7f, 0.7f);
+            }
 
-            controller.Move(moveDir.normalized * (moveSpeed * crouchRatio * Time.deltaTime));
+            controller.Move(moveDir * (moveSpeed * crouchRatio * Time.deltaTime));
         }
         else if (dir.sqrMagnitude > 0.01f && isRunning && !isCrouching)  // Running
         {
             SetCameraNoise(myCameraShake, 3f, 2.5f);
 
-            controller.Move(moveDir.normalized * ((moveSpeed * dashRatio) * Time.deltaTime));
+            controller.Move(moveDir * ((moveSpeed * dashRatio) * Time.deltaTime));
         }
     }
 
@@ -96,6 +120,17 @@ public class PlayerController : MonoBehaviour
             noise.m_AmplitudeGain = amp;
             noise.m_FrequencyGain = Freq;
         }
+    }
+
+    // 중력 구현
+    private void ApplyGravity() {
+        bool isGrounded = controller.isGrounded;
+
+        if (isGrounded && velocity.y < 0f) { 
+            velocity.y = -1f;
+        }
+        velocity.y += gravity * Time.deltaTime;
+        verticalDir = Vector3.up * velocity.y;
     }
 
     

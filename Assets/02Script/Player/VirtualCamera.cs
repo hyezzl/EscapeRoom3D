@@ -10,7 +10,7 @@ public class VirtualCamera : MonoBehaviour
 
     private void Awake()
     {
-        transform.localPosition = new Vector3(0f, 1.7f, 0f);
+        transform.localPosition = new Vector3(0f, 2.5f, 0f);
         player = transform.parent;
         if (player == null) {
             Debug.Log("VirtualCamera - Failed to Load Player");
