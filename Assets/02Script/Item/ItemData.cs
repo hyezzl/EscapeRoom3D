@@ -1,18 +1,19 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ItemData : MonoBehaviour
+/// <summary>
+/// 얻은 아이템
+/// </summary>
+[Serializable]
+public class ItemInstance
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public int itemID;
+    public int uniqueID; // 개별 인스턴스 구별 ID
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    public ItemInstance(int itemID) { 
+        this.itemID = itemID;
+        this.uniqueID = ItemUIDGenerator.Generate();
     }
 }

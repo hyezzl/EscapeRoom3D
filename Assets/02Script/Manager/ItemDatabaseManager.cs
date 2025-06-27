@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ObjectDatabaseManager : Singleton<ObjectDatabaseManager> {
+public class ItemDatabaseManager : Singleton<ItemDatabaseManager> {
     private ObjectDataLoader dataLoader;
     public ObjectData GetData(int itemID) => dataLoader.Get(itemID);
 

@@ -3,7 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum ItemType { 
+public enum ItemType
+{
     Pickable,
     Interactive,
     Readable
@@ -15,7 +16,7 @@ public class ObjectData
     public string itemName;
     public string description;
     public string monologue;
-    public string iconName;
+    public Sprite icon;
     public ItemType type;
     public int pairID;
     public DialogueData dialogData;
@@ -37,7 +38,7 @@ public class ObjectDataLoader
                 itemName = row.ItemName,
                 description = row.Description,
                 monologue = row.Monologue,
-                iconName = row.IconName,
+                icon = Resources.Load<Sprite>($"Icons/{row.IconName}"),
                 type = itemType,
                 pairID = row.PairID,
                 dialogData = dialogLoader.Get(row.DialogID)
@@ -47,8 +48,18 @@ public class ObjectDataLoader
     }
 
     public ObjectData Get(int itemID) { 
-        objectDict.TryGetValue(itemID, out var data);
-        //if (data == null) Debug.Log("ObjectLoader - Get Error");
-        return data;
+        if(objectDict.TryGetValue(itemID, out var data))
+            return new ObjectData
+            {
+                itemID = itemID,
+                itemName = data.itemName,
+                description = data.description,
+                monologue = data.monologue,
+                icon = data.icon,
+                type = data.type,
+                pairID = data.pairID,
+                dialogData = data.dialogData
+            };
+        return null;
     }
 }

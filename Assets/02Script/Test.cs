@@ -6,7 +6,7 @@ public class Test : MonoBehaviour
 {
     private void Start()
     {
-        var data = ObjectDatabaseManager.Instance.GetData(10001001);
+        var data = ItemDatabaseManager.Instance.GetData(10001001);
 
         Debug.Log($"아이템 : {data.itemName}");
         Debug.Log($"설명 : {data.description}");
