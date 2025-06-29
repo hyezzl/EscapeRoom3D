@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[DefaultExecutionOrder(-1)]
 public class ItemDatabaseManager : Singleton<ItemDatabaseManager> {
     private ObjectDataLoader dataLoader;
     public ObjectData GetData(int itemID) => dataLoader.Get(itemID);
