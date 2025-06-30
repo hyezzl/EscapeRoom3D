@@ -24,7 +24,6 @@ public class PlayerController : MonoBehaviour
 
     private CharacterController controller;
     private IInputHandler inputHandler;
-    //
     private Transform eyeHeight;
     private CinemachineVirtualCamera cam;
     private CinemachineBasicMultiChannelPerlin noise;
@@ -33,6 +32,12 @@ public class PlayerController : MonoBehaviour
     private float gravity = -9.8f;
     private Vector3 velocity;
     private Vector3 verticalDir;
+
+    // Temporary
+    [SerializeField] private GameObject archDoor;
+    private ArchDoor arch;
+
+
 
     private void Awake()
     {
@@ -56,13 +61,19 @@ public class PlayerController : MonoBehaviour
         if (noise == null) {
             Debug.Log("PlayerController - Failed to Load NoiseSetting");
         }
-        
+
+        //Temporary
+        arch = archDoor.GetComponent<ArchDoor>();
+        if (arch == null)
+            Debug.Log("임시파일 참조 오류");
+
     }
 
     private void Update()
     {
         HandleMovement();
         ApplyGravity();
+        TestFunction();
     }
 
     // 플레이어 이동
@@ -113,7 +124,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-
+    // 카메라 반동
     private void SetCameraNoise(NoiseSettings profile, float amp, float Freq) {
         if (noise != null) {
             noise.m_NoiseProfile = profile;
@@ -131,6 +142,13 @@ public class PlayerController : MonoBehaviour
         }
         velocity.y += gravity * Time.deltaTime;
         verticalDir = Vector3.up * velocity.y;
+    }
+
+    // 임시 Test용
+    private void TestFunction() {
+        if (Input.GetKeyDown(KeyCode.Space)) {
+            arch.OpenArchDoor();
+        }
     }
 
     
