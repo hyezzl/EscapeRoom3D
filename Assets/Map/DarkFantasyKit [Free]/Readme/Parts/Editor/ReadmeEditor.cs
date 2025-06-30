@@ -58,7 +58,7 @@ namespace Runemark.DarkFantasyKit
             }
             else
             {
-                Debug.Log("Couldn't find a readme");
+                //Debug.Log("Couldn't find a readme");
                 return null;
             }
         }

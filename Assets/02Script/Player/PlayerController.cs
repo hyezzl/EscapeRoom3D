@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public enum PlayerState
+public enum PlayerState // 아직 사용X
 { 
     Standing,
     Walking,
@@ -147,7 +147,7 @@ public class PlayerController : MonoBehaviour
     // 임시 Test용
     private void TestFunction() {
         if (Input.GetKeyDown(KeyCode.Space)) {
-            arch.OpenArchDoor();
+            //arch.OpenArchDoor();
         }
     }
 
