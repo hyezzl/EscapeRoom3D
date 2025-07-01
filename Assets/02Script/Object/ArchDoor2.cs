@@ -28,17 +28,17 @@ public class ArchDoor2 : MonoBehaviour
 
     private void Update()
     {
-        //if (isOpen)
-        //{
-        //    //leftPivot.rotation = leftOpenRotation;
-        //    //rightPivot.rotation = rightOpenRotation;
-        //    leftPivot.rotation = Quaternion.Lerp(leftCloseRotation, leftOpenRotation, openSpeed * Time.deltaTime);
-        //    rightPivot.rotation = Quaternion.Lerp(rightCloseRotation, rightOpenRotation, openSpeed * Time.deltaTime);
-        //}
-        //else {
-        //    leftPivot.rotation = leftCloseRotation;
-        //    rightPivot.rotation = rightCloseRotation;
-        //}
+        if (isOpen)
+        {
+            //leftPivot.rotation = leftOpenRotation;
+            //rightPivot.rotation = rightOpenRotation;
+            leftPivot.rotation = Quaternion.Lerp(leftCloseRotation, leftOpenRotation, openSpeed * Time.deltaTime);
+            rightPivot.rotation = Quaternion.Lerp(rightCloseRotation, rightOpenRotation, openSpeed * Time.deltaTime);
+        }
+        else {
+            leftPivot.rotation = leftCloseRotation;
+            rightPivot.rotation = rightCloseRotation;
+        }
     }
 
     public void ToggleArchDoor2() { 

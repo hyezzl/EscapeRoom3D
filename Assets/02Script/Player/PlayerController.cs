@@ -36,6 +36,7 @@ public class PlayerController : MonoBehaviour
     // Temporary
     [SerializeField] private GameObject archDoor;
     private ArchDoor arch;
+    private bool temp = false;
 
 
 
@@ -147,7 +148,16 @@ public class PlayerController : MonoBehaviour
     // ÀÓ½Ã Test¿ë
     private void TestFunction() {
         if (Input.GetKeyDown(KeyCode.Space)) {
-            //arch.OpenArchDoor();
+            if (!temp)
+            {
+                arch.OpenArchDoor();
+                temp = true;
+            }
+            else {
+                arch.CloseArchDoor();
+                temp = false;
+            }
+            
         }
     }
 

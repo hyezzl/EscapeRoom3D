@@ -2,11 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Animator))]
 public class ArchDoor : MonoBehaviour
 {
     [SerializeField] private Transform leftPivot;
     [SerializeField] private Transform rightPivot;
-    private bool isOpen = false;
+    private bool isArchOpen = false;
     private Animator anim;
 
     private void Awake()
@@ -17,10 +18,12 @@ public class ArchDoor : MonoBehaviour
     }
 
     public void OpenArchDoor() {
-        anim.SetTrigger("ArchDoorOpen");
+        //if(!isArchOpen)
+            anim.SetTrigger("ArchDoorOpen");
     }
 
     public void CloseArchDoor() {
-        anim.SetTrigger("ArchDoorClose");
+        //if (isArchOpen)
+            anim.SetTrigger("ArchDoorClose");
     }
 }
