@@ -145,7 +145,7 @@ public class PlayerController : MonoBehaviour
         verticalDir = Vector3.up * velocity.y;
     }
 
-    // 임시 Test용
+    // 문 임시 Test용
     private void TestFunction() {
         if (Input.GetKeyDown(KeyCode.Space)) {
             if (!temp)
@@ -157,7 +157,6 @@ public class PlayerController : MonoBehaviour
                 arch.CloseArchDoor();
                 temp = false;
             }
-            
         }
     }
 

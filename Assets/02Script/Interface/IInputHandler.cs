@@ -11,4 +11,8 @@ public interface IInputHandler
     public bool Crouch();
 
     public bool DoInteractive();
+
+    public bool Lantern();
+
+    public bool LeftClick();
 }

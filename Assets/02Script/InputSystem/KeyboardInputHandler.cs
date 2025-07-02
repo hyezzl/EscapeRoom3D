@@ -20,6 +20,14 @@ public class KeyboardInputHandler : MonoBehaviour, IInputHandler
 
     public bool DoInteractive()
     {
-        return Input.GetKeyDown(KeyCode.Space);
+        return Input.GetKeyDown(KeyCode.E);
+    }
+
+    public bool Lantern() {
+        return Input.GetKeyDown(KeyCode.F);
+    }
+
+    public bool LeftClick() {
+        return Input.GetMouseButtonUp(0); // ÁÂÅ¬¸¯
     }
 }
