@@ -26,7 +26,6 @@ public class PlayerSight : MonoBehaviour
     {
         // 태그로 1차 분리
         if (other.CompareTag("Item")) {
-            //Debug.Log($"{other.name}이 시야에 들어옴");
             // 윤곽선 표시
             if (other.TryGetComponent<Outline>(out Outline outline)) {
                 outline.enabled = true;
@@ -37,7 +36,6 @@ public class PlayerSight : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Item")) {
-            //Debug.Log($"{other.name}이 시야에서 벗어남");
             // 윤곽선 삭제
             if (other.TryGetComponent<Outline>(out Outline outline))
             {

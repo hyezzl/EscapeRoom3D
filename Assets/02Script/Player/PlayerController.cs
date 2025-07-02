@@ -119,7 +119,7 @@ public class PlayerController : MonoBehaviour
         }
         else if (dir.sqrMagnitude > 0.01f && isRunning && !isCrouching)  // Running
         {
-            SetCameraNoise(myCameraShake, 3f, 2.5f);
+            SetCameraNoise(myCameraShake, 2.5f, 1.5f);
 
             controller.Move(moveDir * ((moveSpeed * dashRatio) * Time.deltaTime));
         }
