@@ -6,7 +6,7 @@ using UnityEngine;
 public enum ItemType
 {
     Pickable,
-    Interactive,
+    Interactable,
     Readable
 }
 
@@ -19,19 +19,19 @@ public class ObjectData
     public Sprite icon;
     public ItemType type;
     public int pairID;
-    public DialogueData dialogData;
+    public string dialog;
 }
 
 public class ObjectDataLoader
 {
     private Dictionary<int, ObjectData> objectDict = new();
 
-    public ObjectDataLoader(List<ObjectEntity> table, DialogueDataLoader dialogLoader) {
+    public ObjectDataLoader(List<ObjectEntity> table) {
         foreach (var row in table) {
             // enum 변환
             ItemType itemType;
             if (!Enum.TryParse(row.Type, out itemType))
-                itemType = ItemType.Interactive; // 변환실패 시 기본값
+                itemType = ItemType.Interactable; // 변환실패 시 기본값
 
             var data = new ObjectData {
                 itemID = row.ItemID,
@@ -41,7 +41,7 @@ public class ObjectDataLoader
                 icon = Resources.Load<Sprite>($"Icons/{row.IconName}"),
                 type = itemType,
                 pairID = row.PairID,
-                dialogData = dialogLoader.Get(row.DialogID)
+                dialog = row.Dialog
             };
             objectDict.Add(row.ItemID, data);
         }
@@ -58,7 +58,7 @@ public class ObjectDataLoader
                 icon = data.icon,
                 type = data.type,
                 pairID = data.pairID,
-                dialogData = data.dialogData
+                dialog = data.dialog
             };
         return null;
     }

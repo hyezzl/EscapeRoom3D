@@ -13,14 +13,5 @@ public class ObjectEntity
     public string IconName;
     public string Type;
     public int PairID;
-    public int DialogID;
-}
-
-
-[Serializable]
-public class DialogueEntity 
-{
-    public int DialogID;
-    public int Order;
-    public string Text;
+    public string Dialog;
 }

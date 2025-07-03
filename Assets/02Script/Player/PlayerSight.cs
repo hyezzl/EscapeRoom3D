@@ -1,7 +1,6 @@
 using cakeslice;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq.Expressions;
 using UnityEngine;
 using UnityEngine.ProBuilder.MeshOperations;
 
@@ -31,8 +30,28 @@ public class PlayerSight : MonoBehaviour
                 outline.enabled = true;
             }
 
+            // itemType 분기
+            if (!other.TryGetComponent<IActionItem>(out IActionItem item))
+                Debug.Log("ItemType 분기 실패!");
+            switch (item.GetType())
+            {
+                case ItemType.Pickable:
+                    Debug.Log("Pickable");
+                    // 오버랩
+                    break;
+
+                case ItemType.Interactable:
+                    Debug.Log("Interactable");
+                    break;
+
+                case ItemType.Readable:
+                    Debug.Log("Readable");
+                    break;
+            }
         }
     }
+
+
     private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Item")) {
@@ -41,6 +60,8 @@ public class PlayerSight : MonoBehaviour
             {
                 outline.enabled = false;
             }
+
+            // 오버랩된 값 -1로 되돌리기
         }
     }
 }

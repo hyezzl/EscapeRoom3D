@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using UnityEngine;
 
 public class Test : MonoBehaviour
 {
     private void Start()
     {
-        var data = ItemDatabaseManager.Instance.GetData(10001001);
+        var data = ItemDatabaseManager.Instance.GetData(30001001);
 
         Debug.Log($"아이템 : {data.itemName}");
         Debug.Log($"설명 : {data.description}");
@@ -15,9 +16,7 @@ public class Test : MonoBehaviour
 
         if (data.type == ItemType.Readable)
         {
-            foreach (var row in data.dialogData.dialogs) {
-                Debug.Log(row);
-            }
+            Debug.Log($"로그 : {data.dialog}");
         }
         else
             Debug.Log("얘는 Readable아님");

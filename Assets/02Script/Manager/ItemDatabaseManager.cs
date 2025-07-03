@@ -15,7 +15,6 @@ public class ItemDatabaseManager : Singleton<ItemDatabaseManager> {
     private void LoadTable() {
         EscapeTable dataTable = Resources.Load<EscapeTable>("Table/EscapeTable");
 
-        DialogueDataLoader dialogLoader = new DialogueDataLoader(dataTable.Dialogue);
-        dataLoader = new ObjectDataLoader(dataTable.Object, dialogLoader);
+        dataLoader = new ObjectDataLoader(dataTable.Object);
     }
 }

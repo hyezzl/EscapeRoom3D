@@ -7,5 +7,4 @@ using UnityEngine;
 public class EscapeTable : ScriptableObject
 {
 	public List<ObjectEntity> Object;
-	public List<DialogueEntity> Dialogue;
 }

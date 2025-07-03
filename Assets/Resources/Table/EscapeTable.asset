@@ -20,23 +20,23 @@ MonoBehaviour:
     IconName: Icons_0
     Type: Pickable
     PairID: 100
-    DialogID: -1
+    Dialog: None
   - ItemID: 10001002
-    ItemName: "\uC7A5\uC2DD\uC6A9 \uCC45"
+    ItemName: "\uC548\uB155"
     Description: "\uC2DC\uD5D8\uC6A9 <i>\uCC45</i>"
     Monologue: "<i>\uCC45\uCC45\uCC45\uCC45\uCC45\uCC45</i>"
     IconName: Icons_1
     Type: Pickable
     PairID: -1
-    DialogID: -1
+    Dialog: None
   - ItemID: 20001001
     ItemName: "\uB0A1\uC740 \uC790\uBB3C\uC1E0"
     Description: "\uC2DC\uD5D8\uC6A9 <color=red>\uC790\uBB3C\uC1E0</color>"
     Monologue: "<b>\uBB34\uC5B8\uAC00 \uD5C8\uC220\uD55C</b> \uC790\uBB3C\uC1E0\uB2E4."
     IconName: None
-    Type: Interactive
+    Type: Interactable
     PairID: 100
-    DialogID: -1
+    Dialog: None
   - ItemID: 30001001
     ItemName: "\uB0A1\uC740 \uC77C\uAE30"
     Description: "\uC2DC\uD5D8\uC6A9 <color=blue>\uC77C\uAE30</color>"
@@ -45,37 +45,7 @@ MonoBehaviour:
     IconName: None
     Type: Readable
     PairID: -1
-    DialogID: 1
-  Dialogue:
-  - DialogID: 1
-    Order: 0
-    Text: "\uC2DC\uD5D8\uC6A9 \uC77C\uAE30. 25\uB144 6\uC6D4 23\uC77C"
-  - DialogID: 1
-    Order: 1
-    Text: "\uB0A0\uC528\uAC00 \uAFC0\uAFC0\uD558\uB2E4"
-  - DialogID: 1
-    Order: 2
-    Text: "\uB365\uACE0 \uC2B5\uD558\uB2E4"
-  - DialogID: 1
-    Order: 3
-    Text: "\uAE30\n\uBD84\n\uC774\n\uBCC4\n\uB85C"
-  - DialogID: 1
-    Order: 4
-    Text: "<i>\uC88B\uB2E4!!!</i>"
-  - DialogID: 1
-    Order: 5
-    Text: "\uAE34\uAE00 \uD14C\uC2A4\uD2B8. \uB3D9\uD574\uBB3C\uACFC \uBC31\uB450\uC0B0\uC774
-      \uB9C8\uB974\uACE0\uB2F3\uB3C4\uB85D \uD558\uB290\uB2D8\uC774 \uBCF4\uC6B0\uD558\uC0AC
-      \uC6B0\uB9AC\uB098\uB77C\uB9CC\uC138 \uBB34\uAD81\uD654 \uC0BC\uCC9C\uB9AC
-      \uD654\uB824\uAC15\uC0B0 \uB300\uD55C\uC0AC\uB78C \uB300\uD55C\uC73C\uB85C
-      \uAE38\uC774\uBCF4\uC804\uD558\uC138 \uB3D9\uD574\uBB3C\uACFC \uBC31\uB450\uC0B0\uC774
-      \uB9C8\uB974\uACE0\uB2F3\uB3C4\uB85D \uD558\uB290\uB2D8\uC774 \uBCF4\uC6B0\uD558\uC0AC
-      \uC6B0\uB9AC\uB098\uB77C\uB9CC\uC138 \uBB34\uAD81\uD654 \uC0BC\uCC9C\uB9AC
-      \uD654\uB824\uAC15\uC0B0 \uB300\uD55C\uC0AC\uB78C \uB300\uD55C\uC73C\uB85C
-      \uAE38\uC774\uBCF4\uC804\uD558\uC138"
-  - DialogID: 1
-    Order: 6
-    Text: "\uAE34\uAE00\uD14C\uC2A4\uD2B82 \uB3D9\uD574\uBB3C\uACFC \uBC31\uB450\uC0B0\uC774
+    Dialog: "\uAE34\uAE00\uD14C\uC2A4\uD2B82 \uB3D9\uD574\uBB3C\uACFC \uBC31\uB450\uC0B0\uC774
       \uB9C8\uB974\uACE0\uB2F3\uB3C4\uB85D \uD558\uB290\uB2D8\uC774 \uBCF4\uC6B0\uD558\uC0AC
       \uC6B0\uB9AC\uB098\uB77C\uB9CC\uC138 \uBB34\uAD81\uD654 \uC0BC\uCC9C\uB9AC
       \uD654\uB824\uAC15\uC0B0 \uB300\uD55C\uC0AC\uB78C \uB300\uD55C\uC73C\uB85C
@@ -95,7 +65,4 @@ MonoBehaviour:
       \uB9C8\uB974\uACE0\uB2F3\uB3C4\uB85D \uD558\uB290\uB2D8\uC774 \uBCF4\uC6B0\uD558\uC0AC
       \uC6B0\uB9AC\uB098\uB77C\uB9CC\uC138 \uBB34\uAD81\uD654 \uC0BC\uCC9C\uB9AC
       \uD654\uB824\uAC15\uC0B0 \uB300\uD55C\uC0AC\uB78C \uB300\uD55C\uC73C\uB85C
-      \uAE38\uC774\uBCF4\uC804\uD558\uC138"
-  - DialogID: 1
-    Order: 7
-    Text: "\uB2E4\uC774\uC5BC\uB85C\uADF8 <color=red>\uB05D!</color>"
+      \uAE38\uC774\uBCF4\uC804\uD558\uC138 \n\uB2E4\uC774\uC5BC\uB85C\uADF8 <color=red>\uB05D!</color>"
