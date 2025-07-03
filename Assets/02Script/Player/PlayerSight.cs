@@ -6,6 +6,8 @@ using UnityEngine.ProBuilder.MeshOperations;
 
 public class PlayerSight : MonoBehaviour
 {
+    public List<IActionItem> overlapItems = new();
+
     private void Awake()
     {
         if(TryGetComponent<CapsuleCollider>(out CapsuleCollider col)){
@@ -63,5 +65,10 @@ public class PlayerSight : MonoBehaviour
 
             // 오버랩된 값 -1로 되돌리기
         }
+    }
+
+    // 시야에 가장 가까운 오브젝트 반환
+    public IActionItem GetClosestItem() {
+        return null;
     }
 }

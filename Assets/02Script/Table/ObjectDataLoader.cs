@@ -3,12 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum ItemType
-{
-    Pickable,
-    Interactable,
-    Readable
-}
 
 public class ObjectData
 {

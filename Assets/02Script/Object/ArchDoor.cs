@@ -7,7 +7,7 @@ public class ArchDoor : MonoBehaviour
 {
     [SerializeField] private Transform leftPivot;
     [SerializeField] private Transform rightPivot;
-    private bool isArchOpen = false;
+    //private bool isArchOpen = false;
     private Animator anim;
 
     private void Awake()
