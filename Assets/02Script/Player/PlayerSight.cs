@@ -33,8 +33,10 @@ public class PlayerSight : MonoBehaviour
             }
 
             // itemType 분기
-            if (!other.TryGetComponent<IActionItem>(out IActionItem item))
-                Debug.Log("ItemType 분기 실패!");
+            if (other.TryGetComponent<IActionItem>(out IActionItem item)) { 
+                overlapItems.Add(item);
+            }
+
             switch (item.GetType())
             {
                 case ItemType.Pickable:
@@ -48,6 +50,10 @@ public class PlayerSight : MonoBehaviour
 
                 case ItemType.Readable:
                     Debug.Log("Readable");
+                    break;
+
+                case ItemType.Openable:
+                    Debug.Log("Openable");
                     break;
             }
         }
@@ -68,7 +74,18 @@ public class PlayerSight : MonoBehaviour
     }
 
     // 시야에 가장 가까운 오브젝트 반환
-    public IActionItem GetClosestItem() {
-        return null;
-    }
+    // X . 시야엔 여러개가 들어와도 정확히 바라보고있지 않으면 레이캐스트의 결과값이 없을수도 있으므로.
+    //public IActionItem GetClosestItem2() {
+    //    Ray ray = new Ray(transform.position, transform.forward);
+    //    if (Physics.Raycast(ray, out RaycastHit hit, 5f)) {
+    //        if (hit.collider.TryGetComponent<IActionItem>(out IActionItem item)) {
+    //            return item;
+    //        }
+    //    }
+    //    return null;
+    //}
+
+    //public IActionItem GetClosestItem() { 
+    
+    //}
 }
