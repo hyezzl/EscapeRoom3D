@@ -5,6 +5,7 @@ public enum ItemType
 {
     Pickable,
     Interactable,
+    Inspectable,
     Readable,
     Openable
 }
@@ -12,9 +13,7 @@ public enum ItemType
 public class ItemManager : Singleton<ItemManager>
 {
     // 플레이어가 현재 바라보고있는 오브젝트
-    public static IActionItem currentItem;
+    private static IActionItem currentItem;
 
-    public static void SetCurrentItem(IActionItem item) {
-        currentItem = item;
-    }
+    public static IActionItem CurrentItem { get; set; }
 }

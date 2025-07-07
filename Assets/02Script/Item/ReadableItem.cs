@@ -5,13 +5,15 @@ using UnityEngine;
 public class ReadableItem : MonoBehaviour, IReadable
 {
     public int itemID;
-    private ObjectData data;
+    private ReadableData data;
+
+    ItemType IActionItem.GetType() => data.type;
 
     private void Start()
     {
-        data = ItemDatabaseManager.Instance.GetData(itemID);
+        data = ItemDatabaseManager.Instance.GetReadable(itemID);
         if (data == null)
-            Debug.Log($"Failed to Load {itemID} Data");
+            Debug.Log($"ReadableItem - Failed to Load {itemID} Data");
     }
     public void PressEMessage()
     {
@@ -22,8 +24,15 @@ public class ReadableItem : MonoBehaviour, IReadable
         Debug.Log($"내용 : {data.dialog}");
     }
 
-    ItemType IActionItem.GetType()
+    public void InteractOnClick()
     {
-        return data.type;
+        // Monologue 재생
+    }
+
+    public void InteractOnE()
+    {
+        // Dialog 재생
+
+        // Reply 재생
     }
 }

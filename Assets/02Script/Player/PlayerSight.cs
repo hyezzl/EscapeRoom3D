@@ -10,14 +10,16 @@ public class PlayerSight : MonoBehaviour
 
     private void Awake()
     {
-        if(TryGetComponent<CapsuleCollider>(out CapsuleCollider col)){
+        if (TryGetComponent<CapsuleCollider>(out CapsuleCollider col))
+        {
             col.isTrigger = true;
             col.radius = 0.2f;
             col.height = 5f;
             col.direction = 2; // Z축 방향 배치
             col.center = new Vector3(0, 0, col.height / 2);
         }
-        if (TryGetComponent<Rigidbody>(out Rigidbody rig)) {
+        if (TryGetComponent<Rigidbody>(out Rigidbody rig))
+        {
             rig.useGravity = false;
             rig.isKinematic = true;
         }
@@ -26,50 +28,43 @@ public class PlayerSight : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         // 태그로 1차 분리
-        if (other.CompareTag("Item")) {
+        if (other.CompareTag("Item"))
+        {
             // 윤곽선 표시
-            if (other.TryGetComponent<Outline>(out Outline outline)) {
+            if (other.TryGetComponent<Outline>(out Outline outline))
+            {
                 outline.enabled = true;
             }
 
-            // itemType 분기
-            if (other.TryGetComponent<IActionItem>(out IActionItem item)) { 
+            if (other.TryGetComponent<IActionItem>(out IActionItem item))
+            {
                 overlapItems.Add(item);
             }
 
-            switch (item.GetType())
-            {
-                case ItemType.Pickable:
-                    Debug.Log("Pickable");
-                    // 오버랩
-                    break;
+            ItemManager.CurrentItem = GetClosestItem();
+            // Type : GetClosestItem().GetType()
 
-                case ItemType.Interactable:
-                    Debug.Log("Interactable");
-                    break;
-
-                case ItemType.Readable:
-                    Debug.Log("Readable");
-                    break;
-
-                case ItemType.Openable:
-                    Debug.Log("Openable");
-                    break;
-            }
+            Debug.Log($"리스트 내 : {overlapItems[0]}");
+            Debug.Log(overlapItems.Count);
+            Debug.Log($"선정된 아이템 : {GetClosestItem()}");
         }
     }
 
-
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Item")) {
+        if (other.CompareTag("Item"))
+        {
             // 윤곽선 삭제
             if (other.TryGetComponent<Outline>(out Outline outline))
             {
                 outline.enabled = false;
             }
-
-            // 오버랩된 값 -1로 되돌리기
+            if (other.TryGetComponent<IActionItem>(out IActionItem item))
+            {
+                overlapItems.Remove(item);
+            }
+            // 오버랩된 값 초기화
+            ItemManager.CurrentItem = null;
         }
     }
 
@@ -85,7 +80,47 @@ public class PlayerSight : MonoBehaviour
     //    return null;
     //}
 
-    //public IActionItem GetClosestItem() { 
-    
-    //}
+    public IActionItem GetClosestItem()
+    {
+        Vector2 center = new Vector2(Screen.width / 2, Screen.height / 2);
+        float minDistance = float.MaxValue;
+        IActionItem closestItem = null;
+
+        if (overlapItems.Count == 1)
+        {
+            return overlapItems[0];
+        }
+        else if (overlapItems.Count == 0)
+        {
+            Debug.Log("PlayerSight - GetClosestItem : 감지된 오브젝트가 없습니다");
+            return null;
+        }
+        else
+        {
+            foreach (var item in overlapItems)
+            {
+                var converseItem = item as MonoBehaviour;
+                if (converseItem != null)
+                {
+                    Vector3 worldPos = converseItem.transform.position;
+                    Vector3 screenPos = Camera.main.WorldToScreenPoint(worldPos);
+
+                    float distance = Vector2.Distance(new Vector2(screenPos.x, screenPos.y), center);
+                    if (distance < minDistance)
+                    {
+                        minDistance = distance;
+                        closestItem = item;
+                    }
+                }
+            }
+            return closestItem;
+        }
+    }
+
+    private void OnDisable()
+    {
+        // 비활성화 시 초기화
+        overlapItems.Clear();
+        ItemManager.CurrentItem = null;
+    }
 }

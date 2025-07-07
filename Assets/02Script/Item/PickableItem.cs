@@ -6,14 +6,16 @@ using UnityEngine;
 public class PickableItem : MonoBehaviour, IPickable
 {
     public int itemID;
-    private ObjectData data;
+    private PickableData data;
+
+    ItemType IActionItem.GetType() => data.type;
 
 
     private void Start()
     {
-        data = ItemDatabaseManager.Instance.GetData(itemID);
+        data = ItemDatabaseManager.Instance.GetPickable(itemID);
         if (data == null)
-            Debug.Log($"Failed to Load {itemID} Data");
+            Debug.Log($"PickableItem - Failed to Load {itemID} Data");
 
         if (TryGetComponent<Rigidbody>(out Rigidbody rig)){
             rig.useGravity = false;
@@ -26,8 +28,10 @@ public class PickableItem : MonoBehaviour, IPickable
         Destroy(gameObject);
     }
 
-    ItemType IActionItem.GetType()
+    public void InteractOnClick()
     {
-        return data.type;
+        // Pickup
     }
+
+    public void InteractOnE() { }
 }

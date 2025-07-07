@@ -5,13 +5,15 @@ using UnityEngine;
 public class InteractableItem : MonoBehaviour, IInteractable
 {
     public int itemID;
-    private ObjectData data;
+    private InteractableData data;
+
+    ItemType IActionItem.GetType() => data.type;
 
     private void Start()
     {
-        data = ItemDatabaseManager.Instance.GetData(itemID);
+        data = ItemDatabaseManager.Instance.GetInteractable(itemID);
         if (data == null)
-            Debug.Log($"Failed to Load {itemID} Data");
+            Debug.Log($"InteractableItem - Failed to Load {itemID} Data");
     }
 
 
@@ -20,8 +22,12 @@ public class InteractableItem : MonoBehaviour, IInteractable
         Debug.Log($"독백 재생 : {data.monologue}");
     }
 
-    ItemType IActionItem.GetType()
+    public void InteractOnClick() { }
+
+    public void InteractOnE()
     {
-        return data.type;
+        // Deactive Sound + DeactiveMSG
+
+        // PairID 맞는경우 퍼즐해제
     }
 }

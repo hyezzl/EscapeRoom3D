@@ -4,8 +4,17 @@ using UnityEngine;
 
 public class ItemDatabaseManager : Singleton<ItemDatabaseManager> 
 {
-    private ObjectDataLoader dataLoader;
-    public ObjectData GetData(int itemID) => dataLoader.Get(itemID);
+    //private ObjectDataLoader dataLoader;
+    private PickableLoader pickableLoader;
+    private InteractableLoader interactableLoader;
+    private InspectableLoader inspectorLoader;
+    private ReadableLoader readableLoader;
+
+    //public ObjectData GetData(int itemID) => dataLoader.Get(itemID);
+    public PickableData GetPickable(int itemID) => pickableLoader.Get(itemID);
+    public InteractableData GetInteractable(int itemID) => interactableLoader.Get(itemID);
+    public InspectableData GetInspectable(int itemID) => inspectorLoader.Get(itemID);
+    public ReadableData GetReadable(int itemID) => readableLoader.Get(itemID);
 
     protected override void DoAwake()
     {
@@ -14,8 +23,11 @@ public class ItemDatabaseManager : Singleton<ItemDatabaseManager>
     }
 
     private void LoadTable() {
-        EscapeTable dataTable = Resources.Load<EscapeTable>("Table/EscapeTable");
+        ItemTable dataTable = Resources.Load<ItemTable>("Table/ItemTable");
 
-        dataLoader = new ObjectDataLoader(dataTable.Object);
+        pickableLoader = new PickableLoader(dataTable.Pickable);
+        interactableLoader = new InteractableLoader(dataTable.Interactable);
+        inspectorLoader = new InspectableLoader(dataTable.Inspectable);
+        readableLoader = new ReadableLoader(dataTable.Readable);
     }
 }
