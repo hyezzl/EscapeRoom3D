@@ -1,7 +1,9 @@
+using cakeslice;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Outline))]
 public class ReadableItem : MonoBehaviour, IReadable
 {
     public int itemID;
@@ -14,25 +16,39 @@ public class ReadableItem : MonoBehaviour, IReadable
         data = ItemDatabaseManager.Instance.GetReadable(itemID);
         if (data == null)
             Debug.Log($"ReadableItem - Failed to Load {itemID} Data");
+        if (TryGetComponent<Outline>(out Outline outline)) {
+            outline.color = 1;
+        }
     }
     public void PressEMessage()
     {
 
     }
 
-    public void DisplayDialog() {
+    private void PlayDialog() {
         Debug.Log($"내용 : {data.dialog}");
+    }
+
+    private void PlayMonologue() {
+        Debug.Log($"독백 : {data.monologue}");
+    }
+
+    private void PlayReply() {
+        Debug.Log($"Reply : {data.reply}");
     }
 
     public void InteractOnClick()
     {
         // Monologue 재생
+        PlayMonologue();
     }
 
     public void InteractOnE()
     {
         // Dialog 재생
+        PlayDialog();
 
         // Reply 재생
+        PlayReply();
     }
 }

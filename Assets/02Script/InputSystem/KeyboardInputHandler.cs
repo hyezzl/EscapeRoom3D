@@ -18,7 +18,7 @@ public class KeyboardInputHandler : MonoBehaviour, IInputHandler
         return Input.GetKey(KeyCode.LeftControl);
     }
 
-    public bool DoInteractive()
+    public bool DoInsteract()
     {
         return Input.GetKeyDown(KeyCode.E);
     }

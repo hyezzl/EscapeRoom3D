@@ -10,7 +10,7 @@ public interface IInputHandler
 
     public bool Crouch();
 
-    public bool DoInteractive();
+    public bool DoInsteract();
 
     public bool Lantern();
 

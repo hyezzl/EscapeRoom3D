@@ -22,16 +22,21 @@ public class PlayerController : MonoBehaviour
     [Header("Cinemachine : NoiseSetting")]
     [SerializeField] private NoiseSettings myCameraShake;
 
+
     private CharacterController controller;
     private IInputHandler inputHandler;
     private Transform eyeHeight;
     private CinemachineVirtualCamera cam;
     private CinemachineBasicMultiChannelPerlin noise;
+    private EquipLight lamp;
+
+
     private Vector3 defaultCamHeight = new Vector3(0f, 2.5f, 0f);
     private Vector3 crouchCamHeight = new Vector3(0f, 1.7f, 0f);
     private float gravity = -9.8f;
     private Vector3 velocity;
     private Vector3 verticalDir;
+    private bool isLampOn = true;  // todo :: 후에 기본값 바꿔줄것 !!!
 
     // Temporary
     [SerializeField] private GameObject archDoor;
@@ -62,6 +67,9 @@ public class PlayerController : MonoBehaviour
         if (noise == null) {
             Debug.Log("PlayerController - Failed to Load NoiseSetting");
         }
+        lamp = GetComponentInChildren<EquipLight>();
+        if (lamp == null)
+            Debug.Log("PlayerController - Failed to Load EquipLight");
 
         //Temporary
         arch = archDoor.GetComponent<ArchDoor>();
@@ -74,6 +82,11 @@ public class PlayerController : MonoBehaviour
     {
         HandleMovement();
         ApplyGravity();
+        ToggleLamp();
+        OnClick();
+        PressE();
+
+
         TestFunction();
     }
 
@@ -125,6 +138,19 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void OnClick() {
+        if (inputHandler.LeftClick() && ItemManager.CurrentItem != null) {
+            //ItemManager.CurrentItem.GetType() 에 상관없이!
+            ItemManager.CurrentItem.InteractOnClick();
+        }
+    }
+
+    private void PressE() {
+        if (inputHandler.DoInsteract()) {
+            ItemManager.CurrentItem.InteractOnE();
+        }
+    }
+
     // 카메라 반동
     private void SetCameraNoise(NoiseSettings profile, float amp, float Freq) {
         if (noise != null) {
@@ -159,5 +185,22 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
+
+    // 램프 토글
+    private void ToggleLamp() {
+        if (Input.GetKeyDown(KeyCode.F)) {
+            if (isLampOn)
+            {
+                isLampOn = false;
+                lamp.PutDownLamp();
+            }
+            else {
+                isLampOn = true;
+                lamp.PickupLamp();
+            }
+        }
+    }
+
+
 
 }
