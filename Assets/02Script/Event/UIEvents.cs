@@ -9,8 +9,15 @@ public static class UIEvents
 
     public struct InventoryChanged { }
 
+    public struct SlotClicked {
+        public ItemInstance itemInst;
+        public InventoryUISlot slot;
 
+        public SlotClicked(ItemInstance itemInst, InventoryUISlot slot) { 
+            this.itemInst = itemInst;
+            this.slot = slot;
+        }
+    }
 
-    // Mini_Inventory
-    public struct M_inventorySlotClicked { }
+    
 }
