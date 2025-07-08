@@ -17,6 +17,7 @@ public class InventoryManager : Singleton<InventoryManager>
 
     public IReadOnlyList<ItemInstance> GetInventory() => inventory.AsReadOnly();
 
+
     // 세이브된 인벤토리 데이터 로드
     public void LoadItemInstance(ItemInstance newItemInst) { 
         inventory.Add(newItemInst);

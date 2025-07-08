@@ -9,6 +9,7 @@ public class InteractableItem : MonoBehaviour, IInteractable
     public int itemID;
     private InteractableData data;
 
+    public int GetItemID() => itemID;
     ItemType IActionItem.GetType() => data.type;
 
     private void Start()
@@ -30,7 +31,7 @@ public class InteractableItem : MonoBehaviour, IInteractable
     public void PlayDeactiveMSG() {
         Debug.Log($"Deactive : {data.deactiveMSG}");
         Debug.Log($"바라보고 있는 오브젝트 : {data.pairID}");
-        Debug.Log($"장착된 아이템 : {ItemManager.EquipItem.GetPairID()}");
+        //Debug.Log($"장착된 아이템 : {ItemManager.EquipItem.GetPairID()}");
 
     }
 

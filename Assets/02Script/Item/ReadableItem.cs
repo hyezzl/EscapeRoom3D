@@ -9,6 +9,7 @@ public class ReadableItem : MonoBehaviour, IReadable
     public int itemID;
     private ReadableData data;
 
+    public int GetItemID() => itemID;
     ItemType IActionItem.GetType() => data.type;
 
     private void Start()

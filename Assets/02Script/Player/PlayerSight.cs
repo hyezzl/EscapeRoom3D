@@ -2,7 +2,6 @@ using cakeslice;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.ProBuilder.MeshOperations;
 
 public class PlayerSight : MonoBehaviour
 {
@@ -25,6 +24,29 @@ public class PlayerSight : MonoBehaviour
         }
     }
 
+    // 아이템 획득 시, 해당 아이템 overlapItems에서 제외
+    private void OnEnable()
+    {
+        if (EventBus.Instance == null) Debug.Log("null^^");
+        EventBus.Instance.Subscribe<GameEvents.GetItem>(ExceptItem);
+    }
+
+    private void OnDisable() { 
+        EventBus.Instance.Unsubscribe<GameEvents.GetItem>(ExceptItem);
+
+        // 비활성화 시 초기화
+        overlapItems.Clear();
+        ItemManager.CurrentItem = null;
+    }
+
+    private void ExceptItem(GameEvents.GetItem evt) {
+        overlapItems.Remove(evt.item);
+
+        // 재 오버랩
+        StartCoroutine(ReOverlap());
+    }
+
+
     private void OnTriggerEnter(Collider other)
     {
         // 태그로 1차 분리
@@ -41,8 +63,7 @@ public class PlayerSight : MonoBehaviour
                 overlapItems.Add(item);
             }
 
-            ItemManager.CurrentItem = GetClosestItem();
-            // Type : GetClosestItem().GetType()
+            ItemManager.CurrentItem = GetClosestItem(); // 오버랩
 
             Debug.Log($"리스트 내 : {overlapItems[0]}");
             Debug.Log(overlapItems.Count);
@@ -92,7 +113,7 @@ public class PlayerSight : MonoBehaviour
         }
         else if (overlapItems.Count == 0)
         {
-            Debug.Log("PlayerSight - GetClosestItem : 감지된 오브젝트가 없습니다");
+            //Debug.Log("PlayerSight - GetClosestItem : 감지된 오브젝트가 없습니다");
             return null;
         }
         else
@@ -117,10 +138,9 @@ public class PlayerSight : MonoBehaviour
         }
     }
 
-    private void OnDisable()
-    {
-        // 비활성화 시 초기화
-        overlapItems.Clear();
-        ItemManager.CurrentItem = null;
+    private IEnumerator ReOverlap() { 
+        yield return null; // destroy 후 1프레임 대기
+        ItemManager.CurrentItem = GetClosestItem();
     }
+
 }

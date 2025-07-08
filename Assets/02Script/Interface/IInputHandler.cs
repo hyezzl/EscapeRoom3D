@@ -12,7 +12,9 @@ public interface IInputHandler
 
     public bool DoInsteract();
 
-    public bool Lantern();
+    public bool ToggleLight();
 
     public bool LeftClick();
+
+    public bool ToggleInventory();
 }

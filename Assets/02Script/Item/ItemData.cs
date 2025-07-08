@@ -14,6 +14,8 @@ public class ItemInstance
 
     public ItemInstance(int itemID) { 
         this.itemID = itemID;
-        this.uniqueID = ItemUIDGenerator.Generate();
+        uniqueID = ItemUIDGenerator.Generate();
     }
+
+    public PickableData Data => ItemDatabaseManager.Instance.GetPickable(itemID);
 }

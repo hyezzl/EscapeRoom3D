@@ -2,17 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameEvents : MonoBehaviour
+public static class GameEvents
 {
-    // Start is called before the first frame update
-    void Start()
+    // 아이템 획득
+    public struct GetItem
     {
-        
+        public PickableItem item;
+        public GetItem(PickableItem item) {
+            this.item = item;
+        }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    // 인벤토리 변경
+    public struct InventoryChanged { }
 }

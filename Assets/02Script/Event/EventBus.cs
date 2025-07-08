@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[DefaultExecutionOrder(-10)]
 public class EventBus : Singleton<EventBus>
 {
     private Dictionary<Type, Delegate> eventTable = new();

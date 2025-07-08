@@ -188,7 +188,7 @@ public class PlayerController : MonoBehaviour
 
     // 램프 토글
     private void ToggleLamp() {
-        if (Input.GetKeyDown(KeyCode.F)) {
+        if (inputHandler.ToggleLight()) {
             if (isLampOn)
             {
                 isLampOn = false;
@@ -198,6 +198,13 @@ public class PlayerController : MonoBehaviour
                 isLampOn = true;
                 lamp.PickupLamp();
             }
+        }
+    }
+
+    // 인벤토리 UI 토글
+    private void ToggleInventory() {
+        if (inputHandler.ToggleInventory()) { 
+            
         }
     }
 

@@ -11,6 +11,7 @@ public class PickableItem : MonoBehaviour, IPickable
     private PickableData data;
     private PlayerSight sight;
 
+    public int GetItemID() => itemID;
     ItemType IActionItem.GetType() => data.type;
     public int GetPairID() => data.pairID; ////////////
 
@@ -31,10 +32,16 @@ public class PickableItem : MonoBehaviour, IPickable
     public void OnpickUp()
     {
         Debug.Log("줍기행동");
-
+        if (ItemManager.CurrentItem != null)
+        {
+            // 인벤토리 습득
+            InventoryManager.Instance.AddItem(ItemManager.CurrentItem.GetItemID());
+            // 이벤트
+            EventBus.Instance.Publish<GameEvents.GetItem>(new GameEvents.GetItem(this));
+        }
+        else
+            Debug.Log("PickableItem - CurrentItem is null");    
         ItemManager.CurrentItem = null;
-        //리스트 비워주기 !!!!!
-        // 이벤트 구독(아이템습득) 1프레임 쉰 후 한번더 오버랩
         Destroy(gameObject);
     }
 

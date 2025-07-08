@@ -4,6 +4,7 @@ using UnityEngine;
 
 public interface IActionItem
 {
+    int GetItemID();
     ItemType GetType();
 
     void InteractOnClick();

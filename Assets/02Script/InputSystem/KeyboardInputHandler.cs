@@ -23,11 +23,15 @@ public class KeyboardInputHandler : MonoBehaviour, IInputHandler
         return Input.GetKeyDown(KeyCode.E);
     }
 
-    public bool Lantern() {
+    public bool ToggleLight() {
         return Input.GetKeyDown(KeyCode.F);
     }
 
     public bool LeftClick() {
-        return Input.GetMouseButtonUp(0); // ÁÂÅ¬¸¯
+        return Input.GetMouseButtonUp(0);
+    }
+
+    public bool ToggleInventory() {
+        return Input.GetKeyDown(KeyCode.E);
     }
 }

@@ -10,6 +10,7 @@ public class InspectableItem : MonoBehaviour, IInspectable
     private InspectableData data;
 
 
+    public int GetItemID() => itemID;
     ItemType IActionItem.GetType() => data.type;
 
     private void Start()
