@@ -34,7 +34,6 @@ public class PickableItem : MonoBehaviour, IPickable
         Debug.Log("줍기행동");
         if (ItemManager.CurrentItem != null)
         {
-            // 이벤트
             EventBus.Instance.Publish<GameEvents.GetItem>(new GameEvents.GetItem(this));
         }
         else

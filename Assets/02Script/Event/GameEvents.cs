@@ -16,5 +16,5 @@ public static class GameEvents
     // 인벤토리 변경
     public struct InventoryChanged { }
 
-    public struct GameModeChange { } // InventoryUIManager > Virtual
+    public struct GameModeChange { }
 }

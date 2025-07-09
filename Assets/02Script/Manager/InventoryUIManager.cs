@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.Progress;
 
 public class InventoryUIManager : PanelController
 {
@@ -27,6 +28,7 @@ public class InventoryUIManager : PanelController
             var slot = Instantiate(slotPrefab, slotParent).GetComponent<InventoryUISlot>();
             slots.Add(slot);
         }
+        RefreshInventory();
     }
 
     private void OnEnable()
@@ -46,21 +48,23 @@ public class InventoryUIManager : PanelController
 
     public void RefreshInventory() {
         var items = InventoryManager.Instance.GetInventory();
-        Debug.Log($"인벤토리 변경 : 현재 총 {items.Count}개");
+        Debug.Log($"인벤토리 변경 : 현재 총 {items.Count}개"); // 주울 수 있는 아이템의 최대값 < slotCnt
 
         // 슬롯에 인벤토리 정보 전달
         for (int i = 0; i < slots.Count; i++)
         {
             if (i < items.Count)
+            {
                 slots[i].Set(items[i]);
-            else
+            }
+            else { 
                 slots[i].Set(null);
+            }
         }
     }
 
     public override void TogglePanel()
     {
-        // 인벤토리 토글 조건
         base.TogglePanel();
         if (isOpenInventory)
         {
