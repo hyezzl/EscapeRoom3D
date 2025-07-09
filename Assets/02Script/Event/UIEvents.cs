@@ -6,9 +6,6 @@ public static class UIEvents
 {
     // Inventory
     public struct ToggleInventory { }
-
-    public struct InventoryChanged { }
-
     public struct SlotClicked {
         public ItemInstance itemInst;
         public InventoryUISlot slot;

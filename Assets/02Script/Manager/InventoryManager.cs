@@ -6,6 +6,18 @@ public class InventoryManager : Singleton<InventoryManager>
 {
     private List<ItemInstance> inventory = new();
 
+    private void OnEnable()
+    {
+        EventBus.Instance.Subscribe<GameEvents.GetItem>(OnGetItem);
+    }
+    private void OnDisable()
+    {
+        EventBus.Instance.Unsubscribe<GameEvents.GetItem>(OnGetItem);
+    }
+
+    private void OnGetItem(GameEvents.GetItem evt) {
+        AddItem(evt.item.GetItemID());
+    }
     public void AddItem(int itemID) { 
         var itemData = ItemDatabaseManager.Instance.GetPickable(itemID);
         if (itemData == null) {
@@ -13,6 +25,7 @@ public class InventoryManager : Singleton<InventoryManager>
             return;
         }
         inventory.Add(new ItemInstance(itemID));
+        EventBus.Instance.Publish<GameEvents.InventoryChanged>(new GameEvents.InventoryChanged());
     }
 
     public IReadOnlyList<ItemInstance> GetInventory() => inventory.AsReadOnly();

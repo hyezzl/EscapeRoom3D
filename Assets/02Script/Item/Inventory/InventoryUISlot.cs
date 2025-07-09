@@ -11,11 +11,18 @@ public class InventoryUISlot : MonoBehaviour, IPointerClickHandler
     [SerializeField] private GameObject selectBox;
 
     private ItemInstance itemInst;
-
-
-    public void Set(ItemInstance newInst) { 
-        itemInst = newInst;
-        iconImage.sprite = itemInst.Data.icon;
+    public void Set(ItemInstance newInst) {
+        if (newInst != null && newInst.Data != null)
+        {
+            Debug.Log("아이템 로딩");
+            itemInst = newInst;
+            iconImage.sprite = itemInst.Data.icon;
+            if (itemInst.Data.icon == null)
+                Debug.Log($"{itemInst.itemID} 의 아이콘 없음!!");
+        }
+        else { 
+            iconImage.sprite = null;
+        }
         SetSelect(false);
     }
 
@@ -26,5 +33,6 @@ public class InventoryUISlot : MonoBehaviour, IPointerClickHandler
     public void OnPointerClick(PointerEventData evt)
     {
         EventBus.Instance.Publish<UIEvents.SlotClicked>(new UIEvents.SlotClicked(itemInst, this));
+        // selectbox
     }
 }

@@ -4,14 +4,12 @@ using UnityEngine;
 
 public class ItemDatabaseManager : Singleton<ItemDatabaseManager> 
 {
-    //private ObjectDataLoader dataLoader;
     private PickableLoader pickableLoader;
     private InteractableLoader interactableLoader;
     private InspectableLoader inspectorLoader;
     private ReadableLoader readableLoader;
 
 
-    //public ObjectData GetData(int itemID) => dataLoader.Get(itemID);
     public PickableData GetPickable(int itemID) => pickableLoader.Get(itemID);
     public InteractableData GetInteractable(int itemID) => interactableLoader.Get(itemID);
     public InspectableData GetInspectable(int itemID) => inspectorLoader.Get(itemID);

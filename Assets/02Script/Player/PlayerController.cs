@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using static UIEvents;
 
 public enum PlayerState // 아직 사용X
 { 
@@ -83,6 +84,7 @@ public class PlayerController : MonoBehaviour
         HandleMovement();
         ApplyGravity();
         ToggleLamp();
+        ToggleInventory();
         OnClick();
         PressE();
 
@@ -203,11 +205,8 @@ public class PlayerController : MonoBehaviour
 
     // 인벤토리 UI 토글
     private void ToggleInventory() {
-        if (inputHandler.ToggleInventory()) { 
-            
+        if (inputHandler.ToggleInventory()) {
+            EventBus.Instance.Publish<UIEvents.ToggleInventory>(new UIEvents.ToggleInventory());
         }
     }
-
-
-
 }

@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[ExcelAsset(AssetPath = "Resource/Table")]
+[ExcelAsset(AssetPath = "Resources/Table")]
 public class ItemTable : ScriptableObject
 {
 	public List<PickableEntity> Pickable; 

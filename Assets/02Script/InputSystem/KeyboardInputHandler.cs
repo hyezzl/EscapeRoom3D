@@ -32,6 +32,6 @@ public class KeyboardInputHandler : MonoBehaviour, IInputHandler
     }
 
     public bool ToggleInventory() {
-        return Input.GetKeyDown(KeyCode.E);
+        return Input.GetKeyDown(KeyCode.I);
     }
 }

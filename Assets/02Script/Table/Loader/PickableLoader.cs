@@ -35,6 +35,7 @@ public class PickableLoader
                 icon = Resources.Load<Sprite>($"Icons/{row.IconName}"),
                 pairID = row.PairID
             };
+            if(data.icon == null) Debug.Log($"{data.itemID} : {data.itemName} 의 아이콘이 없음!");
             pickableDict.Add(row.ItemID, data);
         }
     }

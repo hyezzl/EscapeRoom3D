@@ -11,7 +11,7 @@ public class PickableItem : MonoBehaviour, IPickable
     private PickableData data;
     private PlayerSight sight;
 
-    public int GetItemID() => itemID;
+    public int GetItemID() => itemID; // 이미 public인데?
     ItemType IActionItem.GetType() => data.type;
     public int GetPairID() => data.pairID; ////////////
 
@@ -34,8 +34,8 @@ public class PickableItem : MonoBehaviour, IPickable
         Debug.Log("줍기행동");
         if (ItemManager.CurrentItem != null)
         {
-            // 인벤토리 습득
-            InventoryManager.Instance.AddItem(ItemManager.CurrentItem.GetItemID());
+            // 인벤토리 습득 (아니면 이벤트로?)
+            //InventoryManager.Instance.AddItem(ItemManager.CurrentItem.GetItemID());
             // 이벤트
             EventBus.Instance.Publish<GameEvents.GetItem>(new GameEvents.GetItem(this));
         }
