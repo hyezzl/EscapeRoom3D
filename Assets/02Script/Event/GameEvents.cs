@@ -16,5 +16,6 @@ public static class GameEvents
     // 인벤토리 변경
     public struct InventoryChanged { }
 
+    // 게임모드(PlayerController) 변경
     public struct GameModeChange { }
 }

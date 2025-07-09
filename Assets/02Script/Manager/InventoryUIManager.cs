@@ -13,8 +13,6 @@ public class InventoryUIManager : PanelController
     private const int slotCnt = 16;
     private List<InventoryUISlot> slots = new();
 
-    public bool IsOpenInventory => isOpenInventory; // Getter
-
     protected override void Awake()
     {
         base.Awake();
@@ -35,11 +33,13 @@ public class InventoryUIManager : PanelController
     {
         EventBus.Instance.Subscribe<GameEvents.InventoryChanged>(OnInventoryChanged);
         EventBus.Instance.Subscribe<UIEvents.ToggleInventory>(_ => TogglePanel());
+        EventBus.Instance.Subscribe<UIEvents.SlotClicked>(SelectSlot);
     }
     private void OnDisable()
     {
         EventBus.Instance.Unsubscribe<GameEvents.InventoryChanged>(OnInventoryChanged);
         EventBus.Instance.Unsubscribe<UIEvents.ToggleInventory>(_ => TogglePanel());
+        EventBus.Instance.Unsubscribe<UIEvents.SlotClicked>(SelectSlot);
     }
 
     private void OnInventoryChanged(GameEvents.InventoryChanged evt) {
@@ -48,7 +48,7 @@ public class InventoryUIManager : PanelController
 
     public void RefreshInventory() {
         var items = InventoryManager.Instance.GetInventory();
-        Debug.Log($"인벤토리 변경 : 현재 총 {items.Count}개"); // 주울 수 있는 아이템의 최대값 < slotCnt
+        Debug.Log($"인벤토리 업데이트 : 현재 총 {items.Count}개"); // 주울 수 있는 아이템의 최대값 < slotCnt
 
         // 슬롯에 인벤토리 정보 전달
         for (int i = 0; i < slots.Count; i++)
@@ -77,5 +77,15 @@ public class InventoryUIManager : PanelController
             pc.CurMode = PlayMode.InspectMode;
             EventBus.Instance.Publish<GameEvents.GameModeChange>(new GameEvents.GameModeChange());
         }
+    }
+
+    // 선택된 슬롯 고유성
+    public void SelectSlot(UIEvents.SlotClicked evt) {
+        if (evt.itemInst == null) return; // 빈 슬롯일 경우 선택 불가
+        ItemManager.SelectedSlot?.SetSelect(false); // 현재 선택된 슬롯 선택취소
+        ItemManager.SelectedSlot = evt.slot;
+        ItemManager.SelectedSlot?.SetSelect(true);
+
+        Debug.Log($"선택아이템 : {ItemManager.SelectedSlot.ItemInst.itemID}");
     }
 }

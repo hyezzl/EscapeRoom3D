@@ -16,5 +16,4 @@ public static class UIEvents
             this.slot = slot;
         }
     }
-    
 }

@@ -27,7 +27,6 @@ public class PlayerSight : MonoBehaviour
     // 아이템 획득 시, 해당 아이템 overlapItems에서 제외
     private void OnEnable()
     {
-        if (EventBus.Instance == null) Debug.Log("null^^");
         EventBus.Instance.Subscribe<GameEvents.GetItem>(ExceptItem);
     }
 
@@ -65,8 +64,7 @@ public class PlayerSight : MonoBehaviour
 
             ItemManager.CurrentItem = GetClosestItem(); // 오버랩
 
-            Debug.Log($"리스트 내 : {overlapItems[0]}");
-            Debug.Log(overlapItems.Count);
+            Debug.Log($"시야 리스트 내 {overlapItems.Count}개");
             Debug.Log($"선정된 아이템 : {GetClosestItem()}");
         }
     }

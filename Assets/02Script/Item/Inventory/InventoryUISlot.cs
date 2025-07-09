@@ -11,6 +11,9 @@ public class InventoryUISlot : MonoBehaviour, IPointerClickHandler
     [SerializeField] private GameObject selectBox;
 
     private ItemInstance itemInst;
+    public ItemInstance ItemInst => itemInst;
+
+
     public void Set(ItemInstance newInst) {
         if (newInst != null && newInst.Data != null)
         {
@@ -27,13 +30,12 @@ public class InventoryUISlot : MonoBehaviour, IPointerClickHandler
         SetSelect(false);
     }
 
-    private void SetSelect(bool isSelected) { 
+    public void SetSelect(bool isSelected) { 
         selectBox?.SetActive(isSelected);
     }
 
     public void OnPointerClick(PointerEventData evt)
     {
         EventBus.Instance.Publish<UIEvents.SlotClicked>(new UIEvents.SlotClicked(itemInst, this));
-        selectBox.SetActive(true);
     }
 }

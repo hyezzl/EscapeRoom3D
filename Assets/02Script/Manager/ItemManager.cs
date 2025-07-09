@@ -19,4 +19,9 @@ public class ItemManager : Singleton<ItemManager>
     // 플레이어가 현재 장착하고있는 아이템
     public static PickableItem equipItem;
     public static PickableItem EquipItem { get; set; }
+
+    // 인벤토리에서 선택된 슬롯 / 아이템
+    public static InventoryUISlot selectedSlot;
+    public static InventoryUISlot SelectedSlot { get; set; }
+    public static int SelectItemID => selectedSlot.ItemInst.itemID;
 }

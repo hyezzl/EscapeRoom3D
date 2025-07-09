@@ -22,7 +22,6 @@ public class InventoryUIDescription : MonoBehaviour
     }
 
     private void OnSlotClicked(UIEvents.SlotClicked evt) {
-        Debug.Log("½½·Ô Å¬¸¯!");
         ShowInform(evt.itemInst);
     }
 
