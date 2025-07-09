@@ -5,7 +5,14 @@ using UnityEngine;
 public static class UIEvents
 {
     // Inventory
-    public struct ToggleInventory { }
+    public struct ToggleInventory { } // Controller > InventoryUIManager
+
+
+    public struct OpenInventory { } // InventoryUIManager > 
+
+    public struct CloseInventory { }
+
+
     public struct SlotClicked {
         public ItemInstance itemInst;
         public InventoryUISlot slot;

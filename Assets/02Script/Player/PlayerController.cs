@@ -13,6 +13,14 @@ public enum PlayerState // 아직 사용X
     Crouching
 }
 
+public enum PlayMode
+{ 
+    InspectMode, // 1인칭 커서고정
+    PauseMode, // 멈춤
+    InventoryMode // 인벤토리
+}
+
+
 public class PlayerController : MonoBehaviour
 {
     [Header("Basic Setting")]
@@ -24,6 +32,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private NoiseSettings myCameraShake;
 
 
+    private PlayMode curMode = PlayMode.InspectMode;
     private CharacterController controller;
     private IInputHandler inputHandler;
     private Transform eyeHeight;
@@ -44,6 +53,12 @@ public class PlayerController : MonoBehaviour
     private ArchDoor arch;
     private bool temp = false;
 
+    public PlayMode CurMode 
+    {
+        get => curMode;
+        set => curMode = value;
+    }
+
 
 
     private void Awake()
@@ -54,7 +69,6 @@ public class PlayerController : MonoBehaviour
         if (!TryGetComponent<IInputHandler>(out inputHandler)) {
             Debug.Log("PlayerController - Failed to Load IInputHandler");
         }
-        //
         eyeHeight = transform.GetChild(0);
         if (eyeHeight == null) {
             Debug.Log("PlayerController - Failed to Load Children Transform");
@@ -141,13 +155,15 @@ public class PlayerController : MonoBehaviour
     }
 
     private void OnClick() {
-        if (inputHandler.LeftClick() && ItemManager.CurrentItem != null) {
+        if (ItemManager.CurrentItem == null) return;
+        if (inputHandler.LeftClick()) {
             //ItemManager.CurrentItem.GetType() 에 상관없이!
             ItemManager.CurrentItem.InteractOnClick();
         }
     }
 
     private void PressE() {
+        if (ItemManager.CurrentItem == null) return;
         if (inputHandler.DoInsteract()) {
             ItemManager.CurrentItem.InteractOnE();
         }
