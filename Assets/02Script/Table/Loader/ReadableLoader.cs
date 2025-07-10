@@ -10,7 +10,7 @@ public class ReadableData
     public string itemName;
     public ItemType type;
     public string monologue;
-    public string dialog;
+    public string narrative;
     public string reply;
 }
 public class ReadableLoader
@@ -32,7 +32,7 @@ public class ReadableLoader
                 itemName = row.ItemName,
                 type = itemtype,
                 monologue = row.Monologue,
-                dialog = row.Dialog,
+                narrative = row.Narrative,
                 reply = row.Reply
             };
             readableDict.Add(row.ItemID, data);
@@ -47,7 +47,7 @@ public class ReadableLoader
                 itemName = data.itemName,
                 type = data.type,
                 monologue = data.monologue,
-                dialog = data.dialog,
+                narrative = data.narrative,
                 reply = data.reply
             };
         }

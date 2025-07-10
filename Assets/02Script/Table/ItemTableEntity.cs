@@ -42,6 +42,6 @@ public class ReadableEntity
     public string ItemName;
     public string Type;
     public string Monologue;
-    public string Dialog;
+    public string Narrative;
     public string Reply;
 }

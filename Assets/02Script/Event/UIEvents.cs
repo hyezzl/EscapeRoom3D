@@ -16,4 +16,9 @@ public static class UIEvents
             this.slot = slot;
         }
     }
+
+    // Dialog
+    public struct OpenDialogPopup {
+        public IActionItem item;
+    }
 }

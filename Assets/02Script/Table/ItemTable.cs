@@ -6,8 +6,8 @@ using UnityEngine;
 [ExcelAsset(AssetPath = "Resources/Table")]
 public class ItemTable : ScriptableObject
 {
-	public List<PickableEntity> Pickable; 
-	public List<InteractableEntity> Interactable;
-	public List<InspectableEntity> Inspectable;
-	public List<ReadableEntity> Readable;
+	public List<PickableEntity> Pickable; // Replace 'EntityType' to an actual type that is serializable.
+	public List<InteractableEntity> Interactable; // Replace 'EntityType' to an actual type that is serializable.
+	public List<InspectableEntity> Inspectable; // Replace 'EntityType' to an actual type that is serializable.
+	public List<ReadableEntity> Readable; // Replace 'EntityType' to an actual type that is serializable.
 }

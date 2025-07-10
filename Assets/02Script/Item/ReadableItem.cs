@@ -26,8 +26,8 @@ public class ReadableItem : MonoBehaviour, IReadable
 
     }
 
-    private void PlayDialog() {
-        Debug.Log($"내용 : {data.dialog}");
+    private void PlayNarrative() {
+        Debug.Log($"내용 : {data.narrative}");
     }
 
     private void PlayMonologue() {
@@ -46,8 +46,8 @@ public class ReadableItem : MonoBehaviour, IReadable
 
     public void InteractOnE()
     {
-        // Dialog 재생
-        PlayDialog();
+        // Narrative 재생
+        PlayNarrative();
 
         // Reply 재생
         PlayReply();
