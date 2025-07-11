@@ -20,5 +20,9 @@ public static class UIEvents
     // Dialog
     public struct OpenDialogPopup {
         public IActionItem item;
+
+        public OpenDialogPopup(IActionItem item) {
+            this.item = item;
+        }
     }
 }
