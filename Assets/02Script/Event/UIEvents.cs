@@ -27,4 +27,13 @@ public static class UIEvents
             this.isClick = isClick;
         }
     }
+
+    public struct OpenNarrativePopup
+    {
+        public IActionItem item;
+
+        public OpenNarrativePopup(IActionItem item) { 
+            this.item= item;
+        }
+    }
 }

@@ -10,7 +10,7 @@ public class DialogPopup : MonoBehaviour
     // Readable (C : Monologue / Narrative End : Reply)
 
     [Header("UI Refs")]
-    [SerializeField] private RectTransform targetPanel;
+    //[SerializeField] private RectTransform targetPanel;
     [SerializeField] private Image background;
     [SerializeField] private TextMeshProUGUI text;
     [SerializeField] private CanvasGroup group;
@@ -97,9 +97,6 @@ public class DialogPopup : MonoBehaviour
                 //text.text = reaData.reply;
                 break;
         };
-        // 사용자 입력 대기상태
-        standbyInput = true;
-        blink = StartCoroutine(BlinkUI(group));
     }
 
     public void Next() {
@@ -122,6 +119,9 @@ public class DialogPopup : MonoBehaviour
         }
         isTyping = false;
         curCoroutine = null;
+
+        standbyInput = true;
+        blink = StartCoroutine(BlinkUI(group));
     }
 
     IEnumerator OnclosePanel() {
@@ -136,13 +136,13 @@ public class DialogPopup : MonoBehaviour
 
     IEnumerator BlinkUI(CanvasGroup group)
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.5f);
         float t = 0f;
         bool fadeIn = true;
         while (true)
         {
-            t += Time.deltaTime;
-            group.alpha = fadeIn ? Mathf.Lerp(0f, 0.8f, t) : Mathf.Lerp(0.8f, 0f, t);
+            t += Time.deltaTime * 0.9f;
+            group.alpha = fadeIn ? Mathf.Lerp(0f, 0.5f, t) : Mathf.Lerp(0.5f, 0f, t);
             if (t >= 1f)
             {
                 t = 0f;
