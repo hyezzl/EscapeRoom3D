@@ -31,6 +31,7 @@ public class InspectableItem : MonoBehaviour, IInspectable
     public void InteractOnClick()
     {
         PlayMonologue();
+        EventBus.Instance.Publish<UIEvents.OpenDialogPopup>(new UIEvents.OpenDialogPopup(ItemManager.CurrentItem, true));
     }
 
     public void InteractOnE() { Debug.Log("E 기능없음"); }

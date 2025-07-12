@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using static UIEvents;
 
 public enum PlayerState // 아직 사용X
 { 
@@ -28,16 +27,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float dashRatio = 2.5f;
     [SerializeField] private float crouchRatio = 0.4f;
 
-    [Header("Cinemachine : NoiseSetting")]
-    [SerializeField] private NoiseSettings myCameraShake;
-
-
+    private PlayerState playerState;
     private PlayMode curMode = PlayMode.InspectMode;
     private CharacterController controller;
     private IInputHandler inputHandler;
     private Transform eyeHeight;
-    private CinemachineVirtualCamera cam;
-    private CinemachineBasicMultiChannelPerlin noise;
     private EquipLight lamp;
 
 
@@ -53,6 +47,7 @@ public class PlayerController : MonoBehaviour
     private ArchDoor arch;
     private bool temp = false;
 
+    public PlayerState PlayerState => playerState;
     public PlayMode CurMode 
     {
         get => curMode;
@@ -72,15 +67,6 @@ public class PlayerController : MonoBehaviour
         eyeHeight = transform.GetChild(0);
         if (eyeHeight == null) {
             Debug.Log("PlayerController - Failed to Load Children Transform");
-        }
-        cam = GetComponentInChildren<CinemachineVirtualCamera>();
-        if (cam == null) {
-            Debug.Log("PlayerController - Failed to Load CinemachineVirtualCamera");
-        }
-        // 노이즈 프로파일 적용
-        noise = cam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
-        if (noise == null) {
-            Debug.Log("PlayerController - Failed to Load NoiseSetting");
         }
         lamp = GetComponentInChildren<EquipLight>();
         if (lamp == null)
@@ -129,26 +115,28 @@ public class PlayerController : MonoBehaviour
 
         if (dir.sqrMagnitude < 0.01f && !isRunning && !isCrouching) // Standing
         {
-            noise.m_NoiseProfile = null;
+            playerState = PlayerState.Standing;
         }
+
         else if (!isRunning && !isCrouching) // Walking
         {
-            SetCameraNoise(myCameraShake, 1f, 1f);
+            playerState = PlayerState.Walking;
             
             controller.Move(moveDir * (moveSpeed * Time.deltaTime));
         }
         else if (isCrouching) // Crouching
         {
             // 앉기 + 수평이동
-            if (dir.sqrMagnitude > 0.01f) { 
-                SetCameraNoise(myCameraShake, 0.7f, 0.7f);
-            }
+            playerState = PlayerState.Crouching;
+            //if (dir.sqrMagnitude > 0.01f) { 
+            //    SetCameraNoise(myCameraShake, 0.7f, 0.7f);
+            //}
 
             controller.Move(moveDir * (moveSpeed * crouchRatio * Time.deltaTime));
         }
         else if (dir.sqrMagnitude > 0.01f && isRunning && !isCrouching)  // Running
         {
-            SetCameraNoise(myCameraShake, 2.5f, 1.5f);
+            playerState = PlayerState.Running;
 
             controller.Move(moveDir * ((moveSpeed * dashRatio) * Time.deltaTime));
         }
@@ -157,7 +145,6 @@ public class PlayerController : MonoBehaviour
     private void OnClick() {
         if (ItemManager.CurrentItem == null) return;
         if (inputHandler.LeftClick()) {
-            //ItemManager.CurrentItem.GetType() 에 상관없이!
             ItemManager.CurrentItem.InteractOnClick();
         }
     }
@@ -166,15 +153,6 @@ public class PlayerController : MonoBehaviour
         if (ItemManager.CurrentItem == null) return;
         if (inputHandler.DoInsteract()) {
             ItemManager.CurrentItem.InteractOnE();
-        }
-    }
-
-    // 카메라 반동
-    private void SetCameraNoise(NoiseSettings profile, float amp, float Freq) {
-        if (noise != null) {
-            noise.m_NoiseProfile = profile;
-            noise.m_AmplitudeGain = amp;
-            noise.m_FrequencyGain = Freq;
         }
     }
 

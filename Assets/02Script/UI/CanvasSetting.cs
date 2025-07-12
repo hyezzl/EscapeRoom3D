@@ -20,7 +20,7 @@ public class CanvasSetting : MonoBehaviour
             mainCanvas.renderMode = RenderMode.ScreenSpaceCamera;
 
         mainCanvas.worldCamera = targetCam;
-        mainCanvas.planeDistance = 1f;
+        mainCanvas.planeDistance = 0.35f;
 
         if (!TryGetComponent<CanvasScaler>(out scaler))
         {

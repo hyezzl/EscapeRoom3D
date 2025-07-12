@@ -38,12 +38,15 @@ public class InteractableItem : MonoBehaviour, IInteractable
     public void InteractOnClick() {
         // Monologue
         PlayMonologue();
+        EventBus.Instance.Publish<UIEvents.OpenDialogPopup>(new UIEvents.OpenDialogPopup(ItemManager.CurrentItem, true));
     }
 
     public void InteractOnE()
     {
         // Deactive Sound + DeactiveMSG
         PlayDeactiveMSG();
+        EventBus.Instance.Publish<UIEvents.OpenDialogPopup>(new UIEvents.OpenDialogPopup(ItemManager.CurrentItem, false));
+
 
         // PairID 맞는경우 퍼즐해제
     }

@@ -1,13 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.Progress;
+using UnityEngine.UI;
 
 public class InventoryUIManager : PanelController
 {
     [Header("UI Refs")]
     [SerializeField] private Transform slotParent;
     [SerializeField] private GameObject slotPrefab;
+    [SerializeField] private Button exitBTN;
 
     private PlayerController pc;
     private const int slotCnt = 16;
@@ -34,6 +35,7 @@ public class InventoryUIManager : PanelController
         EventBus.Instance.Subscribe<GameEvents.InventoryChanged>(OnInventoryChanged);
         EventBus.Instance.Subscribe<UIEvents.ToggleInventory>(_ => TogglePanel());
         EventBus.Instance.Subscribe<UIEvents.SlotClicked>(SelectSlot);
+        exitBTN.onClick.AddListener(ExitInventory);
     }
     private void OnDisable()
     {
@@ -57,9 +59,16 @@ public class InventoryUIManager : PanelController
             {
                 slots[i].Set(items[i]);
             }
-            else { 
+            else {
                 slots[i].Set(null);
             }
+        }
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape)) {
+            ExitInventory();
         }
     }
 
@@ -87,5 +96,16 @@ public class InventoryUIManager : PanelController
         ItemManager.SelectedSlot?.SetSelect(true);
 
         Debug.Log($"선택아이템 : {ItemManager.SelectedSlot.ItemInst.itemID}");
+    }
+
+    // 인벤토리 닫기
+    public void ExitInventory()
+    {
+        if (isOpenInventory)
+        {
+            pc.CurMode = PlayMode.InspectMode;
+            EventBus.Instance.Publish<GameEvents.GameModeChange>(new GameEvents.GameModeChange());
+            Hide();
+        }
     }
 }

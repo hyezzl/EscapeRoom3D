@@ -42,6 +42,7 @@ public class ReadableItem : MonoBehaviour, IReadable
     {
         // Monologue 재생
         PlayMonologue();
+        EventBus.Instance.Publish<UIEvents.OpenDialogPopup>(new UIEvents.OpenDialogPopup(ItemManager.CurrentItem, true));
     }
 
     public void InteractOnE()
@@ -50,6 +51,7 @@ public class ReadableItem : MonoBehaviour, IReadable
         PlayNarrative();
 
         // Reply 재생
+        // false값으로 할지? 아니면 추가로직할지
         PlayReply();
     }
 }

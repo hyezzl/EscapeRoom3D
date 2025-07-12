@@ -20,9 +20,11 @@ public static class UIEvents
     // Dialog
     public struct OpenDialogPopup {
         public IActionItem item;
+        public bool isClick;
 
-        public OpenDialogPopup(IActionItem item) {
+        public OpenDialogPopup(IActionItem item, bool isClick) {
             this.item = item;
+            this.isClick = isClick;
         }
     }
 }
