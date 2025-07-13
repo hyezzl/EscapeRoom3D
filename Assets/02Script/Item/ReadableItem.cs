@@ -49,6 +49,7 @@ public class ReadableItem : MonoBehaviour, IReadable
     {
         // Narrative 재생
         PlayNarrative();
+        EventBus.Instance.Publish<UIEvents.OpenNarrativePopup>(new UIEvents.OpenNarrativePopup(ItemManager.CurrentItem));
 
         // Reply 재생
         // false값으로 할지? 아니면 추가로직할지

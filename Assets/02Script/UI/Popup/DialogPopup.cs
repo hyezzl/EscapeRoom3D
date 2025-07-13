@@ -17,8 +17,9 @@ public class DialogPopup : MonoBehaviour
  
     private bool isDisplay = false;
     private Coroutine curCoroutine;
-    private Coroutine blink;
+    private Coroutine blinkCor;
     private Animator anim;
+    private BlinkAnnounce blink;
     private bool isTyping = false;
     private bool isSkip = false;
     private bool standbyInput = false;
@@ -27,6 +28,9 @@ public class DialogPopup : MonoBehaviour
     {
         if (!TryGetComponent<Animator>(out anim)) {
             Debug.Log("DialogPopup - Failed to Load Animator");
+        }
+        if (!TryGetComponent<BlinkAnnounce>(out blink)) {
+            Debug.Log("DialogPopup - Failed to Load BlinkAnnounce");
         }
         
     }
@@ -42,7 +46,8 @@ public class DialogPopup : MonoBehaviour
             else if (standbyInput) // 코루틴 끝난 후 입력 대기상태
             {
                 // 경고문구 삭제
-                StopCoroutine(blink);
+                if (blinkCor == null) Debug.Log("뭔가 잘못됨");
+                StopCoroutine(blinkCor);
                 group.alpha = 0f;
 
                 Next();
@@ -121,7 +126,7 @@ public class DialogPopup : MonoBehaviour
         curCoroutine = null;
 
         standbyInput = true;
-        blink = StartCoroutine(BlinkUI(group));
+        blinkCor = StartCoroutine(blink.BlinkAnnounceMSG(group));
     }
 
     IEnumerator OnclosePanel() {
@@ -134,21 +139,4 @@ public class DialogPopup : MonoBehaviour
         isDisplay = false;
     }
 
-    IEnumerator BlinkUI(CanvasGroup group)
-    {
-        yield return new WaitForSeconds(0.5f);
-        float t = 0f;
-        bool fadeIn = true;
-        while (true)
-        {
-            t += Time.deltaTime * 0.9f;
-            group.alpha = fadeIn ? Mathf.Lerp(0f, 0.5f, t) : Mathf.Lerp(0.5f, 0f, t);
-            if (t >= 1f)
-            {
-                t = 0f;
-                fadeIn = !fadeIn;
-            }
-            yield return null;
-        }
-    }
 }

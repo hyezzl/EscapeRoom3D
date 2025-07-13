@@ -58,6 +58,13 @@ public class VirtualCamera : MonoBehaviour
                 Cursor.lockState = CursorLockMode.None;
                 Debug.Log("InventoryMode 활성화");
                 break;
+
+            case PlayMode.NarrativeMode:
+                mouseSensitivity = 0f;
+                Cursor.visible = true;
+                Cursor.lockState = CursorLockMode.None;
+                Debug.Log("ReadableMode 활성화");
+                break;
         }
     }
 

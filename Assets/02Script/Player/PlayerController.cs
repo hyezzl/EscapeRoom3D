@@ -16,7 +16,8 @@ public enum PlayMode
 { 
     InspectMode, // 1인칭 커서고정
     PauseMode, // 멈춤
-    InventoryMode // 인벤토리
+    InventoryMode, // 인벤토리
+    NarrativeMode, 
 }
 
 
