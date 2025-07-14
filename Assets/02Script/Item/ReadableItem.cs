@@ -41,14 +41,14 @@ public class ReadableItem : MonoBehaviour, IReadable
     public void InteractOnClick()
     {
         // Monologue 재생
-        PlayMonologue();
+        //PlayMonologue();
         EventBus.Instance.Publish<UIEvents.OpenDialogPopup>(new UIEvents.OpenDialogPopup(ItemManager.CurrentItem, true));
     }
 
     public void InteractOnE()
     {
         // Narrative 재생
-        PlayNarrative();
+        //PlayNarrative();
         EventBus.Instance.Publish<UIEvents.OpenNarrativePopup>(new UIEvents.OpenNarrativePopup(ItemManager.CurrentItem));
 
         // Reply 재생

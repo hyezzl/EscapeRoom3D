@@ -130,3 +130,10 @@ TextureImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 238976
+  packageName: SteampunkUI
+  packageVersion: 
+  assetPath: Assets/Map/GUI/SteampunkUI/Fonts/Environment Maps/gear_store_2k.hdr
+  uploadId: 0

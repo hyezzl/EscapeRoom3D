@@ -5,3 +5,10 @@ PrefabImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 238976
+  packageName: SteampunkUI
+  packageVersion: 
+  assetPath: Assets/Map/GUI/SteampunkUI/Prefabs/Frames/Frame 1.prefab
+  uploadId: 0

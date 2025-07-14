@@ -6,3 +6,10 @@ NativeFormatImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 238976
+  packageName: SteampunkUI
+  packageVersion: 
+  assetPath: Assets/Map/GUI/SteampunkUI/Prefabs/Icon Buttons/Animations/arrow_3/arrow_3_disabled.anim
+  uploadId: 0

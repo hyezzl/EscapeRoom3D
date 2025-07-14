@@ -14,7 +14,6 @@ public class EquipLight : MonoBehaviour
     //Temp
     private Vector3 lampOffset = new Vector3(0.23f, -0.32f, 0.42f);
     private Vector3 lastCamPos;
-    [SerializeField] private float shakeRatio = 0.1f;
 
     private void Awake()
     {

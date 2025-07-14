@@ -232,3 +232,10 @@ TextureImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 238976
+  packageName: SteampunkUI
+  packageVersion: 
+  assetPath: Assets/Map/GUI/SteampunkUI/Art/Steampunk_UI_Frames_1.png
+  uploadId: 0

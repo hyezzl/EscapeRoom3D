@@ -5,3 +5,10 @@ TextScriptImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 238976
+  packageName: SteampunkUI
+  packageVersion: 
+  assetPath: Assets/Map/GUI/SteampunkUI/ThirdPartyLicenses/Environment Maps cc0.txt
+  uploadId: 0

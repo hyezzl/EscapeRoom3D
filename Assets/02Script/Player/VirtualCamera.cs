@@ -8,6 +8,7 @@ public class VirtualCamera : MonoBehaviour
     [SerializeField] Transform player;
     private float cameraVertical = 0f;
     private PlayerController pc;
+    private Texture2D cursor2D;
 
     private void Awake()
     {       
@@ -19,12 +20,15 @@ public class VirtualCamera : MonoBehaviour
         if (!player.TryGetComponent<PlayerController>(out pc)) {
             Debug.Log("VirtualCamera - Failed to Load PlayerController");
         }
+        cursor2D = Resources.Load<Texture2D>($"Cursor/Cursor1");
+        if (cursor2D == null) Debug.Log("안불러와짐");
     }
 
     private void Start()
     {
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
+        Cursor.SetCursor(cursor2D, Vector2.zero, CursorMode.Auto);
     }
 
     private void OnEnable()
@@ -63,7 +67,12 @@ public class VirtualCamera : MonoBehaviour
                 mouseSensitivity = 0f;
                 Cursor.visible = true;
                 Cursor.lockState = CursorLockMode.None;
-                Debug.Log("ReadableMode 활성화");
+                Debug.Log("NarrativeMode  활성화");
+                break;
+
+            case PlayMode.DialogMode:
+                mouseSensitivity = 0f;
+                Debug.Log("DialogMode 활성화");
                 break;
         }
     }

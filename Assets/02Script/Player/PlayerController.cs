@@ -18,6 +18,7 @@ public enum PlayMode
     PauseMode, // 멈춤
     InventoryMode, // 인벤토리
     NarrativeMode, 
+    DialogMode, // Dialog창 떠있을 때
 }
 
 
@@ -145,14 +146,14 @@ public class PlayerController : MonoBehaviour
 
     private void OnClick() {
         if (ItemManager.CurrentItem == null) return;
-        if (inputHandler.LeftClick()) {
+        if (curMode == PlayMode.InspectMode && inputHandler.LeftClick()) {
             ItemManager.CurrentItem.InteractOnClick();
         }
     }
 
     private void PressE() {
         if (ItemManager.CurrentItem == null) return;
-        if (inputHandler.DoInsteract()) {
+        if (curMode == PlayMode.InspectMode && inputHandler.DoInsteract()) {
             ItemManager.CurrentItem.InteractOnE();
         }
     }

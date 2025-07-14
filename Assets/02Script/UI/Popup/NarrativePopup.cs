@@ -3,26 +3,22 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class NarrativePopup : MonoBehaviour
+public class NarrativePopup : PanelController
 {
     [Header("UI Refs")]
-    [SerializeField] private CanvasGroup background;
     [SerializeField] private ScrollRect scroll;
     [SerializeField] private TextMeshProUGUI text;
-    [SerializeField] private CanvasGroup group;
+    [SerializeField] private CanvasGroup group; // Announce
+    [SerializeField] private RectTransform content;
 
-    private bool isDisplay = false;
     private bool standbyInput = false;
     private PlayerController pc;
     private Coroutine blinkCor;
-    private Animator anim;
     private BlinkAnnounce blink;
 
-    private void Awake()
+    protected override void Awake()
     {
-        if (!TryGetComponent<Animator>(out anim)) {
-            Debug.Log("NarrativePopup - Failed to Load Animator");
-        }
+        base.Awake();
         if (!TryGetComponent<BlinkAnnounce>(out blink))
         {
             Debug.Log("NarrativePopup - Failed to Load BlinkAnnounce");
@@ -32,13 +28,21 @@ public class NarrativePopup : MonoBehaviour
             Debug.Log("NarrativePopup - Failed to Load PlayerController");
     }
 
+    private void Start()
+    {
+        // 텍스트 설정
+        text.textWrappingMode = TextWrappingModes.Normal;
+        text.overflowMode = TextOverflowModes.ScrollRect;
+    }
+
     private void Update()
     {
-        if (!isDisplay) return;
-        if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
+        if (!isPanelOpen) return;
+        if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0) ||
+            Input.GetKeyDown(KeyCode.Escape))
         {
             // 창닫기
-            StartCoroutine(OnclosePanel());
+            ClosePanel();
         }
         
     }
@@ -55,19 +59,15 @@ public class NarrativePopup : MonoBehaviour
         scroll.onValueChanged.RemoveListener(OnScrollChanged);
     }
 
-    public void OnOpenNarrative(UIEvents.OpenNarrativePopup evt) { 
-        isDisplay = true;
-        background.enabled = true;
-        scroll.enabled = true;
-        text.enabled = true;
-        anim.SetTrigger("OnOpenNarrative");
+    public void OnOpenNarrative(UIEvents.OpenNarrativePopup evt) {
+        Display();
 
         // Narrative Mode 실행
         pc.CurMode = PlayMode.NarrativeMode;
         EventBus.Instance.Publish<GameEvents.GameModeChange>(new GameEvents.GameModeChange());
 
+        // Narrative 출력
         if (evt.item.GetType() != ItemType.Readable) return;
-
         ReadableData data = ItemDatabaseManager.Instance.GetReadable(evt.item.GetItemID());
         if (data != null) {
             ShowNarrative(data);
@@ -82,30 +82,31 @@ public class NarrativePopup : MonoBehaviour
     }
 
     public void ShowNarrative(ReadableData data) {
-        text.text = data.narrative;
+        if (data != null) { 
+            text.text = data.narrative;
+        }
     }
 
-    IEnumerator OnclosePanel() {
-        anim.SetTrigger("OnCloseNarrative");
-        yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length);
-        StopCoroutine(blinkCor);
+    // 패널 닫기
+    private void ClosePanel() {
+        Hide();
 
-        // Inspector Mode
-        pc.CurMode = PlayMode.InspectMode;
+        if (blinkCor != null)
+            StopCoroutine(blinkCor);
+
+        // 모드 변경
+        pc.CurMode = PlayMode.DialogMode;
         EventBus.Instance.Publish<GameEvents.GameModeChange>(new GameEvents.GameModeChange());
 
-        Debug.Log("Narrative 종료");
-        background.enabled = false;
-        text.enabled = false;
-        isDisplay = false;
-        group.alpha = 0f;
-
+        // Reply 호출
+        EventBus.Instance.Publish<UIEvents.OpenDialogPopup>(new UIEvents.OpenDialogPopup(ItemManager.CurrentItem, false));
     }
+
 
     IEnumerator Delay() {
         if (standbyInput) yield break;
 
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(1f);
         blinkCor = StartCoroutine(blink.BlinkAnnounceMSG(group));
         standbyInput = true;
     }

@@ -10,12 +10,12 @@ public class DialogPopup : MonoBehaviour
     // Readable (C : Monologue / Narrative End : Reply)
 
     [Header("UI Refs")]
-    //[SerializeField] private RectTransform targetPanel;
     [SerializeField] private Image background;
     [SerializeField] private TextMeshProUGUI text;
     [SerializeField] private CanvasGroup group;
  
     private bool isDisplay = false;
+    private PlayerController pc;
     private Coroutine curCoroutine;
     private Coroutine blinkCor;
     private Animator anim;
@@ -32,7 +32,9 @@ public class DialogPopup : MonoBehaviour
         if (!TryGetComponent<BlinkAnnounce>(out blink)) {
             Debug.Log("DialogPopup - Failed to Load BlinkAnnounce");
         }
-        
+        pc = FindAnyObjectByType<PlayerController>();
+        if (pc == null)
+            Debug.Log("NarrativePopup - Failed to Load PlayerController");
     }
 
     private void Update()
@@ -69,6 +71,10 @@ public class DialogPopup : MonoBehaviour
         if (curCoroutine != null) return;
         if (isDisplay) return; // 전 Dialog Popup이 닫히지않으면 진입금지
 
+        // 모드변경
+        pc.CurMode = PlayMode.DialogMode;
+        EventBus.Instance.Publish<GameEvents.GameModeChange>(new GameEvents.GameModeChange());
+
         isDisplay = true;
         background.enabled = true;
         text.enabled = true;
@@ -96,10 +102,14 @@ public class DialogPopup : MonoBehaviour
 
             case ItemType.Readable:
                 ReadableData reaData = ItemDatabaseManager.Instance.GetReadable(evt.item.GetItemID());
-                if (evt.isClick) {
+                if (evt.isClick)
+                {
                     curCoroutine = StartCoroutine(TypeDialog(reaData.monologue));
                 }
-                //text.text = reaData.reply;
+                else //  Reply
+                {
+                    curCoroutine = StartCoroutine(TypeDialog(reaData.reply));
+                }
                 break;
         };
     }
@@ -132,6 +142,11 @@ public class DialogPopup : MonoBehaviour
     IEnumerator OnclosePanel() {
         anim.SetTrigger("OnCloseDialog");
         yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length);
+
+        //모드 변경
+        pc.CurMode = PlayMode.InspectMode;
+        EventBus.Instance.Publish<GameEvents.GameModeChange>(new GameEvents.GameModeChange());
+
         background.enabled = false;
         text.enabled = false;
 

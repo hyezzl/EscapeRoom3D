@@ -30,6 +30,7 @@ public class InspectableItem : MonoBehaviour, IInspectable
 
     public void InteractOnClick()
     {
+        
         PlayMonologue();
         EventBus.Instance.Publish<UIEvents.OpenDialogPopup>(new UIEvents.OpenDialogPopup(ItemManager.CurrentItem, true));
     }

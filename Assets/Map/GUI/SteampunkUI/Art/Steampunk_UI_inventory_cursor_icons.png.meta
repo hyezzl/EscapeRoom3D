@@ -1007,3 +1007,10 @@ TextureImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 238976
+  packageName: SteampunkUI
+  packageVersion: 1.0
+  assetPath: Assets/Map/GUI/SteampunkUI/Art/Steampunk_UI_inventory_cursor_icons.png
+  uploadId: 559104

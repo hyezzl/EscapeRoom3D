@@ -75,7 +75,7 @@ public class InventoryUIManager : PanelController
     public override void TogglePanel()
     {
         base.TogglePanel();
-        if (isOpenInventory)
+        if (isPanelOpen)
         {
             //Debug.Log("인벤토리 열림");
             pc.CurMode = PlayMode.InventoryMode;
@@ -101,7 +101,7 @@ public class InventoryUIManager : PanelController
     // 인벤토리 닫기
     public void ExitInventory()
     {
-        if (isOpenInventory)
+        if (isPanelOpen)
         {
             pc.CurMode = PlayMode.InspectMode;
             EventBus.Instance.Publish<GameEvents.GameModeChange>(new GameEvents.GameModeChange());
