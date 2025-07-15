@@ -26,4 +26,7 @@ public static class GameEvents
             this.itemID = itemID;
         }
     }
+
+    public struct UnequipItem { }
+    
 }

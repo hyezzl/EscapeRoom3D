@@ -94,15 +94,29 @@ public class InventoryUIManager : PanelController
                     
                 }
 
-                // Equip 
+                // Equip (장착 / 해제)
                 if (Input.GetKeyDown(KeyCode.E)) {
                     Debug.Log("장착");
                     // 모드변경 + 인벤토리 닫기
                     ExitInventory();
 
-                    // 아이템 Equip
-                    if (ItemManager.SelectedSlot.ItemInst.itemID == 0) Debug.Log("선택된 아이템 없음");
-                    EventBus.Instance.Publish<GameEvents.EquipItem>(new GameEvents.EquipItem(ItemManager.SelectedSlot.ItemInst.itemID));
+                    if (ItemManager.EquipItem == null)
+                    {
+                        // 아이템 Equip
+                        EventBus.Instance.Publish<GameEvents.EquipItem>(new GameEvents.EquipItem(ItemManager.SelectedSlot.ItemInst.itemID));
+                    }
+                    else {
+                        // 선택된 아이템이 이미 착용하고 있는 아이템 (장착 해제)
+                        if (ItemManager.EquipItem.itemID == ItemManager.SelectedSlot.ItemInst.itemID)
+                        {
+                            EventBus.Instance.Publish<GameEvents.UnequipItem>(new GameEvents.UnequipItem());
+                        }
+                        else // 착용하고 있는 아이템과는 다른 아이템 Equip (해제 후 장착)
+                        {
+                            EventBus.Instance.Publish<GameEvents.UnequipItem>(new GameEvents.UnequipItem());
+                            EventBus.Instance.Publish<GameEvents.EquipItem>(new GameEvents.EquipItem(ItemManager.SelectedSlot.ItemInst.itemID));
+                        }
+                    }
                 }
             }
         
