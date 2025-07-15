@@ -9,6 +9,7 @@ public class InventoryUIManager : PanelController
     [SerializeField] private Transform slotParent;
     [SerializeField] private GameObject slotPrefab;
     [SerializeField] private Button exitBTN;
+    [SerializeField] private CanvasGroup inform;
 
     private PlayerController pc;
     private const int slotCnt = 16;
@@ -30,6 +31,11 @@ public class InventoryUIManager : PanelController
         RefreshInventory();
     }
 
+    private void Start()
+    {
+        inform.alpha = 0f; // inform 숨기기
+    }
+
     private void OnEnable()
     {
         EventBus.Instance.Subscribe<GameEvents.InventoryChanged>(OnInventoryChanged);
@@ -42,6 +48,7 @@ public class InventoryUIManager : PanelController
         EventBus.Instance.Unsubscribe<GameEvents.InventoryChanged>(OnInventoryChanged);
         EventBus.Instance.Unsubscribe<UIEvents.ToggleInventory>(_ => TogglePanel());
         EventBus.Instance.Unsubscribe<UIEvents.SlotClicked>(SelectSlot);
+        exitBTN.onClick.RemoveListener(ExitInventory);
     }
 
     private void OnInventoryChanged(GameEvents.InventoryChanged evt) {
@@ -67,8 +74,38 @@ public class InventoryUIManager : PanelController
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape)) {
-            ExitInventory();
+        if (isPanelOpen) { 
+            if (Input.GetKeyDown(KeyCode.Escape)) {
+                ExitInventory();
+            }
+
+            // 슬롯이 선택된 경우
+            if (ItemManager.SelectedSlot != null) {
+                // View Mode
+                if (Input.GetKeyDown(KeyCode.Space)) {
+                    Debug.Log("뷰모드 진입");
+
+                    //모드변경
+                    pc.CurMode = PlayMode.ViewMode;
+                    EventBus.Instance.Publish<GameEvents.GameModeChange>(new GameEvents.GameModeChange());
+
+                    // 뷰모드 활성화
+                    EventBus.Instance.Publish<UIEvents.OpenViewMode>(new UIEvents.OpenViewMode(ItemManager.SelectedSlot.ItemInst.itemID));              
+                    
+                }
+
+                // Equip 
+                if (Input.GetKeyDown(KeyCode.E)) {
+                    Debug.Log("장착");
+                    // 모드변경 + 인벤토리 닫기
+                    ExitInventory();
+
+                    // 아이템 Equip
+                    if (ItemManager.SelectedSlot.ItemInst.itemID == 0) Debug.Log("선택된 아이템 없음");
+                    EventBus.Instance.Publish<GameEvents.EquipItem>(new GameEvents.EquipItem(ItemManager.SelectedSlot.ItemInst.itemID));
+                }
+            }
+        
         }
     }
 
@@ -77,12 +114,10 @@ public class InventoryUIManager : PanelController
         base.TogglePanel();
         if (isPanelOpen)
         {
-            //Debug.Log("인벤토리 열림");
             pc.CurMode = PlayMode.InventoryMode;
             EventBus.Instance.Publish<GameEvents.GameModeChange>(new GameEvents.GameModeChange());
         }
         else {
-            //Debug.Log("인벤토리 닫힘");
             pc.CurMode = PlayMode.InspectMode;
             EventBus.Instance.Publish<GameEvents.GameModeChange>(new GameEvents.GameModeChange());
         }

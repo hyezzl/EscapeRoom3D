@@ -23,5 +23,4 @@ public class ItemManager : Singleton<ItemManager>
     // 인벤토리에서 선택된 슬롯 / 아이템
     public static InventoryUISlot selectedSlot;
     public static InventoryUISlot SelectedSlot { get; set; }
-    public static int SelectItemID => selectedSlot.ItemInst.itemID;
 }

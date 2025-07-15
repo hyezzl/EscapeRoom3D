@@ -36,4 +36,13 @@ public static class UIEvents
             this.item= item;
         }
     }
+
+    public struct OpenViewMode 
+    {
+        public int itemID;
+
+        public OpenViewMode(int itemID) {
+            this.itemID = itemID;
+        }
+    }
 }

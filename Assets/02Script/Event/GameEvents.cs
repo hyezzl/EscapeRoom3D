@@ -18,4 +18,12 @@ public static class GameEvents
 
     // 게임모드(PlayerController) 변경
     public struct GameModeChange { }
+
+    public struct EquipItem
+    {
+        public int itemID;
+        public EquipItem(int itemID) { 
+            this.itemID = itemID;
+        }
+    }
 }
