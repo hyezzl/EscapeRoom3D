@@ -12,13 +12,13 @@ public class EquipItem : MonoBehaviour
     private void OnEnable()
     {
         EventBus.Instance.Subscribe<GameEvents.EquipItem>(OnEquipItem);
-        EventBus.Instance.Subscribe<GameEvents.UnequipItem>(_ => OnUnequipItem());
+        EventBus.Instance.Subscribe<GameEvents.UnequipItem>(OnUnequipItem);
 
     }
     private void OnDisable()
     {
         EventBus.Instance.Unsubscribe<GameEvents.EquipItem>(OnEquipItem);
-        EventBus.Instance.Unsubscribe<GameEvents.UnequipItem>(_ => OnUnequipItem());
+        EventBus.Instance.Unsubscribe<GameEvents.UnequipItem>(OnUnequipItem);
     }
 
     public void OnEquipItem(GameEvents.EquipItem evt) {
@@ -29,6 +29,12 @@ public class EquipItem : MonoBehaviour
     }
 
     private IEnumerator LoadPickableItem(int itemID) {
+        // 기존 착용 아이템 삭제
+        if (equippedItem != null) { 
+            Destroy(equippedItem);
+            equippedItem = null;
+        }
+
         handle = Addressables.LoadAssetAsync<GameObject>(itemID.ToString());
         yield return handle;
 
@@ -51,7 +57,7 @@ public class EquipItem : MonoBehaviour
         }
     }
 
-    public void OnUnequipItem() {
+    public void OnUnequipItem(GameEvents.UnequipItem evt) {
         // 장착 해제
         ItemManager.EquipItem = null;
         Release();

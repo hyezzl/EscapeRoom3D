@@ -39,14 +39,14 @@ public class InventoryUIManager : PanelController
     private void OnEnable()
     {
         EventBus.Instance.Subscribe<GameEvents.InventoryChanged>(OnInventoryChanged);
-        EventBus.Instance.Subscribe<UIEvents.ToggleInventory>(_ => TogglePanel());
+        EventBus.Instance.Subscribe<UIEvents.ToggleInventory>(OnToggleInventory);
         EventBus.Instance.Subscribe<UIEvents.SlotClicked>(SelectSlot);
         exitBTN.onClick.AddListener(ExitInventory);
     }
     private void OnDisable()
     {
         EventBus.Instance.Unsubscribe<GameEvents.InventoryChanged>(OnInventoryChanged);
-        EventBus.Instance.Unsubscribe<UIEvents.ToggleInventory>(_ => TogglePanel());
+        EventBus.Instance.Unsubscribe<UIEvents.ToggleInventory>(OnToggleInventory);
         EventBus.Instance.Unsubscribe<UIEvents.SlotClicked>(SelectSlot);
         exitBTN.onClick.RemoveListener(ExitInventory);
     }
@@ -96,7 +96,6 @@ public class InventoryUIManager : PanelController
 
                 // Equip (장착 / 해제)
                 if (Input.GetKeyDown(KeyCode.E)) {
-                    Debug.Log("장착");
                     // 모드변경 + 인벤토리 닫기
                     ExitInventory();
 
@@ -123,15 +122,29 @@ public class InventoryUIManager : PanelController
         }
     }
 
-    public override void TogglePanel()
-    {
-        base.TogglePanel();
+    //public override void TogglePanel()
+    //{
+    //    base.TogglePanel();
+    //    if (isPanelOpen)
+    //    {
+    //        pc.CurMode = PlayMode.InventoryMode;
+    //        EventBus.Instance.Publish<GameEvents.GameModeChange>(new GameEvents.GameModeChange());
+    //    }
+    //    else {
+    //        pc.CurMode = PlayMode.InspectMode;
+    //        EventBus.Instance.Publish<GameEvents.GameModeChange>(new GameEvents.GameModeChange());
+    //    }
+    //}
+
+    public void OnToggleInventory(UIEvents.ToggleInventory evt) {
+        TogglePanel();
         if (isPanelOpen)
         {
             pc.CurMode = PlayMode.InventoryMode;
             EventBus.Instance.Publish<GameEvents.GameModeChange>(new GameEvents.GameModeChange());
         }
-        else {
+        else
+        {
             pc.CurMode = PlayMode.InspectMode;
             EventBus.Instance.Publish<GameEvents.GameModeChange>(new GameEvents.GameModeChange());
         }

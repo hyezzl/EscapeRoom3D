@@ -131,9 +131,6 @@ public class PlayerController : MonoBehaviour
         {
             // 앉기 + 수평이동
             playerState = PlayerState.Crouching;
-            //if (dir.sqrMagnitude > 0.01f) { 
-            //    SetCameraNoise(myCameraShake, 0.7f, 0.7f);
-            //}
 
             controller.Move(moveDir * (moveSpeed * crouchRatio * Time.deltaTime));
         }
@@ -203,7 +200,9 @@ public class PlayerController : MonoBehaviour
     // 인벤토리 UI 토글
     private void ToggleInventory() {
         if (inputHandler.ToggleInventory()) {
-            EventBus.Instance.Publish<UIEvents.ToggleInventory>(new UIEvents.ToggleInventory());
+            if (curMode == PlayMode.InspectMode || curMode == PlayMode.InventoryMode) { 
+                EventBus.Instance.Publish<UIEvents.ToggleInventory>(new UIEvents.ToggleInventory());
+            }
         }
     }
 }
