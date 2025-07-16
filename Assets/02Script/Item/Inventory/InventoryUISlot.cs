@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -12,7 +11,6 @@ public class InventoryUISlot : MonoBehaviour, IPointerClickHandler
 
     private ItemInstance itemInst;
     public ItemInstance ItemInst => itemInst;
-
 
     public void Set(ItemInstance newInst) {
         if (newInst != null && newInst.Data != null)
@@ -30,6 +28,7 @@ public class InventoryUISlot : MonoBehaviour, IPointerClickHandler
         SetSelect(false);
     }
 
+    // 선택 박스
     public void SetSelect(bool isSelected) { 
         selectBox?.SetActive(isSelected);
     }

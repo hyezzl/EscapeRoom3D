@@ -6,6 +6,7 @@ using UnityEngine;
 public class PlayerSight : MonoBehaviour
 {
     public List<IActionItem> overlapItems = new();
+    [SerializeField] private CanvasGroup hotspot;
 
     private void Awake()
     {
@@ -24,14 +25,24 @@ public class PlayerSight : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        // E 핫스팟
+        hotspot.alpha = 0f;
+        hotspot.interactable = false;
+        hotspot.blocksRaycasts = false;
+    }
+
     // 아이템 획득 시, 해당 아이템 overlapItems에서 제외
     private void OnEnable()
     {
         EventBus.Instance.Subscribe<GameEvents.GetItem>(ExceptItem);
+        EventBus.Instance.Subscribe<GameEvents.GameModeChange>(HideHotspot);
     }
 
     private void OnDisable() { 
         EventBus.Instance.Unsubscribe<GameEvents.GetItem>(ExceptItem);
+        EventBus.Instance.Unsubscribe<GameEvents.GameModeChange>(HideHotspot);
 
         // 비활성화 시 초기화
         overlapItems.Clear();
@@ -43,6 +54,10 @@ public class PlayerSight : MonoBehaviour
 
         // 재 오버랩
         StartCoroutine(ReOverlap());
+    }
+
+    private void HideHotspot(GameEvents.GameModeChange evt) {
+        hotspot.alpha = 0f;
     }
 
 
@@ -57,6 +72,7 @@ public class PlayerSight : MonoBehaviour
                 outline.enabled = true;
             }
 
+            // 오버랩 리스트 추가
             if (other.TryGetComponent<IActionItem>(out IActionItem item))
             {
                 overlapItems.Add(item);
@@ -66,6 +82,13 @@ public class PlayerSight : MonoBehaviour
 
             Debug.Log($"시야 리스트 내 {overlapItems.Count}개");
             Debug.Log($"선정된 아이템 : {GetClosestItem()}");
+
+            if (GetClosestItem().GetType() == ItemType.Readable
+                || GetClosestItem().GetType() == ItemType.Interactable)
+            {
+                // 바라보고있는 아이템이 Readable or Interactable 이라면,
+                hotspot.alpha = 1f;
+            }
         }
     }
 
@@ -84,20 +107,11 @@ public class PlayerSight : MonoBehaviour
             }
             // 오버랩된 값 초기화
             ItemManager.CurrentItem = null;
+
+            // hotspot 제거
+            hotspot.alpha = 0f;
         }
     }
-
-    // 시야에 가장 가까운 오브젝트 반환
-    // X . 시야엔 여러개가 들어와도 정확히 바라보고있지 않으면 레이캐스트의 결과값이 없을수도 있으므로.
-    //public IActionItem GetClosestItem2() {
-    //    Ray ray = new Ray(transform.position, transform.forward);
-    //    if (Physics.Raycast(ray, out RaycastHit hit, 5f)) {
-    //        if (hit.collider.TryGetComponent<IActionItem>(out IActionItem item)) {
-    //            return item;
-    //        }
-    //    }
-    //    return null;
-    //}
 
     public IActionItem GetClosestItem()
     {
