@@ -31,7 +31,6 @@ public class PickableItem : MonoBehaviour, IPickable
 
     public void OnpickUp()
     {
-        Debug.Log("줍기행동");
         if (ItemManager.CurrentItem != null)
         {
             EventBus.Instance.Publish<GameEvents.GetItem>(new GameEvents.GetItem(this));

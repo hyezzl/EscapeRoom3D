@@ -5,7 +5,7 @@ public class BlinkAnnounce : MonoBehaviour
 {
 
     public IEnumerator BlinkAnnounceMSG(CanvasGroup group) {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1f);
         float t = 0f;
         bool fadeIn = true;
         while (true)

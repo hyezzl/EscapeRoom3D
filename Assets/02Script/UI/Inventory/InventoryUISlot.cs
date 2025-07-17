@@ -8,6 +8,7 @@ public class InventoryUISlot : MonoBehaviour, IPointerClickHandler
     [Header("UI Refs")]
     [SerializeField] private Image iconImage;
     [SerializeField] private GameObject selectBox;
+    [SerializeField] private GameObject equipBox;
 
     private ItemInstance itemInst;
     public ItemInstance ItemInst => itemInst;
@@ -31,6 +32,10 @@ public class InventoryUISlot : MonoBehaviour, IPointerClickHandler
     // 선택 박스
     public void SetSelect(bool isSelected) { 
         selectBox?.SetActive(isSelected);
+    }
+
+    public void SetEquip(bool isEquip) { 
+        equipBox?.SetActive(isEquip);
     }
 
     public void OnPointerClick(PointerEventData evt)

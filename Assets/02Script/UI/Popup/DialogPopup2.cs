@@ -1,10 +1,9 @@
 using System.Collections;
-using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class DialogPopup : MonoBehaviour
+public class DialogPopup2 : MonoBehaviour
 {
     // Interactable(C : Monologue, E : DeactiveMSG)
     // Inspectable (C : Monologue)
@@ -14,28 +13,23 @@ public class DialogPopup : MonoBehaviour
     [SerializeField] private Image background;
     [SerializeField] private TextMeshProUGUI text;
     [SerializeField] private CanvasGroup group;
-
-    Tweener typing;
-    Sequence seq;
-    private string sentence;
-    private float typingSpeed = 0.05f;
-
+ 
+    private bool isDisplay = false;
     private PlayerController pc;
+    private Coroutine curCoroutine;
     private Coroutine blinkCor;
     private Animator anim;
     private BlinkAnnounce blink;
-    private bool isDisplay = false;
     private bool isTyping = false;
+    private bool isSkip = false;
     private bool standbyInput = false;
 
     private void Awake()
     {
-        if (!TryGetComponent<Animator>(out anim))
-        {
+        if (!TryGetComponent<Animator>(out anim)) {
             Debug.Log("DialogPopup - Failed to Load Animator");
         }
-        if (!TryGetComponent<BlinkAnnounce>(out blink))
-        {
+        if (!TryGetComponent<BlinkAnnounce>(out blink)) {
             Debug.Log("DialogPopup - Failed to Load BlinkAnnounce");
         }
         pc = FindAnyObjectByType<PlayerController>();
@@ -45,20 +39,20 @@ public class DialogPopup : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
-        {
+        if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0)) {
             // Space 혹은 클릭 입력들어오면
             if (isTyping) // 타이핑중
             {
-                SkipDialog();
+                isSkip = true;
             }
-            else if (standbyInput) // 타이핑 끝난 후 입력 대기상태
+            else if (standbyInput) // 코루틴 끝난 후 입력 대기상태
             {
                 // 경고문구 삭제
-                if(blinkCor != null) StopCoroutine(blinkCor);
+                if (blinkCor == null) Debug.Log("뭔가 잘못됨");
+                StopCoroutine(blinkCor);
                 group.alpha = 0f;
 
-                StartCoroutine(OnclosePanel());
+                Next();
             }
         }
     }
@@ -72,8 +66,9 @@ public class DialogPopup : MonoBehaviour
         EventBus.Instance.Unsubscribe<UIEvents.OpenDialogPopup>(OnOpenDialog);
     }
 
-    public void OnOpenDialog(UIEvents.OpenDialogPopup evt)
+    public void OnOpenDialog(UIEvents.OpenDialogPopup evt) 
     {
+        if (curCoroutine != null) return;
         if (isDisplay) return; // 전 Dialog Popup이 닫히지않으면 진입금지
 
         // 모드변경
@@ -84,27 +79,24 @@ public class DialogPopup : MonoBehaviour
         background.enabled = true;
         text.enabled = true;
         anim.SetTrigger("OnOpenDialog");
-
+        
         // 분기
-        switch (evt.item.GetType())
-        {
+        switch (evt.item.GetType()) {
             case ItemType.Interactable:
                 InteractableData intData = ItemDatabaseManager.Instance.GetInteractable(evt.item.GetItemID());
                 if (evt.isClick)
                 {
-                    TypeDialog(intData.monologue);
+                    curCoroutine = StartCoroutine(TypeDialog(intData.monologue));
                 }
-                else
-                {
-                    TypeDialog(intData.deactiveMSG);
+                else {
+                    curCoroutine = StartCoroutine(TypeDialog(intData.deactiveMSG));
                 }
                 break;
 
             case ItemType.Inspectable:
                 InspectableData insData = ItemDatabaseManager.Instance.GetInspectable(evt.item.GetItemID());
-                if (evt.isClick)
-                {
-                    TypeDialog(insData.monologue);
+                if (evt.isClick) {
+                    curCoroutine = StartCoroutine(TypeDialog(insData.monologue));
                 }
                 break;
 
@@ -112,50 +104,42 @@ public class DialogPopup : MonoBehaviour
                 ReadableData reaData = ItemDatabaseManager.Instance.GetReadable(evt.item.GetItemID());
                 if (evt.isClick)
                 {
-                    TypeDialog(reaData.monologue);
+                    curCoroutine = StartCoroutine(TypeDialog(reaData.monologue));
                 }
                 else //  Reply
                 {
-                    TypeDialog(reaData.reply);
+                    curCoroutine = StartCoroutine(TypeDialog(reaData.reply));
                 }
                 break;
         };
     }
 
-    private void TypeDialog(string sentence) {
-        if (typing != null && typing.IsActive()) typing.Kill();
-        if (seq != null && seq.IsActive()) seq.Kill();
-        if (blinkCor != null) StopCoroutine(blinkCor);
-
-        this.sentence = sentence; // 캐싱
-        float duration = sentence.Length * typingSpeed;
-        isTyping = true;
-        seq = DOTween.Sequence();
-        typing = text.DOText(sentence, duration).SetEase(Ease.Linear);
-
-        seq.Append(typing)
-            .AppendCallback(() =>
-            {
-                isTyping = false;
-                standbyInput = true;
-                blinkCor = StartCoroutine(blink.BlinkAnnounceMSG(group));
-            });
+    public void Next() {
+        if (curCoroutine != null) return;
+        StartCoroutine(OnclosePanel());
     }
 
-    // 스킵 시 바로 출력
-    private void SkipDialog() {
-        if (isTyping && seq.IsActive()) seq.Kill();
-        text.text = sentence;
-        
+    IEnumerator TypeDialog(string sentence) {
+        isTyping = true;
+        isSkip = false;
+        text.text = "";
+
+        foreach (var letter in sentence) {
+            if (isSkip) {
+                text.text = sentence;
+                break;
+            }
+            text.text += letter;
+            yield return new WaitForSeconds(0.03f);
+        }
         isTyping = false;
+        curCoroutine = null;
+
         standbyInput = true;
-        if (blinkCor != null) StopCoroutine(blinkCor);
         blinkCor = StartCoroutine(blink.BlinkAnnounceMSG(group));
     }
 
-    // 패널 닫기
-    IEnumerator OnclosePanel()
-    {
+    IEnumerator OnclosePanel() {
         anim.SetTrigger("OnCloseDialog");
         yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length);
 
@@ -163,16 +147,11 @@ public class DialogPopup : MonoBehaviour
         pc.CurMode = PlayMode.InspectMode;
         EventBus.Instance.Publish<GameEvents.GameModeChange>(new GameEvents.GameModeChange());
 
-        // 값 초기화
-        if (blinkCor != null) StopCoroutine(blinkCor);
-        if (typing != null && typing.IsActive()) typing.Kill();
-        if (seq != null && seq.IsActive()) seq.Kill();
-        text.text = "";
-
         background.enabled = false;
         text.enabled = false;
 
         standbyInput = false;
         isDisplay = false;
     }
+
 }

@@ -13,7 +13,7 @@ public class InventoryUIManager : PanelController
 
     [Header("Inform Message")]
     [SerializeField] private TextMeshProUGUI equipText;
-    [SerializeField] private TextMeshProUGUI uneuipText;
+    [SerializeField] private TextMeshProUGUI unequipText;
     [SerializeField] private CanvasGroup staticgroup;
 
     private PlayerController pc;
@@ -39,7 +39,7 @@ public class InventoryUIManager : PanelController
     private void Start()
     {
         equipText.enabled = true; // 기본문구
-        uneuipText.enabled = false;
+        unequipText.enabled = false;
     }
 
 
@@ -72,9 +72,19 @@ public class InventoryUIManager : PanelController
             if (i < items.Count)
             {
                 slots[i].Set(items[i]);
+
+                if (ItemManager.EquipItem != null && 
+                    items[i].itemID == ItemManager.EquipItem.itemID)
+                {  // 장착중인 아이템일 때
+                    slots[i].SetEquip(true);
+                }
+                else { 
+                    slots[i].SetEquip(false);
+                }
             }
             else {
                 slots[i].Set(null);
+                slots[i].SetEquip(false);
             }
         }
     }
@@ -119,10 +129,12 @@ public class InventoryUIManager : PanelController
                         if (ItemManager.EquipItem.itemID == selectedSlotcache.ItemInst.itemID)
                         {
                             EventBus.Instance.Publish<GameEvents.UnequipItem>(new GameEvents.UnequipItem());
+                            RefreshInventory(); // :( 박스 바로 사라지는게 보기좋음
                         }
                         else // 착용하고 있는 아이템과는 다른 아이템 Equip (해제 후 장착)
                         {
                             EventBus.Instance.Publish<GameEvents.UnequipItem>(new GameEvents.UnequipItem());
+                            RefreshInventory();
                             EventBus.Instance.Publish<GameEvents.EquipItem>(new GameEvents.EquipItem(selectedSlotcache.ItemInst.itemID));
                         }
                     }
@@ -133,9 +145,10 @@ public class InventoryUIManager : PanelController
     }
 
     public void OnToggleInventory(UIEvents.ToggleInventory evt) {
+        RefreshInventory();
         TogglePanel();
         equipText.enabled = true;
-        uneuipText.enabled = false;
+        unequipText.enabled = false;
 
         if (isPanelOpen)
         {
@@ -158,8 +171,6 @@ public class InventoryUIManager : PanelController
 
     // 선택된 슬롯 고유성
     public void SelectSlot(UIEvents.SlotClicked evt) {
-        // 선택 슬롯 정보 캐싱
-        //var selectedSlotcache = ItemManager.SelectedSlot;
 
         if (evt.itemInst == null) return; // 빈 슬롯일 경우 선택 불가
 
@@ -174,11 +185,11 @@ public class InventoryUIManager : PanelController
         ItemManager.EquipItem.itemID == ItemManager.SelectedSlot.ItemInst.itemID)
         {
             equipText.enabled = false;
-            uneuipText.enabled = true;
+            unequipText.enabled = true;
         }
         else {
             equipText.enabled = true;
-            uneuipText.enabled = false;
+            unequipText.enabled = false;
         }
     }
 
