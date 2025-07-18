@@ -74,6 +74,13 @@ public class VirtualCamera : MonoBehaviour
                 mouseSensitivity = 0f;
                 Debug.Log("DialogMode 활성화");
                 break;
+
+            case PlayMode.ViewMode:
+                mouseSensitivity = 1.5f;
+                Cursor.visible = true;
+                Cursor.lockState = CursorLockMode.None;
+                Debug.Log("ViewMode 활성화");
+                break;
         }
     }
 

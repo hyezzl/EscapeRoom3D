@@ -43,9 +43,19 @@ public class InteractableItem : MonoBehaviour, IInteractable
 
     public void InteractOnE()
     {
-        // Deactive Sound + DeactiveMSG
-        PlayDeactiveMSG();
-        EventBus.Instance.Publish<UIEvents.OpenDialogPopup>(new UIEvents.OpenDialogPopup(ItemManager.CurrentItem, false));
+        if (ItemManager.EquipItem != null &&
+            data.pairID == ItemManager.EquipItem.pairID)
+        {
+            // 장착한 아이템과 Interactable이 짝일 때
+            Debug.Log("@@@@@@@@@@@@@@@@@@@@퍼즐 해결!@@@@@@@@@@@@@@@@@@@@");
+            // 특정 애니메이션
+        }
+        else { 
+            // Deactive Sound + DeactiveMSG
+            PlayDeactiveMSG();
+            EventBus.Instance.Publish<UIEvents.OpenDialogPopup>(new UIEvents.OpenDialogPopup(ItemManager.CurrentItem, false));
+        }
+
 
 
         // PairID 맞는경우 퍼즐해제

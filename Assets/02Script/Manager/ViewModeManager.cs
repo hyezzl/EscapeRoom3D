@@ -1,9 +1,12 @@
 using UnityEngine;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
-public class ViewItem : MonoBehaviour
+public class ViewModeManager : Singleton<ViewModeManager>
 {
+    [SerializeField] private Canvas viewCanvas;
     private PickableItem item;
-
+    private AsyncOperationHandle<GameObject> handle;
+    private Vector3 spawnPos = new Vector3(0, 0, 2);
 
 
     private void OnEnable()
@@ -17,7 +20,6 @@ public class ViewItem : MonoBehaviour
     }
 
     public void OnViewMode(UIEvents.OpenViewMode evt) {
-        Debug.Log("ºä¸ðµå ½ÇÇà");
         //evt.itemID;
     }
 }
