@@ -17,6 +17,7 @@ public class InventoryUIManager : PanelController
     [SerializeField] private CanvasGroup staticgroup;
 
     private PlayerController pc;
+    private IInputHandler inputHandler;
     private const int slotCnt = 16;
     private List<InventoryUISlot> slots = new();
 
@@ -92,7 +93,7 @@ public class InventoryUIManager : PanelController
     private void Update()
     {
         if (isPanelOpen) { 
-            if (Input.GetKeyDown(KeyCode.Escape)) {
+            if (inputHandler.Escape()) {
                 ExitInventory();
             }
 
@@ -114,7 +115,7 @@ public class InventoryUIManager : PanelController
                 }
 
                 // Equip (장착 / 해제)
-                if (Input.GetKeyDown(KeyCode.E)) {
+                if (inputHandler.DoInsteract()) {
                     // 모드변경 + 인벤토리 닫기
                     ExitInventory();
 

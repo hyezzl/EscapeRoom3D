@@ -17,4 +17,6 @@ public interface IInputHandler
     public bool LeftClick();
 
     public bool ToggleInventory();
+
+    public bool Escape();
 }

@@ -34,4 +34,8 @@ public class KeyboardInputHandler : MonoBehaviour, IInputHandler
     public bool ToggleInventory() {
         return Input.GetKeyDown(KeyCode.I);
     }
+
+    public bool Escape() {
+        return Input.GetKeyDown(KeyCode.Escape);
+    }
 }

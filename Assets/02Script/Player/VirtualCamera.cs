@@ -36,14 +36,14 @@ public class VirtualCamera : MonoBehaviour
 
     private void OnEnable()
     {
-        EventBus.Instance.Subscribe<GameEvents.GameModeChange>(_ => ChangeCursor());
+        EventBus.Instance.Subscribe<GameEvents.GameModeChange>(ChangeCursor);
     }
     private void OnDisable()
     {
-        EventBus.Instance.Unsubscribe<GameEvents.GameModeChange>(_ => ChangeCursor());
+        EventBus.Instance.Unsubscribe<GameEvents.GameModeChange>(ChangeCursor);
     }
 
-    private void ChangeCursor() {
+    private void ChangeCursor(GameEvents.GameModeChange evt) {
         switch (pc.CurMode)
         {
             case PlayMode.InspectMode:

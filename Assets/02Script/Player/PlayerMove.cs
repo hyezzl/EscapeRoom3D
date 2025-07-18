@@ -7,12 +7,12 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] private float dashRatio = 2.5f;
     [SerializeField] private float crouchRatio = 0.4f;
 
-    //private PlayerState playerState;
     private PlayerController pc;
     private CharacterController controller;
     private IInputHandler inputHandler;
     private Transform eyeHeight;
 
+    private bool isMovable = true; // 움직임 제어 플래그
     private Vector3 defaultCamHeight = new Vector3(0f, 2.5f, 0f);
     private Vector3 crouchCamHeight = new Vector3(0f, 1.7f, 0f);
     private float gravity = -9.8f;
@@ -40,10 +40,19 @@ public class PlayerMove : MonoBehaviour
         }
     }
 
+    private void OnEnable()
+    {
+        EventBus.Instance.Subscribe<GameEvents.GameModeChange>(MoveControl);
+    }
+    private void OnDisable()
+    {
+        EventBus.Instance.Unsubscribe<GameEvents.GameModeChange>(MoveControl);
+    }
+
     private void Update()
     {
-        HandleMovement();
         ApplyGravity();
+        if(isMovable) HandleMovement();
     }
 
     private void HandleMovement()
@@ -103,6 +112,36 @@ public class PlayerMove : MonoBehaviour
         }
         velocity.y += gravity * Time.deltaTime;
         verticalDir = Vector3.up * velocity.y;
+    }
+
+    // 움직임 제어
+    private void MoveControl(GameEvents.GameModeChange evt) {
+        switch (pc.CurMode) 
+        {
+            case PlayMode.InspectMode:
+                isMovable = true;
+                break;
+
+            case PlayMode.PauseMode:
+                isMovable = false;
+                break;
+
+            case PlayMode.InventoryMode:
+                isMovable = false;
+                break;
+
+            case PlayMode.NarrativeMode:
+                isMovable = false;
+                break;
+
+            case PlayMode.DialogMode:
+                isMovable = false;
+                break;
+
+            case PlayMode.ViewMode:
+                isMovable = false;
+                break;
+        }
     }
 
 }
