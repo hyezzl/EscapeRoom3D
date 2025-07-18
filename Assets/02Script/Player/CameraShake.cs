@@ -31,7 +31,7 @@ public class CameraShake : MonoBehaviour
 
     private void Update()
     {
-        switch (pc.PlayerState) {
+        switch (pc.CurState) {
             case PlayerState.Standing:
                 noise.m_NoiseProfile = null;
                 break;

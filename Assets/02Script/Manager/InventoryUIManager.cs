@@ -111,7 +111,6 @@ public class InventoryUIManager : PanelController
 
                     // 뷰모드 활성화
                     EventBus.Instance.Publish<UIEvents.OpenViewMode>(new UIEvents.OpenViewMode(selectedSlotcache.ItemInst.itemID));              
-                    
                 }
 
                 // Equip (장착 / 해제)

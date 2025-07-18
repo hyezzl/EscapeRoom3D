@@ -6,6 +6,8 @@ public class VirtualCamera : MonoBehaviour
 {
     [SerializeField] float mouseSensitivity = 1.5f;
     [SerializeField] Transform player;
+
+    private bool isCameraMove;
     private float cameraVertical = 0f;
     private PlayerController pc;
     private Texture2D cursor2D;
@@ -26,6 +28,7 @@ public class VirtualCamera : MonoBehaviour
 
     private void Start()
     {
+        isCameraMove = true; //임시
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.SetCursor(cursor2D, Vector2.zero, CursorMode.Auto);
@@ -44,6 +47,7 @@ public class VirtualCamera : MonoBehaviour
         switch (pc.CurMode)
         {
             case PlayMode.InspectMode:
+                isCameraMove = true;
                 mouseSensitivity = 1.5f;
                 Cursor.visible = false;
                 Cursor.lockState = CursorLockMode.Locked;
@@ -51,12 +55,14 @@ public class VirtualCamera : MonoBehaviour
                 break;
 
             case PlayMode.PauseMode:
+                isCameraMove = false;
                 Cursor.visible = true;
                 Cursor.lockState = CursorLockMode.None;
                 Debug.Log("PauseMode 활성화");
                 break;
 
             case PlayMode.InventoryMode:
+                isCameraMove = false;
                 mouseSensitivity = 0f;
                 Cursor.visible = true;
                 Cursor.lockState = CursorLockMode.None;
@@ -64,6 +70,7 @@ public class VirtualCamera : MonoBehaviour
                 break;
 
             case PlayMode.NarrativeMode:
+                isCameraMove = false;
                 mouseSensitivity = 0f;
                 Cursor.visible = true;
                 Cursor.lockState = CursorLockMode.None;
@@ -71,11 +78,13 @@ public class VirtualCamera : MonoBehaviour
                 break;
 
             case PlayMode.DialogMode:
+                isCameraMove= false;
                 mouseSensitivity = 0f;
                 Debug.Log("DialogMode 활성화");
                 break;
 
             case PlayMode.ViewMode:
+                isCameraMove = false;
                 mouseSensitivity = 1.5f;
                 Cursor.visible = true;
                 Cursor.lockState = CursorLockMode.None;
@@ -86,6 +95,8 @@ public class VirtualCamera : MonoBehaviour
 
     private void Update()
     {
+        if (!isCameraMove) return;
+
         float inputX = Input.GetAxis("Mouse X") * mouseSensitivity;
         float inputY = Input.GetAxis("Mouse Y") * mouseSensitivity;
 
