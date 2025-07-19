@@ -37,8 +37,9 @@ public class PickableItem : MonoBehaviour, IPickable
         }
         else
             Debug.Log("PickableItem - CurrentItem is null");    
+        
         ItemManager.CurrentItem = null;
-        Destroy(gameObject);
+        StartCoroutine(SafeDestroy());
     }
 
     public void InteractOnClick()
@@ -47,4 +48,9 @@ public class PickableItem : MonoBehaviour, IPickable
     }
 
     public void InteractOnE() { Debug.Log("E 기능없음"); }
+
+    private IEnumerator SafeDestroy() { 
+        yield return null;
+        Destroy(gameObject);
+    }
 }

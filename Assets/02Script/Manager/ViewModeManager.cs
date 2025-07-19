@@ -77,6 +77,7 @@ public class ViewModeManager : Singleton<ViewModeManager>
         // 모드 종료
         pc.CurMode = PlayMode.InventoryMode;
         EventBus.Instance.Publish<GameEvents.GameModeChange>(new GameEvents.GameModeChange());
+        EventBus.Instance.Publish<UIEvents.CloseViewMode>(new UIEvents.CloseViewMode());
 
         // 해제
         if (item != null) { 

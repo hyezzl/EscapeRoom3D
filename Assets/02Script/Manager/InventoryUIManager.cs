@@ -17,7 +17,6 @@ public class InventoryUIManager : PanelController
     [SerializeField] private CanvasGroup staticgroup;
 
     private PlayerController pc;
-    private IInputHandler inputHandler;
     private const int slotCnt = 16;
     private List<InventoryUISlot> slots = new();
 
@@ -49,6 +48,7 @@ public class InventoryUIManager : PanelController
         EventBus.Instance.Subscribe<GameEvents.InventoryChanged>(OnInventoryChanged);
         EventBus.Instance.Subscribe<UIEvents.ToggleInventory>(OnToggleInventory);
         EventBus.Instance.Subscribe<UIEvents.SlotClicked>(SelectSlot);
+        EventBus.Instance.Subscribe<UIEvents.CloseViewMode>(BackToInventory);
         exitBTN.onClick.AddListener(ExitInventory);
     }
     private void OnDisable()
@@ -56,6 +56,7 @@ public class InventoryUIManager : PanelController
         EventBus.Instance.Unsubscribe<GameEvents.InventoryChanged>(OnInventoryChanged);
         EventBus.Instance.Unsubscribe<UIEvents.ToggleInventory>(OnToggleInventory);
         EventBus.Instance.Unsubscribe<UIEvents.SlotClicked>(SelectSlot);
+        EventBus.Instance.Unsubscribe<UIEvents.CloseViewMode>(BackToInventory);
         exitBTN.onClick.RemoveListener(ExitInventory);
     }
 
@@ -93,7 +94,7 @@ public class InventoryUIManager : PanelController
     private void Update()
     {
         if (isPanelOpen) { 
-            if (inputHandler.Escape()) {
+            if (Input.GetKeyDown(KeyCode.Escape)) {
                 ExitInventory();
             }
 
@@ -115,7 +116,7 @@ public class InventoryUIManager : PanelController
                 }
 
                 // Equip (ÀåÂø / ÇØÁ¦)
-                if (inputHandler.DoInsteract()) {
+                if (Input.GetKeyDown(KeyCode.E)) {
                     // ¸ðµåº¯°æ + ÀÎº¥Åä¸® ´Ý±â
                     ExitInventory();
 
@@ -208,5 +209,16 @@ public class InventoryUIManager : PanelController
                 ItemManager.SelectedSlot = null;
             }
         }
+    }
+
+    // ºä¸ðµå ²¨Áú ¶§
+    public void BackToInventory(UIEvents.CloseViewMode evt) {
+        if (ItemManager.SelectedSlot != null) {
+            ItemManager.SelectedSlot.SetSelect(false);
+            ItemManager.SelectedSlot = null;
+        }
+        equipText.enabled = true;
+        unequipText.enabled = false;
+        RefreshInventory();
     }
 }

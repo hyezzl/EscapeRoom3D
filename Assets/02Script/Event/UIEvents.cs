@@ -45,4 +45,6 @@ public static class UIEvents
             this.itemID = itemID;
         }
     }
+
+    public struct CloseViewMode { }
 }
