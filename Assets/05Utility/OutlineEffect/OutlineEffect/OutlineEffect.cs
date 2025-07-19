@@ -54,7 +54,8 @@ namespace cakeslice
 
 		public Color lineColor0 = Color.red;
 		public Color lineColor1 = Color.green;
-		public Color lineColor2 = Color.blue;
+		//public Color lineColor2 = Color.blue;
+		public Color lineColor2 = new Color32(100, 149, 237, 255);
 
 		public bool additiveRendering = false;
 

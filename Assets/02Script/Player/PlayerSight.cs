@@ -1,20 +1,20 @@
 using cakeslice;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerSight : MonoBehaviour
 {
-    public List<IActionItem> overlapItems = new();
     [SerializeField] private CanvasGroup hotspot;
+    [SerializeField] private PlayerController pc;
+    public List<IActionItem> overlapItems = new();
 
     private void Awake()
     {
         if (TryGetComponent<CapsuleCollider>(out CapsuleCollider col))
         {
             col.isTrigger = true;
-            col.radius = 0.2f;
-            col.height = 5f;
+            col.radius = 0.1f;
+            col.height = 3.5f;
             col.direction = 2; // Z축 방향 배치
             col.center = new Vector3(0, 0, col.height / 2);
         }
@@ -51,13 +51,49 @@ public class PlayerSight : MonoBehaviour
 
     private void ExceptItem(GameEvents.GetItem evt) {
         overlapItems.Remove(evt.item);
-
-        // 재 오버랩
-        StartCoroutine(ReOverlap());
     }
 
     private void HideHotspot(GameEvents.GameModeChange evt) {
         hotspot.alpha = 0f;
+    }
+
+    private void Update()
+    {
+        if (overlapItems.Count > 0)
+        {
+            // 매프레임 갱신
+            var closest = GetClosestItem();
+
+            // OutLine
+            foreach (var item in overlapItems) {
+                MonoBehaviour it = item as MonoBehaviour; // 안전성
+                if (it != null && it.TryGetComponent<Outline>(out Outline outline)) {
+                    // 내가 현재 바라보는 아이템이면 on
+                    outline.enabled = (item == closest);
+                }
+            }
+
+            // CurrentItem 갱신
+            if (ItemManager.CurrentItem != closest)
+            {
+                ItemManager.CurrentItem = closest;
+            }
+
+            // 핫스팟 갱신
+            if (closest != null && 
+                pc.CurMode == PlayMode.InspectMode &&
+                (closest.GetType() == ItemType.Readable ||
+                 closest.GetType() == ItemType.Interactable)) {
+                hotspot.alpha = 1f;
+            }
+            else {
+                hotspot.alpha = 0f;
+            }
+        }
+        else {
+            ItemManager.CurrentItem = null;
+            hotspot.alpha = 0f;
+        }
     }
 
 
@@ -66,29 +102,14 @@ public class PlayerSight : MonoBehaviour
         // 태그로 1차 분리
         if (other.CompareTag("Item"))
         {
-            // 윤곽선 표시
-            if (other.TryGetComponent<Outline>(out Outline outline))
-            {
-                outline.enabled = true;
-            }
-
             // 오버랩 리스트 추가
             if (other.TryGetComponent<IActionItem>(out IActionItem item))
             {
                 overlapItems.Add(item);
             }
 
-            ItemManager.CurrentItem = GetClosestItem(); // 오버랩
-
             Debug.Log($"시야 리스트 내 {overlapItems.Count}개");
             Debug.Log($"선정된 아이템 : {GetClosestItem()}");
-
-            if (GetClosestItem().GetType() == ItemType.Readable
-                || GetClosestItem().GetType() == ItemType.Interactable)
-            {
-                // 바라보고있는 아이템이 Readable or Interactable 이라면,
-                hotspot.alpha = 1f;
-            }
         }
     }
 
@@ -105,11 +126,6 @@ public class PlayerSight : MonoBehaviour
             {
                 overlapItems.Remove(item);
             }
-            // 오버랩된 값 초기화
-            ItemManager.CurrentItem = null;
-
-            // hotspot 제거
-            hotspot.alpha = 0f;
         }
     }
 
@@ -148,11 +164,6 @@ public class PlayerSight : MonoBehaviour
             }
             return closestItem;
         }
-    }
-
-    private IEnumerator ReOverlap() { 
-        yield return null; // destroy 후 1프레임 대기
-        ItemManager.CurrentItem = GetClosestItem();
     }
 
 }

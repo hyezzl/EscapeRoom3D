@@ -9,7 +9,6 @@ public class PickableItem : MonoBehaviour, IPickable
 {
     public int itemID;
     private PickableData data;
-    private PlayerSight sight;
 
     public int GetItemID() => itemID;
     ItemType IActionItem.GetType() => data.type;
