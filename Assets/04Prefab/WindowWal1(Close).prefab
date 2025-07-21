@@ -97,7 +97,7 @@ GameObject:
   - component: {fileID: 1825841292410145993}
   - component: {fileID: 8509326535345594170}
   m_Layer: 0
-  m_Name: WindowWall
+  m_Name: WindowWal1(Close)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -5,7 +5,7 @@ public class BlinkChandelier : MonoBehaviour
 {
     [SerializeField] private Light light;
     [SerializeField] private Transform player;
-    private float minDistance = 20f;
+    private float minDistance = 22f;
     private float medieteIntensity;
     private Coroutine blink = null;
     private bool isBlink = false;
@@ -47,7 +47,7 @@ public class BlinkChandelier : MonoBehaviour
 
             while (t > seconds) { 
                 seconds += Time.deltaTime;
-                light.intensity = medieteIntensity * Random.Range(0.3f, 1.0f);
+                light.intensity = medieteIntensity * Random.Range(0.3f, 1.2f);
                 yield return null;
             }
             light.intensity = medieteIntensity;
