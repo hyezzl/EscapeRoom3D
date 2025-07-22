@@ -40,8 +40,7 @@ public class NarrativePopup : PanelController
     private void Update()
     {
         if (!isPanelOpen) return;
-        if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0) ||
-            Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Escape))
         {
             // Ã¢´Ý±â
             ClosePanel();
