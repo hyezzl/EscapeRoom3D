@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7126682496886905044}
   - component: {fileID: 1635949611190236395}
   - component: {fileID: 3399370482448299768}
-  - component: {fileID: -3545244335231649780}
+  - component: {fileID: 1599185202696976291}
   m_Layer: 0
   m_Name: Key
   m_TagString: Item
@@ -139,17 +139,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   color: 1
   eraseRenderer: 0
---- !u!114 &-3545244335231649780
+--- !u!114 &1599185202696976291
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8342501460308412321}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d986be96622afbf4a8db825a10b8c6df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotateSpeed: 0.2
-  zoomSpeed: 3
+  rotateSpeed: 0.5
+  zoomSpeed: 0.5
+  minScale: 0.3
+  maxScale: 1.1

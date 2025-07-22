@@ -3,10 +3,10 @@ using UnityEngine.EventSystems;
 
 public class ViewItem : MonoBehaviour, IDragHandler
 {
-    [SerializeField] private float rotateSpeed = 0.2f;
+    [SerializeField] private float rotateSpeed = 0.5f;
     [SerializeField] private float zoomSpeed = 0.5f;
     [SerializeField] private float minScale = 0.3f;
-    [SerializeField] private float maxScale = 1.5f;
+    [SerializeField] private float maxScale = 1.1f;
 
     public void OnDrag(PointerEventData eventData)
     {

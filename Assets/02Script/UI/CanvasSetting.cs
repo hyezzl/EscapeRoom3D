@@ -5,22 +5,26 @@ using UnityEngine.UI;
 
 public class CanvasSetting : MonoBehaviour
 {
-    private Camera targetCam;
-    private Canvas mainCanvas;
+    //main
+    [SerializeField] private Camera targetCam;
+    [SerializeField] private Canvas canvas;
+    [SerializeField] private RenderMode rm;
+    [SerializeField] private float planeDistance = 0.35f;
+
     private CanvasScaler scaler;
 
     private void Awake()
     {
-        targetCam = Camera.main;
-        if (!TryGetComponent<Canvas>(out mainCanvas)) {
-            Debug.Log("CanvasSetting - Failed to Load Canvas");
-        }
+        //targetCam = Camera.main;
+        //if (!TryGetComponent<Canvas>(out canvas)) {
+        //    Debug.Log("CanvasSetting - Failed to Load Canvas");
+        //}
 
-        if (mainCanvas.renderMode != RenderMode.ScreenSpaceCamera)
-            mainCanvas.renderMode = RenderMode.ScreenSpaceCamera;
+        if (canvas.renderMode != rm)
+            canvas.renderMode = rm;
 
-        mainCanvas.worldCamera = targetCam;
-        mainCanvas.planeDistance = 0.35f;
+        canvas.worldCamera = targetCam;
+        canvas.planeDistance = planeDistance;
 
         if (!TryGetComponent<CanvasScaler>(out scaler))
         {

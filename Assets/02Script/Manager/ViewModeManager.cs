@@ -27,6 +27,14 @@ public class ViewModeManager : Singleton<ViewModeManager>
         viewCanvas.gameObject.SetActive(false);
     }
 
+    private void Update()
+    {
+        // ESC 입력 들어왔을 때
+        if (pc.CurMode == PlayMode.ViewMode && Input.GetKeyDown(KeyCode.Escape)) {
+            ExitViewMode();
+        }
+    }
+
 
     private void OnEnable()
     {
@@ -64,9 +72,12 @@ public class ViewModeManager : Singleton<ViewModeManager>
 
             // 뷰카메라 앞에 오브젝트 생성
             Vector3 dir = viewCam.transform.forward;
-            Vector3 spawnPos = viewCam.transform.position + (dir * 1f);
+            Vector3 spawnPos = viewCam.transform.position + (dir * 1.3f);
 
             item = Instantiate(addr, spawnPos, viewCam.transform.rotation, viewCam.transform);
+            if (item.TryGetComponent<ViewItem>(out ViewItem view)){
+                view.enabled = true;
+            }
         }
     }
 

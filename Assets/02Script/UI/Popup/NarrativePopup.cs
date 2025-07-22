@@ -33,6 +33,8 @@ public class NarrativePopup : PanelController
         // 텍스트 설정
         text.textWrappingMode = TextWrappingModes.Normal;
         text.overflowMode = TextOverflowModes.ScrollRect;
+
+        group.alpha = 0f;
     }
 
     private void Update()
@@ -83,7 +85,9 @@ public class NarrativePopup : PanelController
 
     public void ShowNarrative(ReadableData data) {
         if (data != null) { 
-            text.text = data.narrative;
+            // 임시
+            text.text = data.narrative +
+                "긴글테스트!!!!!!!!!!!긴글테스트!!!!!!!!!!!긴글테스트!!!!!!!!!!!긴글테스트!!!!!!!!!!!긴글테스트!!!!!!!!!!!긴글테스트!!!!!!!!!!!긴글테스트!!!!!!!!!!!긴글테스트!!!!!!!!!!!긴글테스트!!!!!!!!!!!긴글테스트!!!!!!!!!!!긴글테스트!!!!!!!!!!!긴글테스트!!!!!!!!!!!긴글테스트!!!!!!!!!!!긴글테스트!!!!!!!!!!!긴글테스트!!!!!!!!!!!긴글테스트!!!!!!!!!!!";
         }
     }
 
