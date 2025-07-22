@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 5589495097001870810}
   - component: {fileID: 9011338197841090613}
   - component: {fileID: 821935208002352725}
+  - component: {fileID: -8817526285723060635}
   m_Layer: 0
   m_Name: book(standard)
   m_TagString: Item
@@ -137,3 +138,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.102318, y: 0.2037165, z: 0.802226}
   m_Center: {x: 0, y: 0.10185825, z: 0}
+--- !u!114 &-8817526285723060635
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5516892177032734304}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d986be96622afbf4a8db825a10b8c6df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotateSpeed: 0.2
+  zoomSpeed: 0.5
+  minScale: 0.3
+  maxScale: 1.5

@@ -9,6 +9,7 @@ public class ViewModeManager : Singleton<ViewModeManager>
     [SerializeField] private Canvas mainCanvas;
     [SerializeField] private Canvas viewCanvas;
     [SerializeField] private Camera mainCam;
+    [SerializeField] private Camera viewCam;
     [SerializeField] private Button exitBTN;
 
     private GameObject item;
@@ -21,6 +22,8 @@ public class ViewModeManager : Singleton<ViewModeManager>
         pc = FindAnyObjectByType<PlayerController>();
         if (pc == null) Debug.Log("ViewModeManager - Failed to Load PlayerController");
 
+        // 게임시작 시 초기세팅
+        viewCam.enabled = false;
         viewCanvas.gameObject.SetActive(false);
     }
 
@@ -42,6 +45,10 @@ public class ViewModeManager : Singleton<ViewModeManager>
         mainCanvas?.gameObject.SetActive(false);
         viewCanvas?.gameObject.SetActive(true);
 
+        // 카메라 변경
+        mainCam.enabled = false;
+        viewCam.enabled = true;
+
         // 아이템 로드/생성
         if (evt.itemID != 0) {
             StartCoroutine(LoadPickableItem(evt.itemID));
@@ -55,11 +62,11 @@ public class ViewModeManager : Singleton<ViewModeManager>
         if (handle.Status == AsyncOperationStatus.Succeeded) {
             GameObject addr = handle.Result;
 
-            // 메인카메라 앞에 오브젝트 생성
-            Vector3 dir = mainCam.transform.forward;
-            Vector3 spawnPos = mainCam.transform.position + (dir * 1f);
+            // 뷰카메라 앞에 오브젝트 생성
+            Vector3 dir = viewCam.transform.forward;
+            Vector3 spawnPos = viewCam.transform.position + (dir * 1f);
 
-            item = Instantiate(addr, spawnPos, mainCam.transform.rotation, mainCam.transform);
+            item = Instantiate(addr, spawnPos, viewCam.transform.rotation, viewCam.transform);
         }
     }
 
@@ -73,6 +80,10 @@ public class ViewModeManager : Singleton<ViewModeManager>
         // 캔버스 교체
         viewCanvas?.gameObject.SetActive(false);
         mainCanvas?.gameObject.SetActive(true);
+
+        // 카메라 변경
+        viewCam.enabled = false;
+        mainCam.enabled = true;
 
         // 모드 종료
         pc.CurMode = PlayMode.InventoryMode;
