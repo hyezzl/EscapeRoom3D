@@ -17,7 +17,7 @@ public class GameStart : MonoBehaviour
     }
 
     public void ConvertTitleToCorrider() {
-        PlayerPrefs.SetString("NextScene", "CorriderScene");
+        PlayerPrefs.SetString("NextScene", "Corrider");
         SceneManager.LoadScene("Loading");
     }
 }

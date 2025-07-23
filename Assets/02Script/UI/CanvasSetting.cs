@@ -15,11 +15,6 @@ public class CanvasSetting : MonoBehaviour
 
     private void Awake()
     {
-        //targetCam = Camera.main;
-        //if (!TryGetComponent<Canvas>(out canvas)) {
-        //    Debug.Log("CanvasSetting - Failed to Load Canvas");
-        //}
-
         if (canvas.renderMode != rm)
             canvas.renderMode = rm;
 

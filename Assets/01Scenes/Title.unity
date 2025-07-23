@@ -644,6 +644,7 @@ GameObject:
   - component: {fileID: 820148034}
   - component: {fileID: 820148033}
   - component: {fileID: 820148032}
+  - component: {fileID: 820148035}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -725,6 +726,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &820148035
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 820148031}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2aec57a198b05c5489d73693eb79a42d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &830058333
 GameObject:
   m_ObjectHideFlags: 0
@@ -1440,7 +1453,7 @@ GameObject:
   - component: {fileID: 2033961296}
   - component: {fileID: 2033961295}
   m_Layer: 5
-  m_Name: Button (1)
+  m_Name: MuseBTN
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1462,7 +1475,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -194, y: 56}
+  m_AnchoredPosition: {x: -181.39, y: 56}
   m_SizeDelta: {x: 90, y: 90}
   m_Pivot: {x: 1, y: 0}
 --- !u!114 &2033961295
@@ -1560,7 +1573,7 @@ GameObject:
   - component: {fileID: 2145294493}
   - component: {fileID: 2145294492}
   m_Layer: 5
-  m_Name: Button
+  m_Name: SettingBTN
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
