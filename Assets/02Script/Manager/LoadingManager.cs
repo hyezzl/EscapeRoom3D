@@ -40,16 +40,10 @@ public class LoadingManager : MonoBehaviour
             yield return null;  
             exitTime += Time.deltaTime;
 
-            if (async.progress >= 0.9f && exitTime >= 4f) // 로딩이 완료 + 5초 대기 끝
+            if (async.progress >= 0.9f && exitTime >= 6f) // 로딩이 완료 + 5초 대기 끝
             {
                 async.allowSceneActivation = true;
             }
-            else // 로딩 진행 중
-            {
-            }
         }
-
-
-        
     }
 }
