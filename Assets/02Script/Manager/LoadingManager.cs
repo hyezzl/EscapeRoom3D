@@ -7,11 +7,20 @@ using UnityEngine.SceneManagement;
 public class LoadingManager : MonoBehaviour
 {
     [SerializeField] private List<TextMeshProUGUI> dots;
+    private Texture2D cursor2D;
 
     private void Awake()
     {
+        cursor2D = Resources.Load<Texture2D>($"Cursor/Cursor1");
+        if (cursor2D == null) Debug.Log("Failed to Load Cursor Image");
         StartCoroutine(dotsEnable());
         StartCoroutine(LoadAsyncScene());
+    }
+
+    private void Start()
+    {
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     IEnumerator dotsEnable() {
