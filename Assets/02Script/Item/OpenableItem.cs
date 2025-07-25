@@ -7,7 +7,7 @@ public class OpenableItem : MonoBehaviour, IActionItem
 {
     [SerializeField] private float closeZ;
     [SerializeField] private float openZ;
-    private bool isOpen = false;
+    [SerializeField] private bool isOpen = false;
     private Animator anim;
 
     ItemType IActionItem.GetType() => ItemType.Openable;
@@ -20,6 +20,10 @@ public class OpenableItem : MonoBehaviour, IActionItem
         {
             outline.color = 2;
         }
+        // 위치 초기화
+        Vector3 pos = transform.localPosition;
+        pos.z = closeZ;
+        transform.localPosition = pos;
     }
 
 

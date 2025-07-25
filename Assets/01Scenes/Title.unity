@@ -1159,6 +1159,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   muteBTN: {fileID: 2033961295}
   playBTN: {fileID: 2081074354}
+  bgm: {fileID: 1555917266}
 --- !u!1 &1142020100
 GameObject:
   m_ObjectHideFlags: 0
@@ -1310,7 +1311,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: b970cd59d9bc22241a79422f1b1da1a7, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.5
+  m_Volume: 1
   m_Pitch: 1
   Loop: 0
   Mute: 0

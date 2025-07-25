@@ -5,7 +5,7 @@ public class TitleAudio : MonoBehaviour
 {
     [SerializeField] private Button muteBTN;
     [SerializeField] private Button playBTN;
-    private AudioSource bgm;
+    [SerializeField] private AudioSource bgm;
     private bool isMute = false;
 
     private void Awake()
@@ -17,12 +17,6 @@ public class TitleAudio : MonoBehaviour
 
         muteBTN.enabled = false;
         muteBTN.image.enabled = false;
-    }
-
-    private void Start()
-    {
-        bgm = BGMManager.Instance.bgm;
-        if (bgm == null) Debug.Log("TitleAudio - Failed to Load AudioClip");
     }
 
     private void ToggleMute() {

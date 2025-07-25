@@ -7,7 +7,8 @@ public enum ItemType
     Interactable,
     Inspectable,
     Readable,
-    Openable
+    Openable,
+    Imopenable,
 }
 
 public class ItemManager : Singleton<ItemManager>

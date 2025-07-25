@@ -19,6 +19,7 @@ public class DialogPopup : MonoBehaviour
     Sequence seq;
     private string sentence;
     private float typingSpeed = 0.05f;
+    private string imopenableMSG = "열리지 않는다.";
 
     private PlayerController pc;
     private Coroutine blinkCor;
@@ -118,6 +119,10 @@ public class DialogPopup : MonoBehaviour
                 {
                     TypeDialog(reaData.reply);
                 }
+                break;
+
+            case ItemType.Imopenable:
+                TypeDialog(imopenableMSG);
                 break;
         };
     }

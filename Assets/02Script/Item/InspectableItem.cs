@@ -23,17 +23,10 @@ public class InspectableItem : MonoBehaviour, IInspectable
         }
     }
 
-    private void PlayMonologue()
-    {
-        Debug.Log($"독백 : {data.monologue}");
-    }
-
     public void InteractOnClick()
     {
-        
-        PlayMonologue();
         EventBus.Instance.Publish<UIEvents.OpenDialogPopup>(new UIEvents.OpenDialogPopup(ItemManager.CurrentItem, true));
     }
 
-    public void InteractOnE() { Debug.Log("E 기능없음"); }
+    public void InteractOnE() { }
 }

@@ -11,7 +11,7 @@ public class BGMManager : Singleton<BGMManager>
     private AudioClip bgm_Main;
     private AudioClip bgm_Title;
 
-    private void Awake()
+    protected override void DoAwake()
     {
         if (!TryGetComponent<AudioSource>(out bgm)) {
             Debug.Log("BGMManager - Failed to Load AudioSource");
