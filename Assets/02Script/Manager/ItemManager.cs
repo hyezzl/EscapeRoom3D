@@ -9,6 +9,7 @@ public enum ItemType
     Readable,
     Openable,
     Imopenable,
+    Special,
 }
 
 public class ItemManager : Singleton<ItemManager>

@@ -28,5 +28,7 @@ public static class GameEvents
     }
 
     public struct UnequipItem { }
+
+    public struct OpenClockMode { }
     
 }

@@ -16,6 +16,8 @@ public enum PlayMode
     NarrativeMode, 
     DialogMode, // Dialog창 떠있을 때
     ViewMode, // 아이템 자세히 보기
+
+    ClockControl, // 시계 조작
 }
 
 
