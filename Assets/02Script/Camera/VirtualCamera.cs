@@ -89,14 +89,9 @@ public class VirtualCamera : MonoBehaviour
                 Debug.Log("ViewMode 활성화");
                 break;
 
-            //// 어차피 카메라 바뀌어서 필요없을 것 같음...
-            //case PlayMode.ClockControl:
-            //    isCameraMove = false;
-            //    mouseSensitivity = 1.5f;
-            //    Cursor.visible= true;
-            //    Cursor.lockState = CursorLockMode.None;
-            //    Debug.Log("ClockMode 활성화");
-            //    break;
+            case PlayMode.ClockControl:
+                isCameraMove = false;
+                break;
         }
     }
 

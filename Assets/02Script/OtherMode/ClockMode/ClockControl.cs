@@ -9,7 +9,8 @@ public class ClockControl : MonoBehaviour
     [SerializeField] private float rotateSpeed;
     private PlayerController pc;
 
-    private GameObject selectedArrow;
+    // 정답
+    //private float hourRot = 
 
     private void Awake()
     {
@@ -28,29 +29,21 @@ public class ClockControl : MonoBehaviour
 
     private void OnEnable()
     {
-        //EventBus.Instance.Subscribe<GameEvents.OpenClockMode>(OnClockMode);
         EventBus.Instance.Subscribe<PuzzleEvents.ApproachSpecial>(OnSpecial);
     }
     private void OnDisable()
     {
-        //EventBus.Instance.Unsubscribe<GameEvents.OpenClockMode>(OnClockMode);
         EventBus.Instance.Unsubscribe<PuzzleEvents.ApproachSpecial>(OnSpecial);
     }
 
     private void OnSpecial(PuzzleEvents.ApproachSpecial evt) {
-        if (evt.evt == EventList.OpenClockMode) { 
-            
+        if (evt.evt == EventList.OpenClockMode) {
+            //모드 변경
+            pc.CurMode = PlayMode.ClockControl;
+            EventBus.Instance.Publish<GameEvents.GameModeChange>(new GameEvents.GameModeChange());
         }
     }
-
-    public void OnDrag(PointerEventData eventData)
-    {
-        float rotateX = eventData.delta.x * rotateSpeed;
-        float rotateY = eventData.delta.y * rotateSpeed;
-    }
-
     private void ExitClockMode() {
-
         // 모드종료
         pc.CurMode = PlayMode.InspectMode;
         EventBus.Instance.Publish<GameEvents.GameModeChange>(new GameEvents.GameModeChange());

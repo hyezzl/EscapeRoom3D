@@ -42,3 +42,13 @@ public class ReadableEntity
     public string Narrative;
     public string Reply;
 }
+
+[Serializable]
+public class SpecialEntity
+{
+    public int ItemID;
+    public string ItemName;
+    public string Type;
+    public string Monologue;
+    public int EventType;
+}

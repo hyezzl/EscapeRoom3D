@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: d92c470b250a6e542b0f020d493165be
+guid: 328fd833a381b8f49a6c8ba65b2b3a7b
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -123,33 +123,55 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
+      name: Icons_0
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 254
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0ce3bda76f259be4b92c2c91a834772a
+      internalID: -1424282389
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Icons_1
+      rect:
+        serializedVersion: 2
+        x: 490
+        y: 249
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4f71c18cac2a0ec47bd644c3b2b2b36e
+      internalID: 23886918
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
       name: Icons_2
       rect:
         serializedVersion: 2
-        x: 6
-        y: 256
-        width: 512
-        height: 512
-      alignment: 9
-      pivot: {x: 1.963845, y: 0.6895944}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 06af0ff5cc4175c46b1bba5bc95e9bdd
-      internalID: 697978014
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Icons_3
-      rect:
-        serializedVersion: 2
-        x: 482
-        y: 252
+        x: 993
+        y: 255
         width: 512
         height: 512
       alignment: 0
@@ -160,30 +182,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5ff24784b4bcb8d42bdbca9c9e87bbb1
-      internalID: 985677097
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Icons_4
-      rect:
-        serializedVersion: 2
-        x: 1005
-        y: 252
-        width: 512
-        height: 512
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: fbbc7469f81b7e34ea7f0932891c7c38
-      internalID: -279379166
+      spriteID: 65e80e95a8a60fc4aae3c8605fd1ef24
+      internalID: 78173283
       vertices: []
       indices: 
       edges: []
@@ -192,7 +192,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 2d57f7ba10bf35d46a3937cc927c0ae9
+    spriteID: f1076f47293bb7447ba95ce916ca5f56
     internalID: 0
     vertices: []
     indices: 
@@ -204,9 +204,9 @@ TextureImporter:
       - key: SpriteEditor.SliceSettings
         value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      Icons_2: 697978014
-      Icons_3: 985677097
-      Icons_4: -279379166
+      Icons_0: -1424282389
+      Icons_1: 23886918
+      Icons_2: 78173283
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

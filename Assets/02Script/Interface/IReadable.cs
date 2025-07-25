@@ -4,5 +4,4 @@ using UnityEngine;
 
 public interface IReadable : IActionItem
 {
-    void PressEMessage();
 }

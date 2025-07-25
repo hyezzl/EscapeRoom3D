@@ -15,6 +15,12 @@ public class CameraManager : Singleton<CameraManager>
         if (pc == null) Debug.Log("CameraManager - Failed to Load PlayerController");
     }
 
+    private void Start()
+    {
+        playerCam.Priority = 11;
+        clockCam.Priority = 10;
+    }
+
     private void OnEnable()
     {
         EventBus.Instance.Subscribe<GameEvents.GameModeChange>(OnModeChange);
@@ -28,16 +34,14 @@ public class CameraManager : Singleton<CameraManager>
     private void OnModeChange(GameEvents.GameModeChange evt) {
         switch (pc.CurMode)
         {
-            case PlayMode.InventoryMode:
-                playerCam.MoveToTopOfPrioritySubqueue(); // 우선순위 높임
+            case PlayMode.InspectMode:
+                clockCam.Priority = 10;
                 break;
 
             case PlayMode.ClockControl:
-                clockCam.MoveToTopOfPrioritySubqueue();
+                clockCam.Priority = 12;
                 break;
         }
     }
-
-
 
 }

@@ -111,11 +111,6 @@ public class PlayerSight : MonoBehaviour
             Debug.Log($"시야 리스트 내 {overlapItems.Count}개");
             Debug.Log($"선정된 아이템 : {GetClosestItem()}");
         }
-
-        // 특수 오브젝트
-        if (other.CompareTag("Special")) { 
-            
-        }
     }
 
     private void OnTriggerExit(Collider other)

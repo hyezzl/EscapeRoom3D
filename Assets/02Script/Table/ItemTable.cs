@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,4 +8,5 @@ public class ItemTable : ScriptableObject
 	public List<InteractableEntity> Interactable; // Replace 'EntityType' to an actual type that is serializable.
 	public List<InspectableEntity> Inspectable; // Replace 'EntityType' to an actual type that is serializable.
 	public List<ReadableEntity> Readable; // Replace 'EntityType' to an actual type that is serializable.
+	public List<SpecialEntity> Special; // Replace 'EntityType' to an actual type that is serializable.
 }

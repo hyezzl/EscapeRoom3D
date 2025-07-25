@@ -8,9 +8,6 @@ public enum EventList
 
 public class PuzzleEvents : MonoBehaviour
 {
-    
-    
-    
     public struct SolvedPuzzle {
         public int puzzleID;
 

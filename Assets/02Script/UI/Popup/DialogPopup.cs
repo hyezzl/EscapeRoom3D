@@ -121,6 +121,13 @@ public class DialogPopup : MonoBehaviour
                 }
                 break;
 
+            case ItemType.Special:
+                SpecialData speData = ItemDatabaseManager.Instance.GetSpecial(evt.item.GetItemID());
+                if (evt.isClick) {
+                    TypeDialog(speData.monologue);
+                }
+                break;
+
             case ItemType.Imopenable:
                 TypeDialog(imopenableMSG);
                 break;
