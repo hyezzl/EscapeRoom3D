@@ -30,7 +30,6 @@ public class SpecialItem : MonoBehaviour, IActionItem
 
     public void InteractOnE()
     {
-        Debug.Log("여기는 ok");
         // 이벤트 발생 + 특정분기
         EventBus.Instance.Publish<PuzzleEvents.ApproachSpecial>(new PuzzleEvents.ApproachSpecial(EventList.OpenClockMode));
     }

@@ -67,10 +67,12 @@ public class DialogPopup : MonoBehaviour
     private void OnEnable()
     {
         EventBus.Instance.Subscribe<UIEvents.OpenDialogPopup>(OnOpenDialog);
+        EventBus.Instance.Subscribe<UIEvents.EventAfter>(EventAfterPlay);
     }
     private void OnDisable()
     {
         EventBus.Instance.Unsubscribe<UIEvents.OpenDialogPopup>(OnOpenDialog);
+        EventBus.Instance.Unsubscribe<UIEvents.EventAfter>(EventAfterPlay);
     }
 
     public void OnOpenDialog(UIEvents.OpenDialogPopup evt)
@@ -133,6 +135,25 @@ public class DialogPopup : MonoBehaviour
                 break;
         };
     }
+
+    private void EventAfterPlay(UIEvents.EventAfter evt) {
+        if (isDisplay) return; // 전 Dialog Popup이 닫히지않으면 진입금지
+
+        // 모드변경
+        pc.CurMode = PlayMode.DialogMode;
+        EventBus.Instance.Publish<GameEvents.GameModeChange>(new GameEvents.GameModeChange());
+
+        isDisplay = true;
+        background.enabled = true;
+        text.enabled = true;
+        anim.SetTrigger("OnOpenDialog");
+
+        EventAfterData diaData = ItemDatabaseManager.Instance.GetEventAfter(evt.eventID);
+
+        TypeDialog(diaData.dialog);
+    }
+
+
 
     private void TypeDialog(string sentence) {
         if (typing != null && typing.IsActive()) typing.Kill();

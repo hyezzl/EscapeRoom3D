@@ -19,5 +19,4 @@ public class ClockCamera : MonoBehaviour
             Debug.Log("ClockMode È°¼ºÈ­");
         }
     }
-
 }

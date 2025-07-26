@@ -47,4 +47,12 @@ public static class UIEvents
     }
 
     public struct CloseViewMode { }
+
+    public struct EventAfter {
+        public string eventID;
+
+        public EventAfter(string eventID) { 
+            this.eventID = eventID;
+        }
+    }
 }

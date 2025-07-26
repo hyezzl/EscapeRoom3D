@@ -1,16 +1,16 @@
+using System.Collections;
+using Cinemachine;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 // ClockMode
 public class ClockControl : MonoBehaviour
 {
-    [SerializeField] private Transform hourArrow;
-    [SerializeField] private Transform minuteArrow;
-    [SerializeField] private float rotateSpeed;
+    [SerializeField] private HourArrow hourArrow;
+    [SerializeField] private MinuteArrow minuteArrow;
+    [SerializeField] private CinemachineVirtualCamera cam;
+    [SerializeField] private GameObject obj;
     private PlayerController pc;
 
-    // 정답
-    //private float hourRot = 
 
     private void Awake()
     {
@@ -23,7 +23,7 @@ public class ClockControl : MonoBehaviour
         if (pc.CurMode == PlayMode.ClockControl
             && Input.GetKeyDown(KeyCode.Escape)) {
             // 나가기
-            ExitClockMode();
+            StartCoroutine(ExitClockMode());
         }
     }
 
@@ -43,9 +43,52 @@ public class ClockControl : MonoBehaviour
             EventBus.Instance.Publish<GameEvents.GameModeChange>(new GameEvents.GameModeChange());
         }
     }
-    private void ExitClockMode() {
+    private IEnumerator ExitClockMode() {
+        yield return null;
         // 모드종료
         pc.CurMode = PlayMode.InspectMode;
         EventBus.Instance.Publish<GameEvents.GameModeChange>(new GameEvents.GameModeChange());
+    }
+
+    // 정답 체크 (외부 호출)
+    public void CheckAnswer()
+    {
+        float hour = NormalizeAngle(hourArrow.CurHour);
+        float minute = NormalizeAngle(minuteArrow.CurMinute);
+
+        if (Answer(hour, minute))
+        {
+            Debug.Log("정답!");
+            // 이벤트 발행
+            EventBus.Instance.Publish<PuzzleEvents.SolvedPuzzle>(new PuzzleEvents.SolvedPuzzle(1002));
+
+            // 시계 비활성화
+            obj.tag = "Deactive"; // 태그변경으로 비활성화 (가안됨 ㅎ)
+
+            // EventAfter
+            EventBus.Instance.Publish<UIEvents.EventAfter>(new UIEvents.EventAfter("E005"));
+
+            // 강제 모드 종료
+            StartCoroutine(ExitClockMode());
+        }
+    }
+    private float NormalizeAngle(float angle)
+    {
+        angle %= 360f;
+        if (angle < 0f) angle += 360f;
+        return angle;
+    }
+
+
+    // 정답체크 (후에 조정!!!!!!!!!!)
+    private bool Answer(float hour, float minute)
+    {
+        return IsCorrect(hour, 0f) && (minute >= 85f && minute <= 90f);
+    }
+
+    private bool IsCorrect(float current, float target, float margin = 3f)
+    {
+        float delta = Mathf.Abs(NormalizeAngle(current) - NormalizeAngle(target));
+        return delta <= margin || delta >= 360f - margin;
     }
 }

@@ -3,7 +3,6 @@ using UnityEngine;
 public enum EventList
 {
     OpenClockMode,
-
 }
 
 public class PuzzleEvents : MonoBehaviour
@@ -21,6 +20,17 @@ public class PuzzleEvents : MonoBehaviour
 
         public ApproachSpecial(EventList evt) {
             this.evt = evt;
+        }
+    }
+
+    public struct DoInteract
+    {
+        public int pairID;
+        public GameObject target;
+
+        public DoInteract(int pairID, GameObject target) { 
+            this.pairID = pairID;
+            this.target = target;
         }
     }
 }
