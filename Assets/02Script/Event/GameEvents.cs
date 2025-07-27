@@ -34,5 +34,41 @@ public static class GameEvents
     public struct DrawerUnlock { } // 서랍내에 숨은 아이템 활성화
 
     public struct LoadGameScene { } // 게임이 처음 시작
-    
+
+    // 아이템을 착용하고 문에 접근 (E)
+    public struct KnockDoor
+    {
+        public int pairID;
+        public KnockDoor(int pairID) { 
+            this.pairID = pairID;
+        }
+    }
+
+    public struct PlayTimeline 
+    {
+        public string timelineID;
+        public PlayTimeline(string timelineID) { 
+            this.timelineID = timelineID;
+        }
+    }
+
+    public struct EndTimeline
+    {
+        public string timelineID;
+        public EndTimeline(string timelineID) { 
+            this.timelineID = timelineID;
+        }
+    }
+
+    // 카메라 변경 (type == 바뀌는 카메라)
+    public struct ChangeCam
+    {
+        public CameraType type;
+        public ChangeCam(CameraType type) { 
+            this.type = type;
+        }
+    }
+
+
+
 }

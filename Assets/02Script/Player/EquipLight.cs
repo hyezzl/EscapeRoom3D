@@ -4,6 +4,8 @@ using UnityEngine;
 public class EquipLight : MonoBehaviour
 {
     [SerializeField] private Transform cam; // 메인카메라
+    [SerializeField] private MeshRenderer mesh; // 본인메쉬
+
     private Vector3 equipLampPos = new Vector3(0.23f, -0.32f, 0.42f);
     private Vector3 deequipLampPos = new Vector3(0.23f, -0.6f, 0.42f);
     private Coroutine lampCor;
@@ -15,6 +17,27 @@ public class EquipLight : MonoBehaviour
         light = GetComponentInChildren<Light>();
         if (light == null) {
             Debug.Log("EquipLight - Failed to Load Light");
+        }
+    }
+
+    private void OnEnable()
+    {
+        EventBus.Instance.Subscribe<GameEvents.ChangeCam>(OnChangeCam);
+    }
+    private void OnDisable()
+    {
+        EventBus.Instance.Unsubscribe<GameEvents.ChangeCam>(OnChangeCam);
+    }
+
+    private void OnChangeCam(GameEvents.ChangeCam evt) {
+        // 플레이어캠 -> other
+        if (evt.type != CameraType.PlayerCam)
+        {
+            mesh.enabled = false; // 안보이도록
+        }
+        else // other -> 플레이어캠 
+        {
+            mesh.enabled = true;
         }
     }
 

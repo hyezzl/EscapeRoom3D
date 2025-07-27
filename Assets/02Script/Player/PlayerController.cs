@@ -23,42 +23,9 @@ public enum PlayMode
 
 public class PlayerController : MonoBehaviour
 {
+    
     public PlayMode CurMode { get; set; } = PlayMode.InspectMode;
+    
     public PlayerState CurState { get; set; }
 
-    // Temporary
-    [SerializeField] private GameObject archDoor;
-    private ArchDoor arch;
-    private bool temp = false;
-
-
-    private void Awake()
-    {
-        //Temporary
-        arch = archDoor.GetComponent<ArchDoor>();
-        if (arch == null)
-            Debug.Log("임시파일 참조 오류");
-
-    }
-
-    private void Update()
-    {
-        TestFunction();
-    }
-
-
-    // 문 임시 Test용
-    private void TestFunction() {
-        if (Input.GetKeyDown(KeyCode.Space)) {
-            if (!temp)
-            {
-                arch.OpenArchDoor();
-                temp = true;
-            }
-            else {
-                arch.CloseArchDoor();
-                temp = false;
-            }
-        }
-    }
 }

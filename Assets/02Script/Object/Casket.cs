@@ -31,7 +31,7 @@ public class Casket : MonoBehaviour
 
             // destroy
 
-            // EventAfter
+            EventBus.Instance.Publish<UIEvents.EventAfter>(new UIEvents.EventAfter("E007"));
 
             // key활성화 / 비활성화
             key.tag = "Item";

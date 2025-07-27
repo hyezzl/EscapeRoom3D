@@ -1,5 +1,4 @@
 using System.Collections;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,6 +9,7 @@ public class TutorialPopup : PanelController
     [SerializeField] private CanvasGroup group; // Announce
     [SerializeField] private RectTransform content;
     [SerializeField] private float scrollSpeed = 20f;
+    [SerializeField] private Button exitBTN;
 
     private bool standbyInput = false;
     private PlayerController pc;
@@ -46,11 +46,13 @@ public class TutorialPopup : PanelController
     {
         EventBus.Instance.Subscribe<UIEvents.StartTutorial>(OnTutorial);
         scroll.onValueChanged.AddListener(OnScrollChanged);
+        exitBTN.onClick.AddListener(ClosePanel);
     }
     private void OnDisable()
     {
         EventBus.Instance.Unsubscribe<UIEvents.StartTutorial>(OnTutorial);
         scroll.onValueChanged.RemoveListener(OnScrollChanged);
+        exitBTN.onClick.RemoveListener(ClosePanel);
     }
 
     private void OnTutorial(UIEvents.StartTutorial evt) {

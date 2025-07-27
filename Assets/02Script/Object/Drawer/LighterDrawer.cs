@@ -16,7 +16,9 @@ public class LighterDrawer : MonoBehaviour
     }
 
     private void OnOpenDrawer(GameEvents.DrawerUnlock evt) {
-        lighter.tag = "Item";
+        if (lighter != null) { 
+            lighter.tag = "Item";
+        }
     }
 }
 
