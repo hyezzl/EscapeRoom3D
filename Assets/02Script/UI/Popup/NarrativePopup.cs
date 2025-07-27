@@ -15,6 +15,7 @@ public class NarrativePopup : PanelController
     private PlayerController pc;
     private Coroutine blinkCor;
     private BlinkAnnounce blink;
+    private IActionItem item; // cache
 
     protected override void Awake()
     {
@@ -45,7 +46,6 @@ public class NarrativePopup : PanelController
             // 창닫기
             ClosePanel();
         }
-        
     }
 
     private void OnEnable()
@@ -62,6 +62,9 @@ public class NarrativePopup : PanelController
 
     public void OnOpenNarrative(UIEvents.OpenNarrativePopup evt) {
         Display();
+
+        // cache
+        item = evt.item;
 
         // Narrative Mode 실행
         pc.CurMode = PlayMode.NarrativeMode;
@@ -83,10 +86,9 @@ public class NarrativePopup : PanelController
     }
 
     public void ShowNarrative(ReadableData data) {
-        if (data != null) { 
+        if (data != null) {
             // 임시
-            text.text = data.narrative +
-                "긴글테스트!!!!!!!!!!!긴글테스트!!!!!!!!!!!긴글테스트!!!!!!!!!!!긴글테스트!!!!!!!!!!!긴글테스트!!!!!!!!!!!긴글테스트!!!!!!!!!!!긴글테스트!!!!!!!!!!!긴글테스트!!!!!!!!!!!긴글테스트!!!!!!!!!!!긴글테스트!!!!!!!!!!!긴글테스트!!!!!!!!!!!긴글테스트!!!!!!!!!!!긴글테스트!!!!!!!!!!!긴글테스트!!!!!!!!!!!긴글테스트!!!!!!!!!!!긴글테스트!!!!!!!!!!!";
+            text.text = "\n\n" + data.narrative;
         }
     }
 
@@ -102,7 +104,8 @@ public class NarrativePopup : PanelController
         EventBus.Instance.Publish<GameEvents.GameModeChange>(new GameEvents.GameModeChange());
 
         // Reply 호출
-        EventBus.Instance.Publish<UIEvents.OpenDialogPopup>(new UIEvents.OpenDialogPopup(ItemManager.CurrentItem, false));
+        EventBus.Instance.Publish<UIEvents.OpenDialogPopup>(new UIEvents.OpenDialogPopup(item, false));
+        item = null; // 초기화
     }
 
 

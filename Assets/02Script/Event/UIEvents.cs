@@ -55,4 +55,9 @@ public static class UIEvents
             this.eventID = eventID;
         }
     }
+
+
+    // ¿œ»∏º∫ //
+
+    public struct StartTutorial { }
 }

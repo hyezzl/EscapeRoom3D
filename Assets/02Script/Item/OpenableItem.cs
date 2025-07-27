@@ -7,8 +7,9 @@ public class OpenableItem : MonoBehaviour, IActionItem
 {
     [SerializeField] private float closeZ;
     [SerializeField] private float openZ;
-    [SerializeField] private bool isOpen = false;
-    private Animator anim;
+    public bool isOpen = false;
+
+    private bool firstOpen = true; // 처음열릴 때, 이벤트 한번 발생 (보류)
 
     ItemType IActionItem.GetType() => ItemType.Openable;
 
@@ -39,6 +40,10 @@ public class OpenableItem : MonoBehaviour, IActionItem
         {
             Open();
             isOpen = true;
+            if (firstOpen) {
+                EventBus.Instance.Publish<GameEvents.DrawerUnlock>(new GameEvents.DrawerUnlock());
+                firstOpen = false;
+            }
         }
         else {
             Close();
@@ -46,11 +51,11 @@ public class OpenableItem : MonoBehaviour, IActionItem
         }
     }
     public void Open() {
-        Tween open = transform.DOLocalMoveZ(closeZ, 0.6f).SetEase(Ease.OutCubic);
+        Tween open = transform.DOLocalMoveZ(openZ, 0.6f).SetEase(Ease.OutCubic);
     }
 
     public void Close() {
-        Tween close = transform.DOLocalMoveZ(openZ, 0.6f).SetEase(Ease.OutCubic);
+        Tween close = transform.DOLocalMoveZ(closeZ, 0.6f).SetEase(Ease.OutCubic);
     }
     
 }

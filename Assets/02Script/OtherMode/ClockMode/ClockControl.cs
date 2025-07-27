@@ -22,7 +22,7 @@ public class ClockControl : MonoBehaviour
     {
         if (pc.CurMode == PlayMode.ClockControl
             && Input.GetKeyDown(KeyCode.Escape)) {
-            // 나가기
+            // 모드 나가기
             StartCoroutine(ExitClockMode());
         }
     }
@@ -58,14 +58,15 @@ public class ClockControl : MonoBehaviour
 
         if (Answer(hour, minute))
         {
-            Debug.Log("정답!");
-            // 이벤트 발행
+            // ★★★★★★ 퍼즐해결
             EventBus.Instance.Publish<PuzzleEvents.SolvedPuzzle>(new PuzzleEvents.SolvedPuzzle(1002));
 
-            // 시계 비활성화
-            obj.tag = "Deactive"; // 태그변경으로 비활성화 (가안됨 ㅎ)
+            // 비활성화
+            obj.tag = "Deactive"; // 태그변경으로 비활성화
+            hourArrow.enabled = false;
+            minuteArrow.enabled = false;
 
-            // EventAfter
+             // EventAfter
             EventBus.Instance.Publish<UIEvents.EventAfter>(new UIEvents.EventAfter("E005"));
 
             // 강제 모드 종료

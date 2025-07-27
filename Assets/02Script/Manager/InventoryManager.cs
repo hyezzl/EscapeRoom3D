@@ -1,10 +1,17 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class InventoryManager : Singleton<InventoryManager>
 {
     private List<ItemInstance> inventory = new();
+
+
+    // 시작 시 이미 가지고있을 아이템
+    private void Start()
+    {
+        AddItem(10001006);
+        AddItem(10001003); // 임시
+    }
 
     private void OnEnable()
     {

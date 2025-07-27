@@ -25,7 +25,7 @@ public class DialogPopup : MonoBehaviour
     private Coroutine blinkCor;
     private Animator anim;
     private BlinkAnnounce blink;
-    private bool isDisplay = false;
+    public bool isDisplay = false;
     private bool isTyping = false;
     private bool standbyInput = false;
 
@@ -78,6 +78,7 @@ public class DialogPopup : MonoBehaviour
     public void OnOpenDialog(UIEvents.OpenDialogPopup evt)
     {
         if (isDisplay) return; // 전 Dialog Popup이 닫히지않으면 진입금지
+        if (evt.item == null) return; 
 
         // 모드변경
         pc.CurMode = PlayMode.DialogMode;

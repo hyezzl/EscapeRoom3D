@@ -26,6 +26,7 @@ public class PuzzleManager : Singleton<PuzzleManager>
     // 완료한 퍼즐 static Dictionary에 저장
     private void AddCompletePuzzle(PuzzleEvents.SolvedPuzzle evt) {
         Debug.Log($"{evt.puzzleID}번 퍼즐이 완료!");
+
         if (!completePuzzle.ContainsKey(evt.puzzleID)) {
             completePuzzle[evt.puzzleID] = evt;
         }

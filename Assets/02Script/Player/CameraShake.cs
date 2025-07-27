@@ -36,13 +36,13 @@ public class CameraShake : MonoBehaviour
                 noise.m_NoiseProfile = null;
                 break;
             case PlayerState.Walking:
-                SetCameraNoise(myCameraShake, 0.3f, 0.6f);
+                SetCameraNoise(myCameraShake, 0.02f, 0.2f);
                 break;
             case PlayerState.Running:
-                SetCameraNoise(myCameraShake, 0.9f, 0.9f);
+                SetCameraNoise(myCameraShake, 0.1f, 0.7f);
                 break;
             case PlayerState.Crouching:
-                SetCameraNoise(myCameraShake, 0.1f, 0.1f);
+                SetCameraNoise(myCameraShake, 0.001f, 0.1f);
                 break;
         }
     }

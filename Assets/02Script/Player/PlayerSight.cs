@@ -37,12 +37,14 @@ public class PlayerSight : MonoBehaviour
     private void OnEnable()
     {
         EventBus.Instance.Subscribe<GameEvents.GetItem>(ExceptItem);
-        EventBus.Instance.Subscribe<GameEvents.GameModeChange>(HideHotspot);
+        EventBus.Instance.Subscribe<GameEvents.GameModeChange>(Init1);
+        EventBus.Instance.Subscribe<PuzzleEvents.SolvedPuzzle>(Init2);
     }
 
     private void OnDisable() { 
         EventBus.Instance.Unsubscribe<GameEvents.GetItem>(ExceptItem);
-        EventBus.Instance.Unsubscribe<GameEvents.GameModeChange>(HideHotspot);
+        EventBus.Instance.Unsubscribe<GameEvents.GameModeChange>(Init1);
+        EventBus.Instance.Unsubscribe<PuzzleEvents.SolvedPuzzle>(Init2);
 
         // 비활성화 시 초기화
         overlapItems.Clear();
@@ -53,8 +55,12 @@ public class PlayerSight : MonoBehaviour
         overlapItems.Remove(evt.item);
     }
 
-    private void HideHotspot(GameEvents.GameModeChange evt) {
-        hotspot.alpha = 0f;
+    private void Init1(GameEvents.GameModeChange evt) {
+        InitSight();
+    }
+
+    private void Init2(PuzzleEvents.SolvedPuzzle evt) {
+        InitSight();
     }
 
     private void Update()
@@ -164,6 +170,15 @@ public class PlayerSight : MonoBehaviour
             }
             return closestItem;
         }
+    }
+
+    public void InitSight() {
+        // 바라보는 아이템 초기화
+        overlapItems.Clear();
+        ItemManager.CurrentItem = null;
+
+        // 핫스팟 삭제
+        hotspot.alpha = 0f;
     }
 
 }

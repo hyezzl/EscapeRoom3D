@@ -30,5 +30,9 @@ public static class GameEvents
     public struct UnequipItem { }
 
     public struct OpenClockMode { }
+
+    public struct DrawerUnlock { } // 서랍내에 숨은 아이템 활성화
+
+    public struct LoadGameScene { } // 게임이 처음 시작
     
 }

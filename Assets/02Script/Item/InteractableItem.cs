@@ -22,6 +22,8 @@ public class InteractableItem : MonoBehaviour, IInteractable
         }
     }
     public void InteractOnClick() {
+        if (ItemManager.CurrentItem == null) return;
+        Debug.Log($"현재 선택된 대상 : {ItemManager.CurrentItem}");
         // Monologue
         EventBus.Instance.Publish<UIEvents.OpenDialogPopup>(new UIEvents.OpenDialogPopup(ItemManager.CurrentItem, true));
     }

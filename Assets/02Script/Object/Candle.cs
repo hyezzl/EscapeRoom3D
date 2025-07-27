@@ -1,3 +1,4 @@
+using cakeslice;
 using UnityEngine;
 
 public class Candle : MonoBehaviour
@@ -24,10 +25,12 @@ public class Candle : MonoBehaviour
     private void OnEnable()
     {
         EventBus.Instance.Subscribe<PuzzleEvents.DoInteract>(OnInteract);
+        EventBus.Instance.Subscribe<PuzzleEvents.SolvedPuzzle>(OnSolved);
     }
     private void OnDisable()
     {
         EventBus.Instance.Unsubscribe<PuzzleEvents.DoInteract>(OnInteract);
+        EventBus.Instance.Unsubscribe<PuzzleEvents.SolvedPuzzle>(OnSolved);
     }
     private void OnInteract(PuzzleEvents.DoInteract evt) {
         if (evt.pairID == item.GetPairID()) // pairID가 같으면
@@ -50,6 +53,17 @@ public class Candle : MonoBehaviour
                     cc.CheckAnswer();
                 }
             }
+        }
+    }
+
+    private void OnSolved(PuzzleEvents.SolvedPuzzle evt) {
+        // 촛불 퍼즐이 완성되면 촛불 비활성화
+        if (evt.puzzleID == 1001) {
+            gameObject.tag = "Deactive";
+
+            /////////////////
+            Destroy(gameObject.GetComponent<InteractableItem>()); // 강제
+            Destroy(gameObject.GetComponent<Outline>()); // 강제
         }
     }
 }

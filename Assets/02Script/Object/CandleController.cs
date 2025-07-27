@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class CandleController : MonoBehaviour
 {
-    private bool isSolved = false;
-
     private List<bool> firelist = new List<bool> { false, false, false, false, false, false, false };
 
     public void Set(int index, bool isFire)
@@ -16,10 +14,9 @@ public class CandleController : MonoBehaviour
 
     public void CheckAnswer() {
         // ´ä (index 0°ú 4¸¸ false / ¿Ü ¸ðµÎ true)
-        Debug.Log(firelist);
         if (firelist.Count(x => !x) == 2 && !firelist[0] && !firelist[4]) {
             Debug.Log("ÃÐºÒ ÆÛÁñ ¿Ï·á!");
-            isSolved = true;
+
             // Ã¶ÄÀ ¿­¸®´Â ¼Ò¸®
 
             // EventAfter

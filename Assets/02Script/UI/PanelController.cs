@@ -8,7 +8,7 @@ public class PanelController : MonoBehaviour
     [SerializeField] protected Vector2 displayPos = Vector2.zero;
     [SerializeField] protected Vector2 hidePos = new Vector2(1800f, 0f);
     [SerializeField] protected float tweenTime = 0.5f;
-    protected bool isPanelOpen = false;
+    public bool isPanelOpen = false;
 
     protected virtual void Awake() {
         if (targetPanel != null) {
