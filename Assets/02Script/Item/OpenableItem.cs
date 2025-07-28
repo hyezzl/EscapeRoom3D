@@ -2,11 +2,18 @@ using cakeslice;
 using DG.Tweening;
 using UnityEngine;
 
+public enum OpenableType
+{ 
+    basic,
+    special, // 오브젝트가 안에 존재하는 drawer
+}
+
 [RequireComponent(typeof(Outline))]
 public class OpenableItem : MonoBehaviour, IActionItem
 {
     [SerializeField] private float closeZ;
     [SerializeField] private float openZ;
+    [SerializeField] private OpenableType type;
     public bool isOpen = false;
 
     private bool firstOpen = true; // 처음열릴 때, 이벤트 한번 발생 (보류)
@@ -40,10 +47,11 @@ public class OpenableItem : MonoBehaviour, IActionItem
         {
             Open();
             isOpen = true;
-            if (firstOpen) {
+            if (type == OpenableType.special && firstOpen) {
                 EventBus.Instance.Publish<GameEvents.DrawerUnlock>(new GameEvents.DrawerUnlock());
-                firstOpen = false;
+                Debug.Log("처음열림!!!");
             }
+            firstOpen = false;
         }
         else {
             Close();

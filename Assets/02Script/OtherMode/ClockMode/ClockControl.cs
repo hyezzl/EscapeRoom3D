@@ -1,4 +1,5 @@
 using System.Collections;
+using cakeslice;
 using Cinemachine;
 using UnityEngine;
 
@@ -65,6 +66,7 @@ public class ClockControl : MonoBehaviour
             obj.tag = "Deactive"; // 태그변경으로 비활성화
             hourArrow.enabled = false;
             minuteArrow.enabled = false;
+            obj.GetComponent<Outline>().enabled = false; // 윤곽선 삭제
 
              // EventAfter
             EventBus.Instance.Publish<UIEvents.EventAfter>(new UIEvents.EventAfter("E005"));
