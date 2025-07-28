@@ -10,12 +10,14 @@ public class EquipSlot : MonoBehaviour
     {
         EventBus.Instance.Subscribe<GameEvents.EquipItem>(ShowIcon);
         EventBus.Instance.Subscribe<GameEvents.UnequipItem>(DeleteIcon);
+        EventBus.Instance.Subscribe<GameEvents.DestroyItem>(EmptySlot);
     }
 
     private void OnDisable()
     {
         EventBus.Instance.Unsubscribe<GameEvents.EquipItem>(ShowIcon);
         EventBus.Instance.Unsubscribe<GameEvents.UnequipItem>(DeleteIcon);
+        EventBus.Instance.Unsubscribe<GameEvents.DestroyItem>(EmptySlot);
     }
 
     private void ShowIcon(GameEvents.EquipItem evt) {
@@ -31,6 +33,10 @@ public class EquipSlot : MonoBehaviour
     }
 
     private void DeleteIcon(GameEvents.UnequipItem evt) {
+        icon.sprite = defaultIcon;
+    }
+
+    private void EmptySlot(GameEvents.DestroyItem evt) {
         icon.sprite = defaultIcon;
     }
 }

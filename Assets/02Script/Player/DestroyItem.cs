@@ -12,12 +12,13 @@ public class DestroyItem : MonoBehaviour
     private void OnDisable()
     {
         EventBus.Instance.Unsubscribe<PuzzleEvents.SolvedPuzzle>(DestroyUsedItem);
-
     }
 
     private void DestroyUsedItem(PuzzleEvents.SolvedPuzzle evt) {
         // 자식이 있을때만 실행
-        if (transform.childCount > 0) { 
+        if (transform.childCount > 0) {
+            EventBus.Instance.Publish<GameEvents.DestroyItem>(new GameEvents.DestroyItem(ItemManager.EquipItem));
+
             usedItem = gameObject.transform.GetChild(0).gameObject;
             if (usedItem != null) { 
                 Destroy(usedItem);

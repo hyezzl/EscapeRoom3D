@@ -41,6 +41,6 @@ public class CotbedDrawer : MonoBehaviour
             obj.tag = "Item";
         }
 
-        EventBus.Instance.Publish<UIEvents.EventAfter>(new UIEvents.EventAfter("E006"));
+        //EventBus.Instance.Publish<UIEvents.EventAfter>(new UIEvents.EventAfter("E006"));
     }
 }

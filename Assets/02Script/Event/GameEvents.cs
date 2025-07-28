@@ -69,6 +69,15 @@ public static class GameEvents
         }
     }
 
+    // 사용한 아이템 삭제
+    public struct DestroyItem
+    {
+        public PickableData item;
+        public DestroyItem(PickableData item) { 
+            this.item = item;   
+        }
+    }
+
 
 
 }
