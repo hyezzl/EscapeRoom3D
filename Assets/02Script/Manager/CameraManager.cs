@@ -9,7 +9,7 @@ public enum CameraType
     DoorCam,
 }
 
-
+// Corrider Scene
 public class CameraManager : MonoBehaviour
 {
     [SerializeField] private CinemachineVirtualCamera playerCam;

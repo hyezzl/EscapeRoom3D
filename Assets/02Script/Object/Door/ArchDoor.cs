@@ -1,4 +1,3 @@
-using NUnit.Framework.Constraints;
 using UnityEngine;
 
 [RequireComponent(typeof(Animator))]
@@ -9,6 +8,7 @@ public class ArchDoor : MonoBehaviour
     [SerializeField] private GameObject leftSide;
     [SerializeField] private GameObject rightSide;
     [SerializeField] private int uniquePairID = 100;
+
     private bool isArchOpen = false;
     private Animator anim;
     private bool isSubcribed = false; // 중복 이벤트 방지
