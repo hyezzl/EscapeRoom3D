@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Item
   - Deactive
+  - Arrow
   layers:
   - Default
   - TransparentFX

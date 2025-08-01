@@ -31,6 +31,7 @@ public class ClockControl : MonoBehaviour
     private void OnEnable()
     {
         EventBus.Instance.Subscribe<PuzzleEvents.ApproachSpecial>(OnSpecial);
+        // 드래그 끝날때마다 ////////////////////////////////////////
     }
     private void OnDisable()
     {
