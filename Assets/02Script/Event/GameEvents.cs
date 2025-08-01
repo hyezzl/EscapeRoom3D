@@ -69,6 +69,15 @@ public static class GameEvents
         }
     }
 
+    // 카메라 변경에 의한 Light 변경 (type == 바뀌는 카메라)
+    public struct ChangeLight
+    {
+        public CameraType type;
+        public ChangeLight(CameraType type) { 
+            this.type = type;
+        }
+    }
+
     // 사용한 아이템 삭제
     public struct DestroyItem
     {

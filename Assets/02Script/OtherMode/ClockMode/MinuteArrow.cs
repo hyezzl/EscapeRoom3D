@@ -1,3 +1,4 @@
+using Unity.Burst.CompilerServices;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -24,6 +25,12 @@ public class MinuteArrow : MonoBehaviour, IDragHandler, IEndDragHandler
         // ClockControl 모드 일 때만 동작
         if (pc.CurMode == PlayMode.ClockControl)
         {
+            // 드래그 방해 레이어 무시
+            RaycastHit hit;
+            int ignoreMask = (-1) - (1 << LayerMask.NameToLayer("Player"));
+            Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, 4f, ignoreMask);
+            Debug.Log(hit.collider.name);
+
             // 마우스 따라가기
             Vector3 pivotPos = mainCam.WorldToScreenPoint(transform.position); // 바늘중심
             Vector2 dir = (Vector2)eventData.position - (Vector2)pivotPos;

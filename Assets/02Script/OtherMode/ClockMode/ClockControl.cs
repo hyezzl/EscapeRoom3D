@@ -39,6 +39,9 @@ public class ClockControl : MonoBehaviour
 
     private void OnSpecial(PuzzleEvents.ApproachSpecial evt) {
         if (evt.evt == EventList.OpenClockMode) {
+            //카메라 변경
+            EventBus.Instance.Publish<GameEvents.ChangeCam>(new GameEvents.ChangeCam(CameraType.ClockCam));
+
             //모드 변경
             pc.CurMode = PlayMode.ClockControl;
             EventBus.Instance.Publish<GameEvents.GameModeChange>(new GameEvents.GameModeChange());
@@ -46,10 +49,14 @@ public class ClockControl : MonoBehaviour
     }
     private IEnumerator ExitClockMode() {
         yield return null;
+        // 카메라 변경
+        EventBus.Instance.Publish<GameEvents.ChangeCam>(new GameEvents.ChangeCam(CameraType.PlayerCam));
+        yield return null;
+
         // 모드종료
         pc.CurMode = PlayMode.InspectMode;
         EventBus.Instance.Publish<GameEvents.GameModeChange>(new GameEvents.GameModeChange());
-    }
+    }   
 
     // 정답 체크 (외부 호출)
     public void CheckAnswer()

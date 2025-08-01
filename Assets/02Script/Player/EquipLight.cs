@@ -22,22 +22,25 @@ public class EquipLight : MonoBehaviour
 
     private void OnEnable()
     {
-        EventBus.Instance.Subscribe<GameEvents.ChangeCam>(OnChangeCam);
+        EventBus.Instance.Subscribe<GameEvents.ChangeLight>(OnChangeLight);
     }
     private void OnDisable()
     {
-        EventBus.Instance.Unsubscribe<GameEvents.ChangeCam>(OnChangeCam);
+        EventBus.Instance.Unsubscribe<GameEvents.ChangeLight>(OnChangeLight);
     }
 
-    private void OnChangeCam(GameEvents.ChangeCam evt) {
+    private void OnChangeLight(GameEvents.ChangeLight evt) {
         // 플레이어캠 -> other
+        Debug.Log($"미리보기:{evt.type}");
         if (evt.type != CameraType.PlayerCam)
         {
             mesh.enabled = false; // 안보이도록
+            Debug.Log($"전환:{evt.type}");
         }
         else // other -> 플레이어캠 
         {
             mesh.enabled = true;
+            Debug.Log($"돌아옴:{evt.type}");
         }
     }
 
