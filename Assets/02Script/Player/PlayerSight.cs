@@ -137,7 +137,7 @@ public class PlayerSight : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Item"))
+        if (other.CompareTag("Item") || other.CompareTag("Deactive"))
         {
             // À±°û¼± »èÁ¦
             if (other.TryGetComponent<Outline>(out Outline outline))

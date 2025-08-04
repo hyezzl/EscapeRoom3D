@@ -1,27 +1,9 @@
 using UnityEngine;
-using UnityEngine.EventSystems;
 
-public class HourArrow : MonoBehaviour//, IDragHandler, IEndDragHandler
+public class HourArrow : ArrowControl
 {
-    private ClockControl cc;
-    private PlayerController pc;
-    private Camera mainCam;
-    private bool isSelected = false;
-
-
     public float CurHour => transform.localEulerAngles.x;
 
-    private void Awake()
-    {
-        mainCam = Camera.main;
-
-        pc = FindAnyObjectByType<PlayerController>();
-        if (pc == null) { Debug.Log("HourArrow - Failed to Load PlayerController"); }
-
-        cc = GetComponentInParent<ClockControl>();
-        if (cc == null) Debug.Log("HourArrow - Failed to Load ClockControl");
-
-    }
     //public void OnDrag(PointerEventData eventData)
     //{
     //    // ClockControl 모드 일 때만 동작

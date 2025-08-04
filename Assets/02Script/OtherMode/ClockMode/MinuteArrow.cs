@@ -2,25 +2,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class MinuteArrow : MonoBehaviour//, IDragHandler, IEndDragHandler
+public class MinuteArrow : ArrowControl
 {
-    private ClockControl cc;
-    private PlayerController pc;
-    private Camera mainCam;
-    private bool isSelected = false;
-
     public float CurMinute => transform.localEulerAngles.x;
-
-    private void Awake()
-    {
-        mainCam = Camera.main;
-
-        pc = FindAnyObjectByType<PlayerController>();
-        if (pc == null) { Debug.Log("MinuteArrow - Failed to Load PlayerController"); }
-
-        cc = GetComponentInParent<ClockControl>();
-        if (cc == null) Debug.Log("MinuteArrow - Failed to Load ClockControl");
-    }
 
     // 보류
     //public void OnDrag(PointerEventData eventData)
@@ -57,18 +41,18 @@ public class MinuteArrow : MonoBehaviour//, IDragHandler, IEndDragHandler
 
     //===========================
 
-    private void Update()
-    {
-        if (pc.CurMode == PlayMode.ClockControl || Input.GetMouseButtonDown(0)) {
-            PointerEventData pointerData = new PointerEventData(EventSystem.current);
-            pointerData.position = Input.mousePosition; // 화면상의 좌표
+    //private void Update()
+    //{
+    //    if (pc.CurMode == PlayMode.ClockControl && Input.GetMouseButtonDown(0)) {
+    //        PointerEventData pointerData = new PointerEventData(EventSystem.current);
+    //        pointerData.position = Input.mousePosition; // 화면상의 좌표
     
-            List<RaycastResult> results = new();
-            EventSystem.current.RaycastAll(pointerData, results);
+    //        List<RaycastResult> results = new();
+    //        EventSystem.current.RaycastAll(pointerData, results);
     
-            foreach (var result in results) {
-                Debug.Log(result.gameObject.name);
-            }
-        }
-    }
+    //        foreach (var result in results) {
+    //            Debug.Log(result.gameObject.name);
+    //        }
+    //    }
+    //}
 }

@@ -95,10 +95,11 @@ public class CameraManager : MonoBehaviour
     }
 
     private void SelectCam(CinemachineVirtualCamera onCam) {
-        //모두 끈 후
+        // 모두 끈 후
         foreach (var cam in cams) { 
             cam.gameObject.SetActive(false);
         }
+        // 원하는 virtualCam 활성화
         onCam.gameObject.SetActive(true);
     }
 

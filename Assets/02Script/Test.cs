@@ -46,7 +46,6 @@ public class Test : MonoBehaviour
 
                 selectedArrow.transform.localRotation = Quaternion.AngleAxis(-angle + 90, Vector3.right);
                 //12를 가리킬 때 (0도일때) y에 대한 rotation값이 90
-            
             }
         
         }
