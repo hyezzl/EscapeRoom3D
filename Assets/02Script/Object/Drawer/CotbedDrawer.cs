@@ -36,11 +36,14 @@ public class CotbedDrawer : MonoBehaviour
 
     private void OnOpenDrawer(GameEvents.DrawerUnlock evt)
     {
-        foreach (var obj in objects)
-        {
-            obj.tag = "Item";
+        if (objects != null && evt.drawerID == "D003") { 
+            foreach (var obj in objects)
+            {
+                obj.tag = "Item";
+            }
+
+            EventBus.Instance.Publish<UIEvents.EventAfter>(new UIEvents.EventAfter("E006"));
         }
 
-        //EventBus.Instance.Publish<UIEvents.EventAfter>(new UIEvents.EventAfter("E006"));
     }
 }

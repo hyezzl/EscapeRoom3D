@@ -43,6 +43,7 @@ public class DressingDrawer : MonoBehaviour
     }
 
     private void OnOpenDrawer(GameEvents.DrawerUnlock evt) {
-        innerBook.tag = "Item";
+        if(innerBook != null && evt.drawerID == "D002")
+            innerBook.tag = "Item";
     }
 }

@@ -14,6 +14,7 @@ public class OpenableItem : MonoBehaviour, IActionItem
     [SerializeField] private float closeZ;
     [SerializeField] private float openZ;
     [SerializeField] private OpenableType type;
+    [SerializeField] private string drawerID = "-"; 
     public bool isOpen = false;
 
     private bool firstOpen = true; // 처음열릴 때, 이벤트 한번 발생 (보류)
@@ -48,7 +49,7 @@ public class OpenableItem : MonoBehaviour, IActionItem
             Open();
             isOpen = true;
             if (type == OpenableType.special && firstOpen) {
-                EventBus.Instance.Publish<GameEvents.DrawerUnlock>(new GameEvents.DrawerUnlock());
+                EventBus.Instance.Publish<GameEvents.DrawerUnlock>(new GameEvents.DrawerUnlock(drawerID));
                 Debug.Log("처음열림!!!");
             }
             firstOpen = false;

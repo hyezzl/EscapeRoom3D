@@ -5624,6 +5624,7 @@ MonoBehaviour:
   closeZ: 0.008130729
   openZ: 0.4
   type: 1
+  drawerID: D001
   isOpen: 0
 --- !u!114 &43468995
 MonoBehaviour:
@@ -21770,6 +21771,7 @@ MonoBehaviour:
   closeZ: 0.008130729
   openZ: 0.4
   type: 0
+  drawerID: 
   isOpen: 0
 --- !u!114 &568339251
 MonoBehaviour:
@@ -23366,6 +23368,59 @@ RectTransform:
   m_AnchoredPosition: {x: 960, y: 540}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &705270603
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 705270604}
+  - component: {fileID: 705270605}
+  m_Layer: 0
+  m_Name: boxcollider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &705270604
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 705270603}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1298217025}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &705270605
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 705270603}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.3890564, y: 0.45895594, z: 0.042266835}
+  m_Center: {x: 0.005195739, y: 0.48514113, z: -0.29787058}
 --- !u!43 &710483793
 Mesh:
   m_ObjectHideFlags: 0
@@ -28086,6 +28141,7 @@ MonoBehaviour:
   closeZ: 0.7138716
   openZ: 2
   type: 1
+  drawerID: D002
   isOpen: 0
 --- !u!114 &802921091
 MonoBehaviour:
@@ -29542,6 +29598,7 @@ MonoBehaviour:
   closeZ: 0.008130729
   openZ: 0.4
   type: 0
+  drawerID: 
   isOpen: 0
 --- !u!114 &889021240
 MonoBehaviour:
@@ -32568,6 +32625,7 @@ MonoBehaviour:
   closeZ: 0.04845405
   openZ: 0.7
   type: 0
+  drawerID: 
   isOpen: 0
 --- !u!114 &1111667172
 MonoBehaviour:
@@ -33442,6 +33500,7 @@ MonoBehaviour:
   closeZ: 0.008130729
   openZ: 0.4
   type: 0
+  drawerID: 
   isOpen: 0
 --- !u!114 &1148620061
 MonoBehaviour:
@@ -37770,50 +37829,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 474665630}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -35}
---- !u!1 &1239940329
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1239940331}
-  - component: {fileID: 1239940330}
-  m_Layer: 0
-  m_Name: ddd
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!114 &1239940330
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1239940329}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 96a74680192aa4f4b922bbc957707df7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!4 &1239940331
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1239940329}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 18.34401, y: 2.30278, z: 32.95039}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1246395559
 GameObject:
   m_ObjectHideFlags: 0
@@ -38119,6 +38134,7 @@ MonoBehaviour:
   closeZ: 0.008130729
   openZ: 0.4
   type: 0
+  drawerID: 
   isOpen: 0
 --- !u!114 &1256979578
 MonoBehaviour:
@@ -38554,6 +38570,7 @@ Transform:
   - {fileID: 1701189102530195410}
   - {fileID: 1333653034060849386}
   - {fileID: 1153813020735860793}
+  - {fileID: 705270604}
   m_Father: {fileID: 543450651758842013}
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!1001 &1312124154
@@ -47021,6 +47038,7 @@ MonoBehaviour:
   closeZ: 0.008130729
   openZ: 0.4
   type: 0
+  drawerID: 
   isOpen: 0
 --- !u!114 &1529814906
 MonoBehaviour:
@@ -53518,6 +53536,7 @@ MonoBehaviour:
   closeZ: 0.428278
   openZ: 0.7
   type: 1
+  drawerID: 
   isOpen: 0
 --- !u!65 &1662999805
 BoxCollider:
@@ -57513,6 +57532,7 @@ MonoBehaviour:
   closeZ: 0
   openZ: -0.36
   type: 1
+  drawerID: D003
   isOpen: 0
 --- !u!1001 &1979002740
 PrefabInstance:
@@ -57712,6 +57732,7 @@ MonoBehaviour:
   closeZ: 0.04927999
   openZ: 0.7
   type: 0
+  drawerID: 
   isOpen: 0
 --- !u!114 &1989724982
 MonoBehaviour:
@@ -67608,10 +67629,10 @@ GameObject:
   - component: {fileID: 6910799043639854561}
   - component: {fileID: 7777848590825103277}
   - component: {fileID: 1646625735234533192}
+  - component: {fileID: 1974941567}
   - component: {fileID: 1974941560}
   - component: {fileID: 1974941561}
   - component: {fileID: 1974941566}
-  - component: {fileID: 1974941567}
   m_Layer: 0
   m_Name: Drawer
   m_TagString: Deactive
@@ -68596,4 +68617,3 @@ SceneRoots:
   - {fileID: 125888409}
   - {fileID: 1721757200}
   - {fileID: 2011557587}
-  - {fileID: 1239940331}
