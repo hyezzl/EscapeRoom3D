@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PanelController : MonoBehaviour
@@ -16,6 +14,7 @@ public class PanelController : MonoBehaviour
         }
     }
 
+    // tween
     public virtual void Display() {
         if (isPanelOpen) return;
         isPanelOpen = true;
@@ -33,5 +32,19 @@ public class PanelController : MonoBehaviour
             Hide();
         else
             Display();
+    }
+
+
+    // blink
+    public virtual void OnPanel() {
+        if (isPanelOpen) return;
+        isPanelOpen = true;
+        targetPanel.gameObject.SetActive(true);
+    }
+
+    public virtual void OffPanel() {
+        if (!isPanelOpen) return;
+        isPanelOpen = false;
+        targetPanel.gameObject.SetActive(false);
     }
 }

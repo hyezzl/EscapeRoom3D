@@ -4,16 +4,19 @@ using cakeslice;
 using Cinemachine;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 // ClockMode
 public class ClockControl : MonoBehaviour
 {
+    [Header("Refs")]
     [SerializeField] private HourArrow hourArrow;
     [SerializeField] private MinuteArrow minuteArrow;
     [SerializeField] private CinemachineVirtualCamera cam;
     [SerializeField] private GameObject obj;
-    private PlayerController pc;
+    [SerializeField] private Button ExitBTN;
     [SerializeField] private ArrowControl selectedArrow;
+    private PlayerController pc;
     private Camera mainCam;
 
     private void Awake()
@@ -38,7 +41,6 @@ public class ClockControl : MonoBehaviour
                 {
                     if (result.gameObject.CompareTag("Arrow"))
                     {
-                        //Debug.Log(result.gameObject.name);
                         selectedArrow = result.gameObject.GetComponent<ArrowControl>();
                         break;
                     }
@@ -59,24 +61,18 @@ public class ClockControl : MonoBehaviour
                 // 값 비교
                 CheckAnswer();
             }
-
-            // ESC
-            if (Input.GetKeyDown(KeyCode.Escape))
-            {
-                // 모드 나가기
-                StartCoroutine(ExitClockMode());
-            }
         }
     }
 
     private void OnEnable()
     {
         EventBus.Instance.Subscribe<PuzzleEvents.ApproachSpecial>(OnSpecial);
-        // 드래그 끝날때마다 ////////////////////////////////////////
+        ExitBTN.onClick.AddListener(() => StartCoroutine(ExitClockMode()));
     }
     private void OnDisable()
     {
         EventBus.Instance.Unsubscribe<PuzzleEvents.ApproachSpecial>(OnSpecial);
+        ExitBTN.onClick.RemoveAllListeners();
     }
 
     private void OnSpecial(PuzzleEvents.ApproachSpecial evt) {
@@ -117,8 +113,8 @@ public class ClockControl : MonoBehaviour
             obj.tag = "Deactive"; // 태그변경으로 비활성화
             hourArrow.enabled = false;
             minuteArrow.enabled = false;
-            obj.GetComponent<Outline>().enabled = false; // 윤곽선 삭제
-
+            obj.GetComponent<cakeslice.Outline>().enabled = false; // 윤곽선 삭제
+            
              // EventAfter
             EventBus.Instance.Publish<UIEvents.EventAfter>(new UIEvents.EventAfter("E005"));
 

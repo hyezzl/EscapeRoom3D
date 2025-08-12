@@ -93,6 +93,8 @@ public static class GameEvents
         }
     }
 
+    public struct OptionSaved { }
+
 
 
 }

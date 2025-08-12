@@ -1,5 +1,7 @@
 using UnityEngine;
 
+// PauseMode 전체 제어
+
 public class TogglePause : MonoBehaviour
 {
     private PlayerController pc;
@@ -25,14 +27,14 @@ public class TogglePause : MonoBehaviour
     }
 
     public void InOutPauseMode() {
-        if (pc.CurMode != PlayMode.PauseMode)
+        if (pc.CurMode != PlayMode.PauseMode) // PauseMode 진입
         {
             preMode = pc.CurMode; // 캐싱
             pc.CurMode = PlayMode.PauseMode;
             EventBus.Instance.Publish<GameEvents.GameModeChange>(new GameEvents.GameModeChange());
             pausePopup.SetActive(true);
         }
-        else {
+        else { // Pause모드 OUT
             pc.CurMode = preMode;
             EventBus.Instance.Publish<GameEvents.GameModeChange>(new GameEvents.GameModeChange());
             pausePopup.SetActive(false);
@@ -42,6 +44,15 @@ public class TogglePause : MonoBehaviour
     public void TogglePauseMode() {
         if (inputHandler.Escape()) {
             InOutPauseMode();
+        }
+    }
+
+    // PauseMode Out
+    public void ExitPause() {
+        if (pc.CurMode == PlayMode.PauseMode) {
+            pc.CurMode = preMode;
+            EventBus.Instance.Publish<GameEvents.GameModeChange>(new GameEvents.GameModeChange());
+            pausePopup.SetActive(false);
         }
     }
 }

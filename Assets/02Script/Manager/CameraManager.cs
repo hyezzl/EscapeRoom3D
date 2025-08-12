@@ -28,9 +28,7 @@ public class CameraManager : MonoBehaviour
 
     private void Start()
     {
-        playerCam.Priority = 11;
-        clockCam.Priority = 10;
-        doorCam.Priority = 10;
+        SelectCam(playerCam);
     }
 
     private void OnEnable()
@@ -48,20 +46,6 @@ public class CameraManager : MonoBehaviour
 
     // 모드에 따른 카메라 변경
     private void OnCamChanged(GameEvents.ChangeCam evt) {
-        //switch (pc.CurMode)
-        //{
-        //    case PlayMode.InspectMode:
-        //        SelectCam(playerCam);
-
-        //        EventBus.Instance.Publish<GameEvents.ChangeCam>(new GameEvents.ChangeCam(CameraType.PlayerCam));
-        //        break;
-
-        //    case PlayMode.ClockControl:
-        //        SelectCam(clockCam);
-
-        //        EventBus.Instance.Publish<GameEvents.ChangeCam>(new GameEvents.ChangeCam(CameraType.ClockCam));
-        //        break;
-        //}
         switch (evt.type) {
             case CameraType.PlayerCam:
                 SelectCam(playerCam);

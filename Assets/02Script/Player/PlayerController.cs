@@ -11,7 +11,7 @@ public enum PlayerState
 public enum PlayMode
 { 
     InspectMode, // 1인칭 커서고정
-    PauseMode, // 멈춤
+    PauseMode, // 멈춤(옵션 / 힌트)
     InventoryMode, // 인벤토리
     NarrativeMode, 
     DialogMode, // Dialog창 떠있을 때
