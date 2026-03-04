@@ -1,7 +1,7 @@
 using System;
 
-[Serializable]
-public class LoadingTextsEntity
-{
-    public string LoadingTexts;
-}
+//[Serializable]
+//public class LoadingTextsEntity
+//{
+//    public string LoadingTexts;
+//}

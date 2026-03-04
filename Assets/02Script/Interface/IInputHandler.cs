@@ -4,19 +4,12 @@ using UnityEngine;
 
 public interface IInputHandler
 {
-    public Vector2 GetMovement();
-
-    public bool Run();
-
-    public bool Crouch();
-
-    public bool DoInsteract();
-
-    public bool ToggleLight();
-
-    public bool LeftClick();
-
-    public bool ToggleInventory();
-
-    public bool Escape();
+    Vector2 GetMovement();
+    bool Run();
+    bool Crouch();
+    bool DoInsteract();
+    bool ToggleLight();
+    bool ToggleInventory();
+    bool LeftClick();
+    bool Escape();
 }
